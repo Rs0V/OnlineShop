@@ -20,6 +20,7 @@ namespace OnlineShop.Models
         [Key]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Valoarea este obligatorie")]
         public int Valoare { get; set; }
 
         [StareComanda(ErrorMessage = "Stare invalida")]
@@ -31,7 +32,8 @@ namespace OnlineShop.Models
         [Required(ErrorMessage = "ID-ul utilizatorului este obligatoriu")]
         public int? UtilizatorId { get; set; }
 
-        [Required(ErrorMessage = "Utilizatorul este obligatoriu")]
-        public Utilizator? Utilizator { get; set; }
+        public virtual Utilizator? Utilizator { get; set; }
+
+        public virtual ICollection<Exemplar>? Exemplare { get; set; }
     }
 }

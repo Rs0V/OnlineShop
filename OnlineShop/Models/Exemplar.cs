@@ -25,9 +25,10 @@ namespace OnlineShop.Models
         [StareEx(ErrorMessage = "Stare invalida")]
 		public string Stare { get; set; }
 
+        [Required(ErrorMessage = "ID-ul comenzii este obligatoriu")]
 		public int? Id_Comanda { get; set; }
 
-		public Comanda? Comanda { get; set; }
+        public virtual Comanda? Comanda { get; set; }
 	}
 }
 

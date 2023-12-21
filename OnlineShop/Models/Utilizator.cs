@@ -28,5 +28,9 @@ namespace OnlineShop.Models
         [MinLength(10, ErrorMessage = "Numarul de telefon trebuie sa fie format din exact 10 cifre")]
         [MaxLength(10, ErrorMessage = "Numarul de telefon trebuie sa fie format din exact 10 cifre")]
         public string Telefon { get; set; }
+
+        public virtual ICollection<Review>? Reviewuri { get; set; }
+
+        public virtual ICollection<Comanda>? Comenzi { get; set; }
     }
 }

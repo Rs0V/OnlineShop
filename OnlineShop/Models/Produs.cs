@@ -26,8 +26,11 @@ namespace OnlineShop.Models
 		[Required(ErrorMessage = "Id-ul categoriei produsului este obligatoriu")]
 		public int? Id_Categorie { get; set; }
 
-		[Required(ErrorMessage = "Categoria produsului este obligatorie")]
-		public Categorie? Categorie { get; set; }
-	}
+		public virtual Categorie? Categorie { get; set; }
+
+		public virtual ICollection<Exemplar>? Exemplare { get; set; }
+
+		public virtual ICollection<Review>? Reviewuri { get; set; }
+    }
 }
 
