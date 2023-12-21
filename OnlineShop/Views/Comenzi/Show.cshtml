@@ -1,0 +1,23 @@
+﻿@model OnlineShop.Models.Comanda
+
+@{
+    ViewBag.Titlu = "Afisare comanda";
+}
+
+
+<h2>@ViewBag.Titlu</h2>
+<br />
+
+<p>@Model.Valoare</p>
+
+<form method="post" action="/Comenzi/Delete/@Model.Id">
+
+    <button class="btn btn-danger" type="submit">Sterge comanda</button>
+
+</form>
+<br />
+<a class="btn alert-success" href="/Comenzi/Index/">Afisare lista comenzi</a>
+
+<br />
+<hr />
+<br />

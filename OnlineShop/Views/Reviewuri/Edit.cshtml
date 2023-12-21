@@ -1,0 +1,23 @@
+﻿@model OnlineShop.Models.Review
+
+@{
+    ViewBag.Titlu = "Editare review";
+}
+
+
+<h2>@ViewBag.Titlu</h2>
+
+@using (Html.BeginForm(controllerName: "Reviewuri", actionName: "Edit", method: FormMethod.Post, routeValues: new { id_utilizator = Model.UtilizatorId, id_produs = Model.ProdusId }))
+{
+    @Html.Label("Continut", "Continut review")
+    <br />
+
+    @Html.Editor("Continut")
+
+    @Html.ValidationMessageFor(m => m.Continut, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    <button class="btn btn-success" type="submit">Modifica review-ul</button>
+}

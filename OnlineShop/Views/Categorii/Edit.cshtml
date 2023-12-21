@@ -1,0 +1,21 @@
+﻿@model OnlineShop.Models.Categorie
+
+@{
+    ViewBag.Titlu = "Editare categorie";
+}
+
+
+<h2>@ViewBag.Titlu</h2>
+
+@using (Html.BeginForm(controllerName: "Categorii", actionName: "Edit", method: FormMethod.Post, routeValues: new { id = Model.Id }))
+{
+    @Html.Label("Denumire", "Denumire categorie")
+    <br />
+    @Html.Editor("Denumire")
+
+    @Html.ValidationMessageFor(m => m.Denumire, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+    <button class="btn btn-success" type="submit">Modifica categoria</button>
+}

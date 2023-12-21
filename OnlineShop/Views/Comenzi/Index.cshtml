@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Titlu = "Lista comenzilor";
+}
+<br />
+<h2 class="text-center">@ViewBag.Titlu</h2>
+<br />
+
+@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+<br />
+
+<div class="align-items-center justify-content-center d-flex">
+    <a class="btn btn-success" href="/Comenzi/New">Adauga o noua comanda</a>
+</div>
+
+<br />
+
+@foreach (var comanda in ViewBag.Comenzi)
+{
+    @Html.Label("Data", "Data comanda")
+    <p>@comanda.Data</p>
+
+    @Html.Label("Stare", "Stare comanda")
+    <p>@comanda.Stare</p>
+
+    @Html.Label("Valoare", "Valoare comanda")
+    <p>@comanda.Valoare</p>
+
+    @Html.Label("Utilizator", "Utilizator comanda")
+    <p>@ViewBag.Utilizatori.ToList<Utilizator>().Find(comanda.UtilizatorId).Nume 
+       &ensp;@ViewBag.Utilizatori.ToList<Utilizator>().Find(comanda.UtilizatorId).Prenume <!--Entity Name used to display the space in HTML-->
+    </p>
+
+    <a class="btn alert-success" href="/Comenzi/Show/@comanda.Id">Afisare comanda</a>
+    <a class="btn alert-success" href="/Comenzi/Edit/@comanda.Id">Editare comanda</a>
+    <br />
+    <hr /> 
+    <br />
+}
+<br />

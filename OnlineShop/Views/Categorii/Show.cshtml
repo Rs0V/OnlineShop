@@ -1,0 +1,23 @@
+﻿@model OnlineShop.Models.Categorie
+
+@{
+    ViewBag.Titlu = "Afisare categorie";
+}
+
+
+<h2>@ViewBag.Titlu</h2>
+<br />
+
+<p>@Model.Denumire</p>
+
+<form method="post" action="/Categorii/Delete/@Model.Id">
+
+    <button class="btn btn-danger" type="submit">Sterge categoria</button>
+
+</form>
+<br />
+<a class="btn alert-success" href="/Categorii/Index/">Afisare lista categorii</a>
+
+<br />
+<hr />
+<br />

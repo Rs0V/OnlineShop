@@ -1,0 +1,31 @@
+﻿@model OnlineShop.Models.Exemplar
+
+@{
+    ViewBag.Titlu = "Editare exemplar";
+}
+
+
+<h2>@ViewBag.Titlu</h2>
+
+@using (Html.BeginForm(controllerName: "Exemplare", actionName: "Edit", method: FormMethod.Post, routeValues: new { id_produs = Model.Id_Produs, numar_produs = Model.Numar_Produs }))
+{
+    @Html.Label("Stare", "Stare exemplar")
+    <br />
+    @Html.Editor("Stare")
+
+    @Html.ValidationMessageFor(m => m.Stare, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    @Html.Label("Id Comanda", "Comanda exemplar")
+    <br />
+    @Html.Editor("Id Comanda")
+
+    @Html.ValidationMessageFor(m => m.Id_Comanda, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    <button class="btn btn-success" type="submit">Modifica exemplarul</button>
+}

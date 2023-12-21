@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Titlu = "Lista exemplare";
+}
+<br />
+<h2 class="text-center">@ViewBag.Titlu</h2>
+<br />
+
+@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+<br />
+
+<div class="align-items-center justify-content-center d-flex">
+    <a class="btn btn-success" href="/Exemplare/New">Adauga un nou exemplar</a>
+</div>
+
+<br />
+
+@foreach (var exemplar in ViewBag.Exemplare)
+{
+    @Html.Label("Titlu", "Titlu exemplar")
+    <p>@ViewBag.Produse.ToList<Produs>().Find(exemplar.Id_Produs).Titlu</p>
+
+    @Html.Label("Numar", "Numar exemplar")
+    <p>@exemplar.Numar_Produs</p>
+
+    @Html.Label("Stare", "Stare exemplar")
+    <p>@exemplar.Stare</p>
+
+    @Html.Label("Id Comanda", "Comanda exemplar")
+    <p>@exemplar.Id_Comanda</p>
+
+    <a class="btn alert-success" href="/Exemplare/Show/@exemplar.Id">Afisare exemplar</a>
+        <a class="btn alert-success" href="/Exemplare/Edit/@exemplar.Id">Editare exemplar</a>
+    <br />
+    <hr />
+    <br />
+}
+<br />

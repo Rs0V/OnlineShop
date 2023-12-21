@@ -1,0 +1,23 @@
+﻿@model OnlineShop.Models.Produs
+
+@{
+    ViewBag.Titlu = "Afisare produs";
+}
+
+
+<h2>@ViewBag.Titlu</h2>
+<br />
+
+<p>@Model.Titlu</p>
+
+<form method="post" action="/Produse/Delete/@Model.Id">
+
+    <button class="btn btn-danger" type="submit">Sterge produsul</button>
+
+</form>
+<br />
+<a class="btn alert-success" href="/Produse/Index/">Afisare lista produse</a>
+
+<br />
+<hr />
+<br />

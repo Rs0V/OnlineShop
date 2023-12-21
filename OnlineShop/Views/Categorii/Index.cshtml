@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Titlu = "Lista categorii";
+}
+<br />
+<h2 class="text-center">@ViewBag.Titlu</h2>
+<br />
+
+@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+<br />
+
+<div class="align-items-center justify-content-center d-flex">
+    <a class="btn btn-success" href="/Categorii/New">Adauga o noua categorie</a>
+</div>
+
+<br />
+
+@foreach (var categorie in ViewBag.Categorii)
+{
+    @Html.Label("Denumire", "Denumire categorie")
+    <p>@categorie.Denumire</p>
+    <a class="btn alert-success" href="/Categorii/Show/@categorie.Id">Afisare categorie</a>
+    <a class="btn alert-success" href="/Categorii/Edit/@categorie.Id">Editare categorie</a>
+    <br />
+    <hr />
+    <br />
+}
+<br />

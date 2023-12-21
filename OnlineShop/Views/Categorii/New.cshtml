@@ -1,0 +1,22 @@
+﻿@model OnlineShop.Models.Categorie
+
+@{
+    ViewBag.Titlu = "Adaugare categorie";
+}
+
+
+<h2>@ViewBag.Titlu</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Categorii", method: FormMethod.Post))
+{
+    @Html.Label("Denumire", "Denumire categorie")
+    <br />
+
+    @Html.TextBox("Denumire", null, new { @class = "form-control" })
+
+    @Html.ValidationMessageFor(m => m.Denumire, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+    <button class="btn btn-success" type="submit">Adauga categorie</button>
+}

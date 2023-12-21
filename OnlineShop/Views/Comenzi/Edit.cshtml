@@ -1,0 +1,49 @@
+﻿@model OnlineShop.Models.Comanda
+
+@{
+    ViewBag.Titlu = "Editare comanda";
+}
+
+
+<h2>@ViewBag.Titlu</h2>
+
+@using (Html.BeginForm(controllerName: "Comenzi", actionName: "Edit", method: FormMethod.Post, routeValues: new { id = Model.Id }))
+{
+    @Html.Label("Valoare", "Valoare comanda")
+    <br />
+    @Html.Editor("Valoare")
+
+    @Html.ValidationMessageFor(m => m.Valoare, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    @Html.Label("Data", "Data comanda")
+    <br />
+    @Html.Editor("Data")
+
+    @Html.ValidationMessageFor(m => m.Data, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    @Html.Label("Stare", "Stare comanda")
+    <br />
+    @Html.Editor("Stare")
+
+    @Html.ValidationMessageFor(m => m.Stare, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    @Html.Label("Id Utilizator", "Utilizator comanda")
+    <br />
+    @Html.Editor("Id Utilizator")
+
+    @Html.ValidationMessageFor(m => m.UtilizatorId, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    <button class="btn btn-success" type="submit">Modifica aceasta comanda</button>
+}

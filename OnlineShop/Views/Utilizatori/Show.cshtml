@@ -1,0 +1,23 @@
+﻿@model OnlineShop.Models.Utilizator
+
+@{
+    ViewBag.Titlu = "Afisare utilizator";
+}
+
+
+<h2>@ViewBag.Titlu</h2>
+<br />
+
+<p>@Model.Tip: @Model.Nume @Model.Prenume</p>
+
+<form method="post" action="/Utilizatori/Delete/@Model.Id">
+
+    <button class="btn btn-danger" type="submit">Sterge utilizatorul</button>
+
+</form>
+<br />
+<a class="btn alert-success" href="/Utilizatori/Index/">Afisare lista utilizatori</a>
+
+<br />
+<hr />
+<br />

@@ -1,0 +1,33 @@
+﻿@model OnlineShop.Models.Exemplar
+
+@{
+    ViewBag.Titlu = "Adaugare exemplar";
+}
+
+
+<h2>@ViewBag.Titlu</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Exemplare", method: FormMethod.Post))
+{
+    @Html.Label("Stare", "Stare exemplar")
+    <br />
+
+    @Html.TextBox("Stare", null, new { @class = "form-control" })
+
+    @Html.ValidationMessageFor(m => m.Stare, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    @Html.Label("Id Comanda", "Comanda exemplar")
+    <br />
+
+    @Html.TextBox("Id Comanda", null, new { @class = "form-control" })
+
+    @Html.ValidationMessageFor(m => m.Id_Comanda, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    <button class="btn btn-success" type="submit">Adauga exemplar</button>
+}

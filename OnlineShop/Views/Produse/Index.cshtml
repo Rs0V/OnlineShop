@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Titlu = "Lista produse";
+}
+<br />
+<h2 class="text-center">@ViewBag.Titlu</h2>
+<br />
+
+@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+<br />
+
+<div class="align-items-center justify-content-center d-flex">
+    <a class="btn btn-success" href="/Produse/New">Adauga un nou produs</a>
+</div>
+
+<br />
+
+@foreach (var produs in ViewBag.Produse)
+{
+    @Html.Label("Titlu", "Titlu produs")
+    <p>@produs.Titlu</p>
+
+    @Html.Label("Descriere", "Descriere produs")
+    <p>@produs.Descriere</p>
+
+    @Html.Label("Pret", "Pret produs")
+    <p>@produs.Pret</p>
+
+    @Html.Label("Poza", "Poza produs")
+    <img src="@produs.Poza"/>
+    
+    @Html.Label("Rating", "Rating produs")
+    <p>@produs.Rating</p>
+
+    @Html.Label("Categorie", "Categorie produs")
+    <p>@ViewBag.Categorii.ToList<Categorie>().Find(produs.Id_Categorie).Denumire</p>
+
+    <a class="btn alert-success" href="/Produse/Show/@produs.Id">Afisare produs</a>
+    <a class="btn alert-success" href="/Produse/Edit/@produs.Id">Editare produs</a>
+    <br />
+    <hr />
+    <br />
+}
+<br />

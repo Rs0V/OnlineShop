@@ -1,0 +1,73 @@
+﻿@model OnlineShop.Models.Produs
+
+@{
+    ViewBag.Titlu = "Adaugare produs";
+}
+
+
+<h2>@ViewBag.Titlu</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Produse", method: FormMethod.Post))
+{
+    @Html.Label("Titlu", "Titlu produs")
+    <br />
+
+    @Html.TextBox("Titlu", null, new { @class = "form-control" })
+
+    @Html.ValidationMessageFor(m => m.Titlu, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    @Html.Label("Descriere", "Descriere produs")
+    <br />
+
+    @Html.TextBox("Descriere", null, new { @class = "form-control" })
+
+    @Html.ValidationMessageFor(m => m.Descriere, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    @Html.Label("Pret", "Pret produs")
+    <br />
+
+    @Html.TextBox("Pret", null, new { @class = "form-control" })
+
+    @Html.ValidationMessageFor(m => m.Pret, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    @Html.Label("Poza", "Poza produs")
+    <br />
+
+    @Html.TextBox("Poza", null, new { @class = "form-control" })
+
+    @Html.ValidationMessageFor(m => m.Poza, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    @Html.Label("Rating", "Rating produs")
+    <br />
+
+    @Html.TextBox("Rating", null, new { @class = "form-control" })
+
+    @Html.ValidationMessageFor(m => m.Rating, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    @Html.Label("Id Categorie", "Categorie produs")
+    <br />
+
+    @Html.TextBox("Id Categorie", null, new { @class = "form-control" })
+
+    @Html.ValidationMessageFor(m => m.Id_Categorie, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    <button class="btn btn-success" type="submit">Adauga produs</button>
+}
