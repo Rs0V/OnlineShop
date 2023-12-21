@@ -21,8 +21,7 @@
 @foreach (var review in ViewBag.Reviewuri)
 {
     @Html.Label("Id Utilizator", "Review utilizator")
-    <p>@ViewBag.Utilizatori.ToList<Utilizator>().Find(review.UtilizatorId).Nume
-       &ensp;@ViewBag.Utilizatori.ToList<Utilizator>().Find(review.UtilizatorId).Prenume
+    <p>@ViewBag.Utilizatori.ToList<Utilizator>().Find(review.UtilizatorId).Nume @ViewBag.Utilizatori.ToList<Utilizator>().Find(review.UtilizatorId).Prenume
     </p>
 
     @Html.Label("Id Produs", "Review produs")

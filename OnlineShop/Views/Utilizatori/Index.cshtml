@@ -20,8 +20,10 @@
 
 @foreach (var utilizator in ViewBag.Utilizatori)
 {
+    /*
     @Html.Label("Tip", "Tip utilizator")
     <p>@utilizator.Tip</p>
+    */
 
     @Html.Label("Nume", "Nume utilizator")
     <p>@utilizator.Nume</p>
@@ -33,10 +35,15 @@
     <p>@utilizator.Email</p>
 
     @Html.Label("Telefon", "Telefon utilizator")
-    <p>@utilizator.Telefon</p>
-
-    @Html.Label("Parola", "Parola utilizator")
-    <p>@utilizator.Parola</p>
+    @if(!utilizator.Telefon)
+    {
+        <p>Nu a fost introdus un numar de telefon.</p>
+    }
+    else
+    {
+        <p>@utilizator.Telefon</p>
+    }
+   
 
     <a class="btn alert-success" href="/Utilizatori/Show/@utilizator.Id">Afisare utilizator</a>
     <a class="btn alert-success" href="/Utilizatori/Edit/@utilizator.Id">Editare utilizator</a>

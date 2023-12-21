@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
 using OnlineShop.Models;
 using System;
@@ -8,10 +9,17 @@ namespace OnlineShop.Controllers
     public class UtilizatoriController : Controller
     {
         private readonly ApplicationDbContext db;
-
-        public UtilizatoriController(ApplicationDbContext context)
+        private readonly UserManager<Utilizator> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public UtilizatoriController(
+        ApplicationDbContext context,
+        UserManager<Utilizator> userManager,
+        RoleManager<IdentityRole> roleManager
+        )
         {
             db = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public ActionResult Index()
@@ -27,7 +35,7 @@ namespace OnlineShop.Controllers
             return View();
         }
 
-        public ActionResult Show(int id)
+        public ActionResult Show(string id)
         {
             Utilizator utilizatori = db.Utilizatori.Find(id);
             return View(utilizatori);
@@ -51,14 +59,14 @@ namespace OnlineShop.Controllers
             return View(utilizator);
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             Utilizator utilizator = db.Utilizatori.Find(id);
             return View(utilizator);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, Utilizator reqUtilizator)
+        public ActionResult Edit(string id, Utilizator reqUtilizator)
         {
             Utilizator utilizator = db.Utilizatori.Find(id);
             if (ModelState.IsValid)
@@ -68,7 +76,10 @@ namespace OnlineShop.Controllers
                 utilizator.Prenume = reqUtilizator.Prenume;
                 utilizator.Email = reqUtilizator.Email;
                 utilizator.Telefon = reqUtilizator.Telefon;
-                utilizator.Parola = reqUtilizator.Parola;
+                // utilizator.Parola = reqUtilizator.Parola;
+
+                // var hasher = new PasswordHasher<Utilizator>();
+                utilizator.PasswordHash = reqUtilizator.PasswordHash;
 
                 db.SaveChanges();
                 TempData["message"] = "Utilizatorul a fost modificat!";
@@ -78,7 +89,7 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             Utilizator utilizator = db.Utilizatori.Find(id);
             db.Utilizatori.Remove(utilizator);

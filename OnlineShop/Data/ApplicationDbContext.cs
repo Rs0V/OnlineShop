@@ -4,7 +4,7 @@ using OnlineShop.Models;
 
 namespace OnlineShop.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<Utilizator>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -17,7 +17,7 @@ namespace OnlineShop.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Exemplar>()
-                .HasKey(ex => new { ex.Id_Produs, ex.Id_Comanda });
+                .HasKey(ex => new { ex.Id_Produs, ex.Numar_Produs });
 
             modelBuilder.Entity<Review>()
                 .HasKey(rev => new { rev.UtilizatorId, rev.ProdusId });

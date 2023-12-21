@@ -30,7 +30,7 @@ namespace OnlineShop.Models
         public DateTime Data { get; set; }
 
         [Required(ErrorMessage = "ID-ul utilizatorului este obligatoriu")]
-        public int? UtilizatorId { get; set; }
+        public string? UtilizatorId { get; set; }
 
         public virtual Utilizator? Utilizator { get; set; }
 

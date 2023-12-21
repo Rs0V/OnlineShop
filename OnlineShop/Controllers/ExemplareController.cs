@@ -29,9 +29,9 @@ namespace OnlineShop.Controllers
             return View();
         }
 
-        public ActionResult Show(int id)
+        public ActionResult Show(int id_produs, int nr_produs)
         {
-            Exemplar exemplar = db.Exemplare.Find(id);
+            Exemplar exemplar = db.Exemplare.Find(id_produs, nr_produs);
             return View(exemplar);
         }
 
@@ -53,16 +53,16 @@ namespace OnlineShop.Controllers
             return View(exemplar);
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id_produs, int nr_produs)
         {
-            Exemplar exemplar = db.Exemplare.Find(id);
+            Exemplar exemplar = db.Exemplare.Find(id_produs, nr_produs);
             return View(exemplar);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, Exemplar reqEx)
+        public ActionResult Edit(int id_produs, int nr_produs, Exemplar reqEx)
         {
-            Exemplar exemplar = db.Exemplare.Find(id);
+            Exemplar exemplar = db.Exemplare.Find(id_produs, nr_produs);
             if (ModelState.IsValid)
             {
                 exemplar.Stare = reqEx.Stare;
@@ -76,9 +76,9 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id_produs, int nr_produs)
         {
-            Exemplar exemplar = db.Exemplare.Find(id);
+            Exemplar exemplar = db.Exemplare.Find(id_produs, nr_produs);
             db.Exemplare.Remove(exemplar);
             TempData["message"] = "Exemplarul a fost sters";
             db.SaveChanges();

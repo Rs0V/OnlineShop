@@ -30,8 +30,7 @@
     <p>@comanda.Valoare</p>
 
     @Html.Label("Utilizator", "Utilizator comanda")
-    <p>@ViewBag.Utilizatori.ToList<Utilizator>().Find(comanda.UtilizatorId).Nume 
-       &ensp;@ViewBag.Utilizatori.ToList<Utilizator>().Find(comanda.UtilizatorId).Prenume <!--Entity Name used to display the space in HTML-->
+    <p>@ViewBag.Utilizatori.ToList<Utilizator>().Find(comanda.UtilizatorId).Nume @ViewBag.Utilizatori.ToList<Utilizator>().Find(comanda.UtilizatorId).Prenume
     </p>
 
     <a class="btn alert-success" href="/Comenzi/Show/@comanda.Id">Afisare comanda</a>

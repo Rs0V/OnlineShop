@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
 using OnlineShop.Models;
 
@@ -7,10 +8,17 @@ namespace OnlineShop.Controllers
     public class ReviewuriController : Controller
     {
         private readonly ApplicationDbContext db;
-
-        public ReviewuriController(ApplicationDbContext context)
+        private readonly UserManager<Utilizator> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public ReviewuriController(
+        ApplicationDbContext context,
+        UserManager<Utilizator> userManager,
+        RoleManager<IdentityRole> roleManager
+        )
         {
             db = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public ActionResult Index()
@@ -28,9 +36,9 @@ namespace OnlineShop.Controllers
             return View();
         }
 
-        public ActionResult Show(int id)
+        public ActionResult Show(string id_utilizator, int id_produs)
         {
-            Review review = db.Reviewuri.Find(id);
+            Review review = db.Reviewuri.Find(id_utilizator, id_produs);
             return View(review);
         }
 
@@ -52,16 +60,16 @@ namespace OnlineShop.Controllers
             return View(review);
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id_utilizator, int id_produs)
         {
-            Review review = db.Reviewuri.Find(id);
+            Review review = db.Reviewuri.Find(id_utilizator, id_produs);
             return View(review);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, Review reqReview)
+        public ActionResult Edit(string id_utilizator, int id_produs, Review reqReview)
         {
-            Review review = db.Reviewuri.Find(id);
+            Review review = db.Reviewuri.Find(id_utilizator, id_produs);
             if (ModelState.IsValid)
             {
                 review.Continut = reqReview.Continut;
@@ -74,9 +82,9 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id_utilizator, int id_produs)
         {
-            Review review = db.Reviewuri.Find(id);
+            Review review = db.Reviewuri.Find(id_utilizator, id_produs);
             db.Reviewuri.Remove(review);
             TempData["message"] = "Review-ul a fost sters!";
             db.SaveChanges();
