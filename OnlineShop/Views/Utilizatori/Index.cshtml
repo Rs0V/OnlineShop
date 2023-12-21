@@ -35,7 +35,7 @@
     <p>@utilizator.Email</p>
 
     @Html.Label("Telefon", "Telefon utilizator")
-    @if(!utilizator.Telefon)
+    @if(utilizator.Telefon == null)
     {
         <p>Nu a fost introdus un numar de telefon.</p>
     }
