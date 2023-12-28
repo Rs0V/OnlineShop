@@ -15,7 +15,7 @@ namespace OnlineShop.Controllers
 			db = context;
 		}
 
-		public ActionResult Index()
+		public ActionResult Index(int? id_categ)
 		{
 			if (TempData.ContainsKey("message"))
 				ViewBag.message = TempData["message"].ToString();
@@ -24,45 +24,84 @@ namespace OnlineShop.Controllers
 						  orderby produs.Titlu
 						  select produs;
 
+			if (id_categ != null)
+			{
+				produse = from produs in db.Produse
+						  where produs.Id_Categorie == id_categ
+						  orderby produs.Titlu
+						  select produs;
+			}
 			ViewBag.Produse = produse;
-			return View();
-		}
+            return View();
+        }
 
-		public ActionResult Show(int id)
+        public ActionResult Show(int id)
 		{
-			Produs produse = db.Produse.Find(id);
-			return View(produse);
+			Produs? produs = db.Produse.Find(id);
+
+            if (produs == null)
+            {
+                TempData["message"] = "Produsul cautat nu exista";
+                return RedirectToAction("Index");
+            }
+            return View(produs);
 		}
 
+		[Authorize(Roles = "Colaborator,Administrator")]
 		public ActionResult New()
-		{
+        {
 			return View();
 		}
 
+		[Authorize(Roles = "Colaborator,Administrator")]
 		[HttpPost]
 		public ActionResult New(Produs produs)
 		{
 			if (ModelState.IsValid)
 			{
-				db.Produse.Add(produs);
-				db.SaveChanges();
-				TempData["message"] = "Produsul a fost adaugat";
+				if (User.IsInRole("Administrator"))
+				{
+                    db.Produse.Add(produs);
+                    db.SaveChanges();
+                    TempData["message"] = "Produsul a fost adaugat";
+                }
+				else
+				{
+					//Request req = new Request { produs, ... };
+					//db.Requesturi.Add(req);
+                    db.SaveChanges();
+                    TempData["message"] = "Cererea de adaugare a produsului a fost trimisa";
+                }
 				return RedirectToAction("Index");
 			}
 			return View(produs);
 		}
 
+		[Authorize(Roles = "Colaborator,Administrator")]
 		public ActionResult Edit(int id)
-		{
-			Produs produs = db.Produse.Find(id);
-			return View(produs);
+        {
+			Produs? produs = db.Produse.Find(id);
+
+            if (produs == null)
+            {
+                TempData["message"] = "Produsul cautat nu exista";
+                return RedirectToAction("Index");
+            }
+            return View(produs);
 		}
 
+		[Authorize(Roles = "Colaborator,Administrator")]
 		[HttpPost]
-		public ActionResult Edit(int id, Produs reqProd)
+        public ActionResult Edit(int id, Produs reqProd)
 		{
-			Produs produs = db.Produse.Find(id);
-			if (ModelState.IsValid)
+			Produs? produs = db.Produse.Find(id);
+
+            if (produs == null)
+            {
+                TempData["message"] = "Produsul cautat nu exista";
+                return RedirectToAction("Index");
+            }
+            if (ModelState.IsValid)
 			{
 				produs.Titlu = reqProd.Titlu;
 				produs.Descriere = reqProd.Descriere;
@@ -78,10 +117,17 @@ namespace OnlineShop.Controllers
 			return View(reqProd);
 		}
 
+		[Authorize(Roles = "Colaborator,Administrator")]
 		[HttpPost]
-		public ActionResult Delete(int id)
+        public ActionResult Delete(int id)
 		{
-			Produs produs = db.Produse.Find(id);
+			Produs? produs = db.Produse.Find(id);
+
+            if (produs == null)
+            {
+                TempData["message"] = "Produsul cautat nu exista";
+                return RedirectToAction("Index");
+            }
             db.Produse.Remove(produs);
 			TempData["message"] = "Produsul a fost sters";
 			db.SaveChanges();

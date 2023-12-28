@@ -39,7 +39,11 @@
     <p>@ViewBag.Categorii.ToList<Categorie>().Find(produs.Id_Categorie).Denumire</p>
 
     <a class="btn alert-success" href="/Produse/Show/@produs.Id">Afisare produs</a>
-    <a class="btn alert-success" href="/Produse/Edit/@produs.Id">Editare produs</a>
+
+    @if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
+    {
+        <a class="btn alert-success" href="/Produse/Edit/@produs.Id">Editare produs</a>
+    }
     <br />
     <hr />
     <br />

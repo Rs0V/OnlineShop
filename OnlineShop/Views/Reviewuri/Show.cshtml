@@ -13,11 +13,15 @@
 <p>@ViewBag.Produse.ToList<Produs>().Find(@Model.ProdusId).Titlu</p>
 <p>@Model.Continut</p>
 
-<form method="post" action="/Reviewuri/Delete/@Model.UtilizatorId/@Model.ProdusId">
+@if (ViewBag.canedit == true)
+{
+    <form method="post" action="/Reviewuri/Delete/@Model.UtilizatorId/@Model.ProdusId">
 
-    <button class="btn btn-danger" type="submit">Sterge review-ul</button>
+        <button class="btn btn-danger" type="submit">Sterge review-ul</button>
 
-</form>
+    </form>
+}
+
 <br />
 <a class="btn alert-success" href="/Reviewuri/Index/">Afisare lista review-uri</a>
 

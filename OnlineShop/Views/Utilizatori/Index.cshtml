@@ -43,10 +43,13 @@
     {
         <p>@utilizator.Telefon</p>
     }
-   
 
     <a class="btn alert-success" href="/Utilizatori/Show/@utilizator.Id">Afisare utilizator</a>
-    <a class="btn alert-success" href="/Utilizatori/Edit/@utilizator.Id">Editare utilizator</a>
+
+    @if (User.IsInRole("Administrator"))
+    {
+        <a class="btn alert-success" href="/Utilizatori/Edit/@utilizator.Id">Editare utilizator</a>
+    }
     <br />
     <hr /> <!--Thematic break used to separate content-->
     <br />

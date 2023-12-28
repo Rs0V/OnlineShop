@@ -6,83 +6,114 @@ using System.Data;
 
 namespace OnlineShop.Controllers
 {
-    public class ExemplareController : Controller
-    {
-        private readonly ApplicationDbContext db;
+	public class ExemplareController : Controller
+	{
+		private readonly ApplicationDbContext db;
 
-        public ExemplareController(ApplicationDbContext context)
+		public ExemplareController(ApplicationDbContext context)
+		{
+			db = context;
+		}
+
+		[Authorize(Roles = "Colaborator,Administrator")]
+		public ActionResult Index()
+		{
+			if (TempData.ContainsKey("message"))
+				ViewBag.message = TempData["message"].ToString();
+
+			var exemplare = from exemplar in db.Exemplare
+							join produs in db.Produse on exemplar.Id_Produs equals produs.Id
+							orderby produs.Titlu, exemplar.Numar_Produs
+							select exemplar;
+
+			ViewBag.Exemplare = exemplare;
+			return View();
+		}
+
+		[Authorize(Roles = "Colaborator,Administrator")]
+		public ActionResult Show(int id_produs, int nr_produs)
         {
-            db = context;
-        }
+			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
 
-        public ActionResult Index()
-        {
-            if (TempData.ContainsKey("message"))
-                ViewBag.message = TempData["message"].ToString();
-
-            var exemplare = from exemplar in db.Exemplare
-                            join produs in db.Produse on exemplar.Id_Produs equals produs.Id
-                            orderby produs.Titlu
-                            select exemplar;
-
-            ViewBag.Exemplare = exemplare;
-            return View();
-        }
-
-        public ActionResult Show(int id_produs, int nr_produs)
-        {
-            Exemplar exemplar = db.Exemplare.Find(id_produs, nr_produs);
+            if (exemplar == null)
+            {
+                TempData["message"] = "Exemplarul cautat nu exista";
+                return RedirectToAction("Index");
+            }
             return View(exemplar);
-        }
+		}
 
-        public ActionResult New()
+		[Authorize(Roles = "Colaborator,Administrator")]
+		public ActionResult New()
         {
-            return View();
-        }
+			return View();
+		}
 
-        [HttpPost]
+		[Authorize(Roles = "Colaborator,Administrator")]
+		[HttpPost]
         public ActionResult New(Exemplar exemplar)
+		{
+			if (ModelState.IsValid)
+			{
+				db.Exemplare.Add(exemplar);
+				db.SaveChanges();
+				TempData["message"] = "Exemplarul a fost adaugat";
+				return RedirectToAction("Index");
+			}
+			return View(exemplar);
+		}
+
+		[Authorize(Roles = "Colaborator,Administrator")]
+		public ActionResult Edit(int id_produs, int nr_produs)
         {
-            if (ModelState.IsValid)
+			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
+
+            if (exemplar == null)
             {
-                db.Exemplare.Add(exemplar);
-                db.SaveChanges();
-                TempData["message"] = "Exemplarul a fost adaugat";
+                TempData["message"] = "Exemplarul cautat nu exista";
                 return RedirectToAction("Index");
             }
             return View(exemplar);
-        }
+		}
 
-        public ActionResult Edit(int id_produs, int nr_produs)
-        {
-            Exemplar exemplar = db.Exemplare.Find(id_produs, nr_produs);
-            return View(exemplar);
-        }
-
-        [HttpPost]
+		[Authorize(Roles = "Colaborator,Administrator")]
+		[HttpPost]
         public ActionResult Edit(int id_produs, int nr_produs, Exemplar reqEx)
-        {
-            Exemplar exemplar = db.Exemplare.Find(id_produs, nr_produs);
-            if (ModelState.IsValid)
-            {
-                exemplar.Stare = reqEx.Stare;
-                exemplar.Id_Comanda = reqEx.Id_Comanda;
+		{
+			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
 
-                db.SaveChanges();
-                TempData["message"] = "Exemplarul a fost modificat!";
+            if (exemplar == null)
+            {
+                TempData["message"] = "Exemplarul cautat nu exista";
                 return RedirectToAction("Index");
             }
-            return View(reqEx);
-        }
+            if (ModelState.IsValid)
+			{
+				exemplar.Stare = reqEx.Stare;
+				exemplar.Id_Comanda = reqEx.Id_Comanda;
 
-        [HttpPost]
+				db.SaveChanges();
+				TempData["message"] = "Exemplarul a fost modificat!";
+				return RedirectToAction("Index");
+			}
+			return View(reqEx);
+		}
+
+		[Authorize(Roles = "Colaborator,Administrator")]
+		[HttpPost]
         public ActionResult Delete(int id_produs, int nr_produs)
-        {
-            Exemplar exemplar = db.Exemplare.Find(id_produs, nr_produs);
+		{
+			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
+
+            if (exemplar == null)
+            {
+                TempData["message"] = "Exemplarul cautat nu exista";
+                return RedirectToAction("Index");
+            }
             db.Exemplare.Remove(exemplar);
-            TempData["message"] = "Exemplarul a fost sters";
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-    }
+			TempData["message"] = "Exemplarul a fost sters";
+			db.SaveChanges();
+			return RedirectToAction("Index");
+		}
+	}
 }

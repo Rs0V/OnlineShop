@@ -1,7 +1,7 @@
 ﻿@model OnlineShop.Models.Produs
 
 @{
-    ViewBag.Titlu = "Afisare produs";
+	ViewBag.Titlu = "Afisare produs";
 }
 
 
@@ -10,11 +10,15 @@
 
 <p>@Model.Titlu</p>
 
-<form method="post" action="/Produse/Delete/@Model.Id">
+@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
+{
+	<form method="post" action="/Produse/Delete/@Model.Id">
 
-    <button class="btn btn-danger" type="submit">Sterge produsul</button>
+		<button class="btn btn-danger" type="submit">Sterge produsul</button>
 
-</form>
+	</form>
+}
+
 <br />
 <a class="btn alert-success" href="/Produse/Index/">Afisare lista produse</a>
 
