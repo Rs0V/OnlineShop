@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.Data;
 
@@ -11,9 +12,10 @@ using OnlineShop.Data;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231228232619_Authorize1")]
+    partial class Authorize1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,38 +178,6 @@ namespace OnlineShop.Migrations
                     b.ToTable("Categorii");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.Cerere", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("Acceptat")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Info")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<int?>("ProdusId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Respins")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProdusId");
-
-                    b.ToTable("Cereri");
-                });
-
             modelBuilder.Entity("OnlineShop.Models.Comanda", b =>
                 {
                     b.Property<int>("Id")
@@ -318,9 +288,6 @@ namespace OnlineShop.Migrations
                     b.Property<string>("Continut")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
 
                     b.HasKey("UtilizatorId", "ProdusId");
 
@@ -453,15 +420,6 @@ namespace OnlineShop.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("OnlineShop.Models.Cerere", b =>
-                {
-                    b.HasOne("OnlineShop.Models.Produs", "Produs")
-                        .WithMany()
-                        .HasForeignKey("ProdusId");
-
-                    b.Navigation("Produs");
                 });
 
             modelBuilder.Entity("OnlineShop.Models.Comanda", b =>

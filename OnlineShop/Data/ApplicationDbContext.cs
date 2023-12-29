@@ -29,5 +29,7 @@ namespace OnlineShop.Data
         public DbSet<Exemplar> Exemplare { get; set; }
         public DbSet<Categorie> Categorii { get; set; }
         public DbSet<Comanda> Comenzi { get; set; }
+        public DbSet<Cerere> Cereri { get; set; }
+
     }
 }

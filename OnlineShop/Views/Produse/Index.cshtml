@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Titlu = "Lista produse";
+    int index = 0;
 }
 <br />
 <h2 class="text-center">@ViewBag.Titlu</h2>
@@ -31,12 +32,13 @@
 
     @Html.Label("Poza", "Poza produs")
     <img src="@produs.Poza"/>
-    
+
     @Html.Label("Rating", "Rating produs")
     <p>@produs.Rating</p>
 
+
     @Html.Label("Categorie", "Categorie produs")
-    <p>@ViewBag.Categorii.ToList<Categorie>().Find(produs.Id_Categorie).Denumire</p>
+    <p>@ViewBag.Categorii[index].Denumire</p>
 
     <a class="btn alert-success" href="/Produse/Show/@produs.Id">Afisare produs</a>
 
@@ -47,5 +49,8 @@
     <br />
     <hr />
     <br />
+
+    index++;
+    
 }
 <br />

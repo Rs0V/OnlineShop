@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Titlu = "Lista cereri";
+}
+<br />
+<h2 class="text-center">@ViewBag.Titlu</h2>
+<br />
+
+@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+<br />
+
+<div class="align-items-center justify-content-center d-flex">
+    <a class="btn btn-success" href="/Cereri/New">Adauga o noua cerere</a>
+</div>
+
+<br />
+
+@foreach (var cerere in ViewBag.Cereri)
+{
+    @Html.Label("Titlu", "Titlu produs")
+    <p>@cerere.Produs.Titlu</p>
+
+    @Html.Label("Descriere", "Descriere produs")
+    <p>@cerere.Produs.Descriere</p>
+
+    @Html.Label("Pret", "Pret produs")
+    <p>@cerere.Produs.Pret</p>
+
+    @Html.Label("Poza", "Poza produs")
+    <img src="@cerere.Produs.Poza"/>
+
+    @Html.Label("Categorie", "Categorie produs")
+    <p>@ViewBag.Categorii.ToList<Categorie>().Find(cerere.Produs.Id_Categorie).Denumire</p>
+
+
+    @Html.Label("Info", "Info cerere")
+    <p>@cerere.Info</p>
+
+    @Html.Label("Data", "Data cerere")
+    <p>@cerere.Data</p>
+
+    <a class="btn alert-success" href="/Cereri/Edit/@cerere.Id">Afisare cerere</a>
+
+    <form method="post" action="/Cereri/Delete/@Model.Id">
+        
+        <button class="btn btn-danger" type="submit">Sterge cererea</button>
+          
+    </form>
+
+    <br />
+    <hr />
+    <br />
+}
+<br />

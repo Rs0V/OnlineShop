@@ -1,0 +1,51 @@
+﻿@model OnlineShop.Models.Cerere
+
+@{
+    ViewBag.Titlu = "Editare cerere";
+}
+
+
+<h2>@ViewBag.Titlu</h2>
+
+@using (Html.BeginForm(controllerName: "Cereri", actionName: "Edit", method: FormMethod.Post, routeValues: new { id = Model.Id }))
+{
+    @Html.Label("Titlu", "Titlu produs")
+    <p>@Model.Produs.Titlu</p>
+
+    @Html.Label("Descriere", "Descriere produs")
+    <p>@Model.Produs.Descriere</p>
+
+    @Html.Label("Pret", "Pret produs")
+    <p>@Model.Produs.Pret</p>
+
+    @Html.Label("Poza", "Poza produs")
+    <img src="@Model.Produs.Poza" />
+
+    @Html.Label("Categorie", "Categorie produs")
+    <p>@ViewBag.Categorii.ToList<Categorie>().Find(Model.Produs.Id_Categorie).Denumire</p>
+
+
+    @Html.Label("Info", "Info cerere")
+    <p>@Model.Info</p>
+
+    @Html.Label("Data", "Data cerere")
+    <p>@Model.Data</p>
+
+
+
+    <br />
+    @Html.Editor("Acceptat")
+
+    @Html.ValidationMessageFor(m => m.Acceptat, null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+
+    
+
+
+    <button class="btn btn-success" type="submit">Modifica cererea</button>
+}
+
+
+

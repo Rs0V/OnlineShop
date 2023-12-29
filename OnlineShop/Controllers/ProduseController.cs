@@ -24,15 +24,30 @@ namespace OnlineShop.Controllers
 						  orderby produs.Titlu
 						  select produs;
 
-			if (id_categ != null)
+			var categorii = from categorie in db.Categorii
+							join produs in db.Produse on categorie.Id equals produs.Id_Categorie
+							orderby produs.Titlu
+							select categorie;
+
+
+            if (id_categ != null)
 			{
 				produse = from produs in db.Produse
 						  where produs.Id_Categorie == id_categ
 						  orderby produs.Titlu
 						  select produs;
-			}
+
+                categorii = from categorie in db.Categorii
+                            join produs in db.Produse on categorie.Id equals produs.Id_Categorie
+                            where produs.Id_Categorie == id_categ
+                            orderby produs.Titlu
+                            select categorie;
+            }
 			ViewBag.Produse = produse;
-            return View();
+		
+			ViewBag.Categorii = categorii.ToList<Categorie>();
+            
+			return View();
         }
 
         public ActionResult Show(int id)
@@ -72,7 +87,7 @@ namespace OnlineShop.Controllers
 						ProdusId = null,
 						Produs = produs,
 						Info = "Cerere adaugare produs",
-						Acceptat = false,
+						Acceptat = null,
 						Respins = false,
 						Data = DateTime.Now
 					};
@@ -122,9 +137,12 @@ namespace OnlineShop.Controllers
 
 					db.SaveChanges();
 					TempData["message"] = "Produsul a fost modificat!";
-					return RedirectToAction("Index");
-				}
-				return View(reqProd);
+                    return RedirectToAction("Index");
+                }
+				
+                return View(reqProd);
+                
+				
 			}
 			else
 			{
@@ -133,7 +151,7 @@ namespace OnlineShop.Controllers
 					ProdusId = produs.Id,
 					Produs = reqProd,
 					Info = "Cerere editare produs",
-					Acceptat = false,
+					Acceptat = null,
 					Respins = false,
 					Data = DateTime.Now
 				};
@@ -141,7 +159,8 @@ namespace OnlineShop.Controllers
 				db.SaveChanges();
 				TempData["message"] = "Cererea de editare a produsului a fost trimisa";
 			}
-		}
+            return RedirectToAction("Index");
+        }
 
 		[Authorize(Roles = "Administrator,Colaborator")]
 		[HttpPost]
@@ -159,7 +178,6 @@ namespace OnlineShop.Controllers
 				db.Produse.Remove(produs);
 				TempData["message"] = "Produsul a fost sters";
 				db.SaveChanges();
-				return RedirectToAction("Index");
 			}
 			else
 			{
@@ -168,7 +186,7 @@ namespace OnlineShop.Controllers
 					ProdusId = produs.Id,
 					Produs = null,
 					Info = "Cerere stergere produs",
-					Acceptat = false,
+					Acceptat = null,
 					Respins = false,
 					Data = DateTime.Now
 				};
@@ -176,6 +194,7 @@ namespace OnlineShop.Controllers
 				db.SaveChanges();
 				TempData["message"] = "Cererea de stergere a produsului a fost trimisa";
 			}
-		}
-	}
+			return RedirectToAction("Index");
+        }
+    }
 }
