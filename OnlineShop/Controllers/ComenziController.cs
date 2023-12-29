@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
 using OnlineShop.Models;
@@ -59,13 +60,15 @@ namespace OnlineShop.Controllers
 			return RedirectToAction("Index");
 		}
 
+		[Authorize(Roles = "Utilizator,Colaborator,Administrator")]
 		public ActionResult New()
 		{
 			return View();
 		}
 
+		[Authorize(Roles = "Utilizator,Colaborator,Administrator")]
 		[HttpPost]
-		public ActionResult New(Comanda comanda)
+        public ActionResult New(Comanda comanda)
 		{
 			if (ModelState.IsValid)
 			{

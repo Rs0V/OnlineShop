@@ -13,9 +13,14 @@
 @if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
 {
 	<form method="post" action="/Produse/Delete/@Model.Id">
-
-		<button class="btn btn-danger" type="submit">Sterge produsul</button>
-
+		@if (User.IsInRole("Administrator") == true)
+		{
+			<button class="btn btn-danger" type="submit">Sterge produsul</button>
+		}
+		else
+		{
+			<button class="btn btn-danger" type="submit">Trimite cerere stergere produs</button>
+		}
 	</form>
 }
 

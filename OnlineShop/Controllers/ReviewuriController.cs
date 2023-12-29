@@ -30,7 +30,7 @@ namespace OnlineShop.Controllers
 			var reviewuri = from review in db.Reviewuri
 							join utilizator in db.Utilizatori on review.UtilizatorId equals utilizator.Id
 							join produs in db.Produse on review.ProdusId equals produs.Id
-							orderby produs.Titlu, produs.Rating descending
+							orderby produs.Titlu, review.Rating descending, utilizator.Nume, utilizator.Prenume
 							select review;
 
 			if (id_bonus != null)
@@ -46,8 +46,8 @@ namespace OnlineShop.Controllers
 								join utilizator in db.Utilizatori on review.UtilizatorId equals utilizator.Id
 								join produs in db.Produse on review.ProdusId equals produs.Id
 								where review.ProdusId == (int)id_bonus
-								orderby produs.Titlu, produs.Rating descending
-								select review;
+								orderby produs.Titlu, review.Rating descending, utilizator.Nume, utilizator.Prenume
+                                select review;
 				}
 				else if (tip_idb == "utilizator")
 				{
@@ -55,11 +55,12 @@ namespace OnlineShop.Controllers
 								join utilizator in db.Utilizatori on review.UtilizatorId equals utilizator.Id
 								join produs in db.Produse on review.ProdusId equals produs.Id
 								where review.UtilizatorId == (string)id_bonus
-								orderby produs.Titlu, produs.Rating descending
+								orderby produs.Titlu, review.Rating descending, utilizator.Nume, utilizator.Prenume
 								select review;
 				}
 			}
 			ViewBag.Reviewuri = reviewuri;
+			ViewBag.userManager = _userManager;
 			return View();
 		}
 

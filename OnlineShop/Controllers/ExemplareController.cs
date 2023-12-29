@@ -43,13 +43,13 @@ namespace OnlineShop.Controllers
             return View(exemplar);
 		}
 
-		[Authorize(Roles = "Colaborator,Administrator")]
+		[Authorize(Roles = "Administrator")]
 		public ActionResult New()
         {
 			return View();
 		}
 
-		[Authorize(Roles = "Colaborator,Administrator")]
+		[Authorize(Roles = "Administrator")]
 		[HttpPost]
         public ActionResult New(Exemplar exemplar)
 		{
@@ -99,7 +99,7 @@ namespace OnlineShop.Controllers
 			return View(reqEx);
 		}
 
-		[Authorize(Roles = "Colaborator,Administrator")]
+		[Authorize(Roles = "Administrator")]
 		[HttpPost]
         public ActionResult Delete(int id_produs, int nr_produs)
 		{

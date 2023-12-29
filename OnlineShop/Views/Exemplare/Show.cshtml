@@ -11,11 +11,14 @@
 <p>@ViewBag.Produse.ToList<Produs>().Find(@Model.Id_Produs).Titlu</p>
 <p>@Model.Numar_Produs</p>
 
-<form method="post" action="/Exemplare/Delete/@Model.Id_Produs/@Model.Numar_Produs">
+@if (User.IsInRole("Administrator"))
+{
+    <form method="post" action="/Exemplare/Delete/@Model.Id_Produs/@Model.Numar_Produs">
 
-    <button class="btn btn-danger" type="submit">Sterge exemplarul</button>
+        <button class="btn btn-danger" type="submit">Sterge exemplarul</button>
 
-</form>
+    </form>
+}
 <br />
 <a class="btn alert-success" href="/Exemplare/Index/">Afisare lista exemplare</a>
 

@@ -47,13 +47,13 @@ namespace OnlineShop.Controllers
             return View(produs);
 		}
 
-		[Authorize(Roles = "Colaborator,Administrator")]
+		[Authorize(Roles = "Administrator,Colaborator")]
 		public ActionResult New()
         {
 			return View();
 		}
 
-		[Authorize(Roles = "Colaborator,Administrator")]
+		[Authorize(Roles = "Administrator,Colaborator")]
 		[HttpPost]
 		public ActionResult New(Produs produs)
 		{
@@ -67,9 +67,17 @@ namespace OnlineShop.Controllers
                 }
 				else
 				{
-					//Request req = new Request { produs, ... };
-					//db.Requesturi.Add(req);
-                    db.SaveChanges();
+					Cerere cerere = new Cerere
+					{
+						ProdusId = null,
+						Produs = produs,
+						Info = "Cerere adaugare produs",
+						Acceptat = false,
+						Respins = false,
+						Data = DateTime.Now
+					};
+					db.Cereri.Add(cerere);
+					db.SaveChanges();
                     TempData["message"] = "Cererea de adaugare a produsului a fost trimisa";
                 }
 				return RedirectToAction("Index");
@@ -77,7 +85,7 @@ namespace OnlineShop.Controllers
 			return View(produs);
 		}
 
-		[Authorize(Roles = "Colaborator,Administrator")]
+		[Authorize(Roles = "Administrator,Colaborator")]
 		public ActionResult Edit(int id)
         {
 			Produs? produs = db.Produse.Find(id);
@@ -90,7 +98,7 @@ namespace OnlineShop.Controllers
             return View(produs);
 		}
 
-		[Authorize(Roles = "Colaborator,Administrator")]
+		[Authorize(Roles = "Administrator,Colaborator")]
 		[HttpPost]
         public ActionResult Edit(int id, Produs reqProd)
 		{
@@ -101,23 +109,41 @@ namespace OnlineShop.Controllers
                 TempData["message"] = "Produsul cautat nu exista";
                 return RedirectToAction("Index");
             }
-            if (ModelState.IsValid)
+			if (User.IsInRole("Administrator"))
 			{
-				produs.Titlu = reqProd.Titlu;
-				produs.Descriere = reqProd.Descriere;
-                produs.Pret = reqProd.Pret;
-				produs.Poza = reqProd.Poza;
-				produs.Rating = reqProd.Rating;
-				produs.Id_Categorie = reqProd.Id_Categorie;
+				if (ModelState.IsValid)
+				{
+					produs.Titlu = reqProd.Titlu;
+					produs.Descriere = reqProd.Descriere;
+					produs.Pret = reqProd.Pret;
+					produs.Poza = reqProd.Poza;
+					produs.Rating = reqProd.Rating;
+					produs.Id_Categorie = reqProd.Id_Categorie;
 
-                db.SaveChanges();
-				TempData["message"] = "Produsul a fost modificat!";
-				return RedirectToAction("Index");
+					db.SaveChanges();
+					TempData["message"] = "Produsul a fost modificat!";
+					return RedirectToAction("Index");
+				}
+				return View(reqProd);
 			}
-			return View(reqProd);
+			else
+			{
+				Cerere cerere = new Cerere
+				{
+					ProdusId = produs.Id,
+					Produs = reqProd,
+					Info = "Cerere editare produs",
+					Acceptat = false,
+					Respins = false,
+					Data = DateTime.Now
+				};
+				db.Cereri.Add(cerere);
+				db.SaveChanges();
+				TempData["message"] = "Cererea de editare a produsului a fost trimisa";
+			}
 		}
 
-		[Authorize(Roles = "Colaborator,Administrator")]
+		[Authorize(Roles = "Administrator,Colaborator")]
 		[HttpPost]
         public ActionResult Delete(int id)
 		{
@@ -128,10 +154,28 @@ namespace OnlineShop.Controllers
                 TempData["message"] = "Produsul cautat nu exista";
                 return RedirectToAction("Index");
             }
-            db.Produse.Remove(produs);
-			TempData["message"] = "Produsul a fost sters";
-			db.SaveChanges();
-			return RedirectToAction("Index");
+			if (User.IsInRole("Administrator"))
+			{
+				db.Produse.Remove(produs);
+				TempData["message"] = "Produsul a fost sters";
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				Cerere cerere = new Cerere
+				{
+					ProdusId = produs.Id,
+					Produs = null,
+					Info = "Cerere stergere produs",
+					Acceptat = false,
+					Respins = false,
+					Data = DateTime.Now
+				};
+				db.Cereri.Add(cerere);
+				db.SaveChanges();
+				TempData["message"] = "Cererea de stergere a produsului a fost trimisa";
+			}
 		}
 	}
 }
