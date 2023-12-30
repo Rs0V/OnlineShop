@@ -1,7 +1,7 @@
 ﻿@model OnlineShop.Models.Review
 
 @{
-    ViewBag.Titlu = "Adaugare review";
+	ViewBag.Titlu = "Adaugare review";
 }
 
 
@@ -9,15 +9,15 @@
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Reviewuri", method: FormMethod.Post))
 {
-    @Html.Label("Continut", "Continut review")
-    <br />
+	@Html.Label("Continut", "Continut review")
+	<br />
 
-    @Html.TextBox("Continut", null, new { @class = "form-control" })
+	@Html.TextBox("Continut", null, new { @class = "form-control" })
 
-    @Html.ValidationMessageFor(m => m.Continut, null, new { @class = "text-danger" })
-    <br />
-    <br />
+	@Html.ValidationMessageFor(m => m.Continut, null, new { @class = "text-danger" })
+	<br />
+	<br />
 
 
-    <button class="btn btn-success" type="submit">Adauga un review</button>
+	<button class="btn btn-success" type="submit">Adauga un review</button>
 }

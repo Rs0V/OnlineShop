@@ -1,23 +1,23 @@
 ﻿@model OnlineShop.Models.Exemplar
 
 @{
-    ViewBag.Titlu = "Afisare exemplar";
+	ViewBag.Titlu = "Afisare exemplar";
 }
 
 
 <h2>@ViewBag.Titlu</h2>
 <br />
 
-<p>@ViewBag.Produse.ToList<Produs>().Find(@Model.Id_Produs).Titlu</p>
+<p>@ViewBag.Produse.ToList<Produs>().Find(@Model.ProdusId).Titlu</p>
 <p>@Model.Numar_Produs</p>
 
 @if (User.IsInRole("Administrator"))
 {
-    <form method="post" action="/Exemplare/Delete/@Model.Id_Produs/@Model.Numar_Produs">
+	<form method="post" action="/Exemplare/Delete/@Model.ProdusId/@Model.Numar_Produs">
 
-        <button class="btn btn-danger" type="submit">Sterge exemplarul</button>
+		<button class="btn btn-danger" type="submit">Sterge exemplarul</button>
 
-    </form>
+	</form>
 }
 <br />
 <a class="btn alert-success" href="/Exemplare/Index/">Afisare lista exemplare</a>

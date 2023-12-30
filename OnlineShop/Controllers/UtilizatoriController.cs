@@ -37,26 +37,26 @@ namespace OnlineShop.Controllers
 		}
 
 		public ActionResult Show(string id)
-        {
+		{
 			Utilizator? utilizator = db.Utilizatori.Find(id);
-            ViewBag.goodlog = false;
+			ViewBag.goodlog = false;
 
-            if (utilizator == null)
+			if (utilizator == null)
 			{
-                TempData["message"] = "Utilizatorul cautat nu exista";
+				TempData["message"] = "Utilizatorul cautat nu exista";
 				return RedirectToAction("Index");
-            }
-            if (utilizator.Id == _userManager.GetUserId(User))
+			}
+			if (utilizator.Id == _userManager.GetUserId(User))
 			{
 				ViewBag.goodlog = true;
-                return View(utilizator);
-            }
+				return View(utilizator);
+			}
 			else if (User.IsInRole("Utilizator") == false)
 			{
-                return View(utilizator);
-            }
-            TempData["message"] = "Nu aveti dreptul sa vizualizati un cont care nu va apartine";
-            return RedirectToAction("Index");
+				return View(utilizator);
+			}
+			TempData["message"] = "Nu aveti dreptul sa vizualizati un cont care nu va apartine";
+			return RedirectToAction("Index");
 		}
 
 		public ActionResult New()
@@ -82,12 +82,12 @@ namespace OnlineShop.Controllers
 		{
 			Utilizator? utilizator = db.Utilizatori.Find(id);
 
-            if (utilizator == null)
-            {
-                TempData["message"] = "Utilizatorul cautat nu exista";
+			if (utilizator == null)
+			{
+				TempData["message"] = "Utilizatorul cautat nu exista";
 				return RedirectToAction("Index");
 			}
-            if (utilizator.Id == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
+			if (utilizator.Id == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
 				return View(utilizator);
 
 			TempData["message"] = "Nu aveti dreptul sa faceti modificari asupra unui cont care nu va apartine";
@@ -99,12 +99,12 @@ namespace OnlineShop.Controllers
 		{
 			Utilizator? utilizator = db.Utilizatori.Find(id);
 
-            if (utilizator == null)
-            {
-                TempData["message"] = "Utilizatorul cautat nu exista";
-                return RedirectToAction("Index");
-            }
-            if (utilizator.Id == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
+			if (utilizator == null)
+			{
+				TempData["message"] = "Utilizatorul cautat nu exista";
+				return RedirectToAction("Index");
+			}
+			if (utilizator.Id == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
 			{
 				if (ModelState.IsValid)
 				{
@@ -138,12 +138,12 @@ namespace OnlineShop.Controllers
 		{
 			Utilizator? utilizator = db.Utilizatori.Find(id);
 
-            if (utilizator == null)
-            {
-                TempData["message"] = "Utilizatorul cautat nu exista";
-                return RedirectToAction("Index");
-            }
-            if (utilizator.Id == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
+			if (utilizator == null)
+			{
+				TempData["message"] = "Utilizatorul cautat nu exista";
+				return RedirectToAction("Index");
+			}
+			if (utilizator.Id == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
 			{
 				db.Utilizatori.Remove(utilizator);
 				TempData["message"] = "Utilizatorul a fost sters!";

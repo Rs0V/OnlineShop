@@ -1,7 +1,7 @@
 ﻿@model OnlineShop.Models.Exemplar
 
 @{
-    ViewBag.Titlu = "Adaugare exemplar";
+	ViewBag.Titlu = "Adaugare exemplar";
 }
 
 
@@ -9,25 +9,25 @@
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Exemplare", method: FormMethod.Post))
 {
-    @Html.Label("Stare", "Stare exemplar")
-    <br />
+	@Html.Label("Stare", "Stare exemplar")
+	<br />
 
-    @Html.TextBox("Stare", null, new { @class = "form-control" })
+	@Html.TextBox("Stare", null, new { @class = "form-control" })
 
-    @Html.ValidationMessageFor(m => m.Stare, null, new { @class = "text-danger" })
-    <br />
-    <br />
-
-
-    @Html.Label("Id Comanda", "Comanda exemplar")
-    <br />
-
-    @Html.TextBox("Id Comanda", null, new { @class = "form-control" })
-
-    @Html.ValidationMessageFor(m => m.Id_Comanda, null, new { @class = "text-danger" })
-    <br />
-    <br />
+	@Html.ValidationMessageFor(m => m.Stare, null, new { @class = "text-danger" })
+	<br />
+	<br />
 
 
-    <button class="btn btn-success" type="submit">Adauga exemplar</button>
+	@Html.Label("ComandaId", "Comanda exemplar")
+	<br />
+
+	@Html.TextBox("ComandaId", null, new { @class = "form-control" })
+
+	@Html.ValidationMessageFor(m => m.ComandaId, null, new { @class = "text-danger" })
+	<br />
+	<br />
+
+
+	<button class="btn btn-success" type="submit">Adauga exemplar</button>
 }

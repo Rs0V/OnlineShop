@@ -1,33 +1,35 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace OnlineShop.Models
 {
-    public class StareExAttribute : ValidationAttribute
-    {
-        private readonly string[] stariEx = { "Disponibil", "Cumparat" };
-
-        public override bool IsValid(object? value)
-        {
-            if (value is string stare)
-                return stariEx.Contains(stare);
-            return false;
-        }
-    }
-
-    public class Exemplar
+	public class StareExemplarAttribute : ValidationAttribute
 	{
-		public int Id_Produs { get; set; }
+		private readonly string[] stariEx = { "Disponibil", "Cumparat" };
 
-        public int Numar_Produs { get; set; }
+		public override bool IsValid(object? value)
+		{
+			if (value is string stare)
+				return stariEx.Contains(stare);
+			return false;
+		}
+	}
 
-        [Required(ErrorMessage = "Starea exemplarului este obligatorie")]
-        [StareEx(ErrorMessage = "Stare invalida")]
-		public string Stare { get; set; }
+	public class Exemplar
+	{
+		public int ProdusId { get; set; }
 
-		public int? Id_Comanda { get; set; }
+		public virtual Produs? Produs { get; set; }
 
-        public virtual Comanda? Comanda { get; set; }
+		public int Numar_Produs { get; set; }
+
+		[Required(ErrorMessage = "Starea exemplarului este obligatorie")]
+		[StareExemplar(ErrorMessage = "Stare invalida")]
+		public string? Stare { get; set; }
+
+		public int? ComandaId { get; set; }
+
+		public virtual Comanda? Comanda { get; set; }
 	}
 }
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.Data;
 
@@ -11,9 +12,10 @@ using OnlineShop.Data;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231230124048_OS6")]
+    partial class OS6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -187,9 +189,6 @@ namespace OnlineShop.Migrations
                     b.Property<int?>("Acceptat")
                         .HasColumnType("int");
 
-                    b.Property<string>("AuxProd")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
@@ -200,6 +199,9 @@ namespace OnlineShop.Migrations
 
                     b.Property<int?>("ProdusId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Respins")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -239,7 +241,7 @@ namespace OnlineShop.Migrations
 
             modelBuilder.Entity("OnlineShop.Models.Exemplar", b =>
                 {
-                    b.Property<int>("ProdusId")
+                    b.Property<int>("Id_Produs")
                         .HasColumnType("int");
 
                     b.Property<int>("Numar_Produs")
@@ -248,13 +250,21 @@ namespace OnlineShop.Migrations
                     b.Property<int?>("ComandaId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("Id_Comanda")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProdusId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Stare")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProdusId", "Numar_Produs");
+                    b.HasKey("Id_Produs", "Numar_Produs");
 
                     b.HasIndex("ComandaId");
+
+                    b.HasIndex("ProdusId");
 
                     b.ToTable("Exemplare");
                 });
@@ -268,13 +278,15 @@ namespace OnlineShop.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int?>("CategorieId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Descriere")
                         .IsRequired()
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Id_Categorie")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.Property<string>("Poza")
                         .IsRequired()
@@ -288,8 +300,7 @@ namespace OnlineShop.Migrations
 
                     b.Property<string>("Titlu")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -354,8 +365,7 @@ namespace OnlineShop.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Nume")
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -367,8 +377,7 @@ namespace OnlineShop.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Prenume")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -474,31 +483,25 @@ namespace OnlineShop.Migrations
                         .WithMany("Exemplare")
                         .HasForeignKey("ComandaId");
 
-                    b.HasOne("OnlineShop.Models.Produs", "Produs")
+                    b.HasOne("OnlineShop.Models.Produs", null)
                         .WithMany("Exemplare")
-                        .HasForeignKey("ProdusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProdusId");
 
                     b.Navigation("Comanda");
-
-                    b.Navigation("Produs");
                 });
 
             modelBuilder.Entity("OnlineShop.Models.Produs", b =>
                 {
                     b.HasOne("OnlineShop.Models.Categorie", "Categorie")
                         .WithMany("Produse")
-                        .HasForeignKey("CategorieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategorieId");
 
                     b.Navigation("Categorie");
                 });
 
             modelBuilder.Entity("OnlineShop.Models.Review", b =>
                 {
-                    b.HasOne("OnlineShop.Models.Produs", "Produs")
+                    b.HasOne("OnlineShop.Models.Produs", null)
                         .WithMany("Reviewuri")
                         .HasForeignKey("ProdusId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -509,8 +512,6 @@ namespace OnlineShop.Migrations
                         .HasForeignKey("UtilizatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Produs");
 
                     b.Navigation("Utilizator");
                 });

@@ -22,7 +22,7 @@ namespace OnlineShop.Controllers
 				ViewBag.message = TempData["message"].ToString();
 
 			var exemplare = from exemplar in db.Exemplare
-							join produs in db.Produse on exemplar.Id_Produs equals produs.Id
+							join produs in db.Produse on exemplar.ProdusId equals produs.Id
 							orderby produs.Titlu, exemplar.Numar_Produs
 							select exemplar;
 
@@ -32,26 +32,26 @@ namespace OnlineShop.Controllers
 
 		[Authorize(Roles = "Colaborator,Administrator")]
 		public ActionResult Show(int id_produs, int nr_produs)
-        {
+		{
 			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
 
-            if (exemplar == null)
-            {
-                TempData["message"] = "Exemplarul cautat nu exista";
-                return RedirectToAction("Index");
-            }
-            return View(exemplar);
+			if (exemplar == null)
+			{
+				TempData["message"] = "Exemplarul cautat nu exista";
+				return RedirectToAction("Index");
+			}
+			return View(exemplar);
 		}
 
 		[Authorize(Roles = "Administrator")]
 		public ActionResult New()
-        {
+		{
 			return View();
 		}
 
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
-        public ActionResult New(Exemplar exemplar)
+		public ActionResult New(Exemplar exemplar)
 		{
 			if (ModelState.IsValid)
 			{
@@ -65,32 +65,32 @@ namespace OnlineShop.Controllers
 
 		[Authorize(Roles = "Colaborator,Administrator")]
 		public ActionResult Edit(int id_produs, int nr_produs)
-        {
+		{
 			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
 
-            if (exemplar == null)
-            {
-                TempData["message"] = "Exemplarul cautat nu exista";
-                return RedirectToAction("Index");
-            }
-            return View(exemplar);
+			if (exemplar == null)
+			{
+				TempData["message"] = "Exemplarul cautat nu exista";
+				return RedirectToAction("Index");
+			}
+			return View(exemplar);
 		}
 
 		[Authorize(Roles = "Colaborator,Administrator")]
 		[HttpPost]
-        public ActionResult Edit(int id_produs, int nr_produs, Exemplar reqEx)
+		public ActionResult Edit(int id_produs, int nr_produs, Exemplar reqEx)
 		{
 			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
 
-            if (exemplar == null)
-            {
-                TempData["message"] = "Exemplarul cautat nu exista";
-                return RedirectToAction("Index");
-            }
-            if (ModelState.IsValid)
+			if (exemplar == null)
+			{
+				TempData["message"] = "Exemplarul cautat nu exista";
+				return RedirectToAction("Index");
+			}
+			if (ModelState.IsValid)
 			{
 				exemplar.Stare = reqEx.Stare;
-				exemplar.Id_Comanda = reqEx.Id_Comanda;
+				exemplar.ComandaId = reqEx.ComandaId;
 
 				db.SaveChanges();
 				TempData["message"] = "Exemplarul a fost modificat!";
@@ -101,16 +101,16 @@ namespace OnlineShop.Controllers
 
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
-        public ActionResult Delete(int id_produs, int nr_produs)
+		public ActionResult Delete(int id_produs, int nr_produs)
 		{
 			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
 
-            if (exemplar == null)
-            {
-                TempData["message"] = "Exemplarul cautat nu exista";
-                return RedirectToAction("Index");
-            }
-            db.Exemplare.Remove(exemplar);
+			if (exemplar == null)
+			{
+				TempData["message"] = "Exemplarul cautat nu exista";
+				return RedirectToAction("Index");
+			}
+			db.Exemplare.Remove(exemplar);
 			TempData["message"] = "Exemplarul a fost sters";
 			db.SaveChanges();
 			return RedirectToAction("Index");

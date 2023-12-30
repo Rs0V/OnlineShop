@@ -47,7 +47,7 @@ namespace OnlineShop.Controllers
 								join produs in db.Produse on review.ProdusId equals produs.Id
 								where review.ProdusId == (int)id_bonus
 								orderby produs.Titlu, review.Rating descending, utilizator.Nume, utilizator.Prenume
-                                select review;
+								select review;
 				}
 				else if (tip_idb == "utilizator")
 				{
@@ -75,8 +75,8 @@ namespace OnlineShop.Controllers
 				return RedirectToAction("Index");
 			}
 			if (review.UtilizatorId == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
-                ViewBag.canedit = true;
-            
+				ViewBag.canedit = true;
+			
 			return View(review);
 		}
 
@@ -113,9 +113,9 @@ namespace OnlineShop.Controllers
 			if (review.UtilizatorId == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
 				return View(review);
 
-            TempData["message"] = "Nu aveti dreptul sa editati un review care nu va apartine";
-            return RedirectToAction("Index");
-        }
+			TempData["message"] = "Nu aveti dreptul sa editati un review care nu va apartine";
+			return RedirectToAction("Index");
+		}
 
 		[HttpPost]
 		public ActionResult Edit(string id_utilizator, int id_produs, Review reqReview)
@@ -127,21 +127,21 @@ namespace OnlineShop.Controllers
 				TempData["message"] = "Reviewul cautat nu exista";
 				return RedirectToAction("Index");
 			}
-            if (review.UtilizatorId == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
+			if (review.UtilizatorId == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
 			{
-                if (ModelState.IsValid)
-                {
-                    review.Continut = reqReview.Continut;
+				if (ModelState.IsValid)
+				{
+					review.Continut = reqReview.Continut;
 
-                    db.SaveChanges();
-                    TempData["message"] = "Review-ul a fost modificat!";
-                    return RedirectToAction("Index");
-                }
-                return View(reqReview);
-            }
-            TempData["message"] = "Nu aveti dreptul sa editati un review care nu va apartine";
-            return RedirectToAction("Index");
-        }
+					db.SaveChanges();
+					TempData["message"] = "Review-ul a fost modificat!";
+					return RedirectToAction("Index");
+				}
+				return View(reqReview);
+			}
+			TempData["message"] = "Nu aveti dreptul sa editati un review care nu va apartine";
+			return RedirectToAction("Index");
+		}
 
 		[HttpPost]
 		public ActionResult Delete(string id_utilizator, int id_produs)
@@ -153,15 +153,15 @@ namespace OnlineShop.Controllers
 				TempData["message"] = "Reviewul cautat nu exista";
 				return RedirectToAction("Index");
 			}
-            if (review.UtilizatorId == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
+			if (review.UtilizatorId == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
 			{
-                db.Reviewuri.Remove(review);
-                TempData["message"] = "Review-ul a fost sters!";
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            TempData["message"] = "Nu aveti dreptul sa stergeti un review care nu va apartine";
-            return RedirectToAction("Index");
+				db.Reviewuri.Remove(review);
+				TempData["message"] = "Review-ul a fost sters!";
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			TempData["message"] = "Nu aveti dreptul sa stergeti un review care nu va apartine";
+			return RedirectToAction("Index");
 		}
 	}
 }

@@ -1,7 +1,7 @@
 ﻿@model OnlineShop.Models.Utilizator
 
 @{
-    ViewBag.Titlu = "Adaugare utilizator";
+	ViewBag.Titlu = "Adaugare utilizator";
 }
 
 
@@ -9,45 +9,45 @@
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Utilizatori", method: FormMethod.Post))
 {
-    @Html.Label("Nume", "Nume utilizator")
-    <br />
+	@Html.Label("Nume", "Nume utilizator")
+	<br />
 
-    @Html.TextBox("Nume", null, new { @class = "form-control" })
+	@Html.TextBox("Nume", null, new { @class = "form-control" })
 
-    @Html.ValidationMessageFor(m => m.Nume, null, new { @class = "text-danger" })
-    <br />
-    <br />
-
-
-    @Html.Label("Prenume", "Prenume utilizator")
-    <br />
-
-    @Html.TextBox("Prenume", null, new { @class = "form-control" })
-
-    @Html.ValidationMessageFor(m => m.Prenume, null, new { @class = "text-danger" })
-    <br />
-    <br />
+	@Html.ValidationMessageFor(m => m.Nume, null, new { @class = "text-danger" })
+	<br />
+	<br />
 
 
-    @Html.Label("Telefon", "Telefon utilizator")
-    <br />
+	@Html.Label("Prenume", "Prenume utilizator")
+	<br />
 
-    @Html.TextBox("Telefon", null, new { @class = "form-control" })
+	@Html.TextBox("Prenume", null, new { @class = "form-control" })
 
-    @Html.ValidationMessageFor(m => m.Telefon, null, new { @class = "text-danger" })
-    <br />
-    <br />
-
-
-    @Html.Label("Email", "Email utilizator")
-    <br />
-
-    @Html.TextBox("Email", null, new { @class = "form-control" })
-
-    @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
-    <br />
-    <br />
+	@Html.ValidationMessageFor(m => m.Prenume, null, new { @class = "text-danger" })
+	<br />
+	<br />
 
 
-    <button class="btn btn-success" type="submit">Sign up</button>
+	@Html.Label("Telefon", "Telefon utilizator")
+	<br />
+
+	@Html.TextBox("Telefon", null, new { @class = "form-control" })
+
+	@Html.ValidationMessageFor(m => m.Telefon, null, new { @class = "text-danger" })
+	<br />
+	<br />
+
+
+	@Html.Label("Email", "Email utilizator")
+	<br />
+
+	@Html.TextBox("Email", null, new { @class = "form-control" })
+
+	@Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
+	<br />
+	<br />
+
+
+	<button class="btn btn-success" type="submit">Sign up</button>
 }

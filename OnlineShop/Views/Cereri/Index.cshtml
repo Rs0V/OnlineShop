@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Titlu = "Lista cereri";
+	ViewBag.Titlu = "Lista cereri";
 }
 <br />
 <h2 class="text-center">@ViewBag.Titlu</h2>
@@ -7,51 +7,144 @@
 
 @if (TempData.ContainsKey("message"))
 {
-    <h1>@ViewBag.message</h1>
+	<h1>@ViewBag.message</h1>
 }
 
 <br />
 
 <div class="align-items-center justify-content-center d-flex">
-    <a class="btn btn-success" href="/Cereri/New">Adauga o noua cerere</a>
+	<a class="btn btn-success" href="/Cereri/New">Adauga o noua cerere</a>
 </div>
 
 <br />
 
 @foreach (var cerere in ViewBag.Cereri)
 {
-    @Html.Label("Titlu", "Titlu produs")
-    <p>@cerere.Produs.Titlu</p>
+	@if (cerere.ProdusId == null && cerere.AuxProd != null)
+	{
+		var prod_params = cerere.AuxProd.Split("╚");
+		Produs produs = new Produs
+		{
+			Titlu = prod_params[0],
+			Descriere = prod_params[1],
+			Pret = float.Parse(prod_params[2]),
+			Poza = prod_params[3],
+			Rating = (prod_params[4] != "") ? int.Parse(prod_params[4]) : null,
+			CategorieId = int.Parse(prod_params[5])
+		};
 
-    @Html.Label("Descriere", "Descriere produs")
-    <p>@cerere.Produs.Descriere</p>
+		@Html.Label("Titlu", "Titlu produs")
+		<p>@produs.Titlu</p>
 
-    @Html.Label("Pret", "Pret produs")
-    <p>@cerere.Produs.Pret</p>
+		@Html.Label("Descriere", "Descriere produs")
+		<p>@produs.Descriere</p>
 
-    @Html.Label("Poza", "Poza produs")
-    <img src="@cerere.Produs.Poza"/>
+		@Html.Label("Pret", "Pret produs")
+		<p>@produs.Pret</p>
 
-    @Html.Label("Categorie", "Categorie produs")
-    <p>@ViewBag.Categorii.ToList<Categorie>().Find(cerere.Produs.Id_Categorie).Denumire</p>
+		@Html.Label("Poza", "Poza produs")
+		<img src="@produs.Poza" />
+
+		@Html.Label("Denumire", "Categorie produs")
+		@foreach(var categorie in ViewBag.Categorii)
+		{
+			@if(categorie.Id == produs.CategorieId)
+			{
+				<p>@categorie.Denumire</p>
+			}
+		}
+	}
+	else if (cerere.ProdusId != null && cerere.AuxProd != null)
+	{
+		var prod_params = cerere.AuxProd.Split("╚");
+		Produs produs = new Produs
+		{
+			Titlu = prod_params[0],
+			Descriere = prod_params[1],
+			Pret = float.Parse(prod_params[2]),
+			Poza = prod_params[3],
+			Rating = (prod_params[4] != "") ? int.Parse(prod_params[4]) : null,
+			CategorieId = int.Parse(prod_params[5])
+		};
+
+		@Html.Label("Produs.Titlu", "Titlu produs")
+		<p>@cerere.Produs.Titlu</p>
+		@Html.Label("Titlu", "Titlu nou produs")
+		<p>@produs.Titlu</p>
+
+		@Html.Label("Produs.Descriere", "Descriere produs")
+		<p>@cerere.Produs.Descriere</p>
+		@Html.Label("Descriere", "Descriere noua produs")
+		<p>@produs.Descriere</p>
+
+		@Html.Label("Produs.Pret", "Pret produs")
+		<p>@cerere.Produs.Pret</p>
+		@Html.Label("Pret", "Pret nou produs")
+		<p>@produs.Pret</p>
+
+		@Html.Label("Produs.Poza", "Pret produs")
+		<p>@cerere.Produs.Poza</p>
+		@Html.Label("Poza", "Poza noua produs")
+		<img src="@produs.Poza" />
+
+		@Html.Label("Produs.Categorie.Denumire", "Categorie produs")
+		<p>@cerere.Produs.Categorie.Denumire</p>
+		@Html.Label("Denumire", "Categorie noua produs")
+		@foreach (var categorie in ViewBag.Categorii)
+		{
+			@if (categorie.Id == produs.CategorieId)
+			{
+				<p>@categorie.Denumire</p>
+			}
+		}
+	}
+	else if (cerere.ProdusId != null && cerere.Produs == null)
+	{
+		@Html.Label("Produs.Titlu", "Titlu produs")
+		<p>@cerere.Produs.Titlu</p>
+
+		@Html.Label("Produs.Descriere", "Descriere produs")
+		<p>@cerere.Produs.Descriere</p>
+
+		@Html.Label("Produs.Pret", "Pret produs")
+		<p>@cerere.Produs.Pret</p>
+
+		@Html.Label("Produs.Poza", "Pret produs")
+		<p>@cerere.Produs.Poza</p>
+
+		@Html.Label("Produs.Categorie.Denumire", "Categorie produs")
+		<p>@cerere.Produs.Categorie.Denumire</p>
+	}
+
+	@Html.Label("Info", "Info cerere")
+	<p>@cerere.Info</p>
+
+	@Html.Label("Data", "Data cerere")
+	<p>@cerere.Data</p>
+
+	@Html.Label("Acceptat", "Starea cererii")
+	@switch (cerere.Acceptat)
+	{
+		case Acceptare.Acceptat:
+			<p>Acceptat</p>
+			break;
+		case Acceptare.Respins:
+			<p>Respins</p>
+			break;
+		default:
+			<p>In Asteptare</p>
+			break;
+	}
+	<br />
 
 
-    @Html.Label("Info", "Info cerere")
-    <p>@cerere.Info</p>
-
-    @Html.Label("Data", "Data cerere")
-    <p>@cerere.Data</p>
-
-    <a class="btn alert-success" href="/Cereri/Edit/@cerere.Id">Afisare cerere</a>
-
-    <form method="post" action="/Cereri/Delete/@Model.Id">
-        
-        <button class="btn btn-danger" type="submit">Sterge cererea</button>
-          
-    </form>
-
-    <br />
-    <hr />
-    <br />
+	<a class="btn alert-success" href="/Cereri/Edit/@cerere.Id">Afisare cerere</a>
+	<form method="post" action="/Cereri/Delete/@cerere.Id">
+		
+		<button class="btn btn-danger" type="submit">Sterge cererea</button>
+		  
+	</form>
+	<br />
+	<hr />
+	<br />
 }
-<br />

@@ -24,47 +24,33 @@ namespace OnlineShop.Controllers
 						  orderby produs.Titlu
 						  select produs;
 
-			var categorii = from categorie in db.Categorii
-							join produs in db.Produse on categorie.Id equals produs.Id_Categorie
-							orderby produs.Titlu
-							select categorie;
-
-
-            if (id_categ != null)
+			if (id_categ != null)
 			{
 				produse = from produs in db.Produse
-						  where produs.Id_Categorie == id_categ
+						  where produs.CategorieId == id_categ
 						  orderby produs.Titlu
 						  select produs;
-
-                categorii = from categorie in db.Categorii
-                            join produs in db.Produse on categorie.Id equals produs.Id_Categorie
-                            where produs.Id_Categorie == id_categ
-                            orderby produs.Titlu
-                            select categorie;
-            }
+			}
 			ViewBag.Produse = produse;
-		
-			ViewBag.Categorii = categorii.ToList<Categorie>();
-            
+			
 			return View();
-        }
+		}
 
-        public ActionResult Show(int id)
+		public ActionResult Show(int id)
 		{
 			Produs? produs = db.Produse.Find(id);
 
-            if (produs == null)
-            {
-                TempData["message"] = "Produsul cautat nu exista";
-                return RedirectToAction("Index");
-            }
-            return View(produs);
+			if (produs == null)
+			{
+				TempData["message"] = "Produsul cautat nu exista";
+				return RedirectToAction("Index");
+			}
+			return View(produs);
 		}
 
 		[Authorize(Roles = "Administrator,Colaborator")]
 		public ActionResult New()
-        {
+		{
 			return View();
 		}
 
@@ -76,25 +62,25 @@ namespace OnlineShop.Controllers
 			{
 				if (User.IsInRole("Administrator"))
 				{
-                    db.Produse.Add(produs);
-                    db.SaveChanges();
-                    TempData["message"] = "Produsul a fost adaugat";
-                }
+					db.Produse.Add(produs);
+					db.SaveChanges();
+					TempData["message"] = "Produsul a fost adaugat";
+				}
 				else
 				{
 					Cerere cerere = new Cerere
 					{
 						ProdusId = null,
-						Produs = produs,
+						AuxProd = produs.ToString(),
 						Info = "Cerere adaugare produs",
 						Acceptat = null,
-						Respins = false,
+						//Respins = false,
 						Data = DateTime.Now
 					};
 					db.Cereri.Add(cerere);
 					db.SaveChanges();
-                    TempData["message"] = "Cererea de adaugare a produsului a fost trimisa";
-                }
+					TempData["message"] = "Cererea de adaugare a produsului a fost trimisa";
+				}
 				return RedirectToAction("Index");
 			}
 			return View(produs);
@@ -102,28 +88,28 @@ namespace OnlineShop.Controllers
 
 		[Authorize(Roles = "Administrator,Colaborator")]
 		public ActionResult Edit(int id)
-        {
+		{
 			Produs? produs = db.Produse.Find(id);
 
-            if (produs == null)
-            {
-                TempData["message"] = "Produsul cautat nu exista";
-                return RedirectToAction("Index");
-            }
-            return View(produs);
+			if (produs == null)
+			{
+				TempData["message"] = "Produsul cautat nu exista";
+				return RedirectToAction("Index");
+			}
+			return View(produs);
 		}
 
 		[Authorize(Roles = "Administrator,Colaborator")]
 		[HttpPost]
-        public ActionResult Edit(int id, Produs reqProd)
+		public ActionResult Edit(int id, Produs reqProd)
 		{
 			Produs? produs = db.Produse.Find(id);
 
-            if (produs == null)
-            {
-                TempData["message"] = "Produsul cautat nu exista";
-                return RedirectToAction("Index");
-            }
+			if (produs == null)
+			{
+				TempData["message"] = "Produsul cautat nu exista";
+				return RedirectToAction("Index");
+			}
 			if (User.IsInRole("Administrator"))
 			{
 				if (ModelState.IsValid)
@@ -133,46 +119,46 @@ namespace OnlineShop.Controllers
 					produs.Pret = reqProd.Pret;
 					produs.Poza = reqProd.Poza;
 					produs.Rating = reqProd.Rating;
-					produs.Id_Categorie = reqProd.Id_Categorie;
+					produs.CategorieId = reqProd.CategorieId;
 
 					db.SaveChanges();
 					TempData["message"] = "Produsul a fost modificat!";
-                    return RedirectToAction("Index");
-                }
+					return RedirectToAction("Index");
+				}
 				
-                return View(reqProd);
-                
+				return View(reqProd);
+				
 				
 			}
 			else
 			{
 				Cerere cerere = new Cerere
 				{
-					ProdusId = produs.Id,
-					Produs = reqProd,
+					ProdusId = reqProd.Id,
+					AuxProd = reqProd.ToString(),
 					Info = "Cerere editare produs",
 					Acceptat = null,
-					Respins = false,
+					//Respins = false,
 					Data = DateTime.Now
 				};
 				db.Cereri.Add(cerere);
 				db.SaveChanges();
 				TempData["message"] = "Cererea de editare a produsului a fost trimisa";
 			}
-            return RedirectToAction("Index");
-        }
+			return RedirectToAction("Index");
+		}
 
 		[Authorize(Roles = "Administrator,Colaborator")]
 		[HttpPost]
-        public ActionResult Delete(int id)
+		public ActionResult Delete(int id)
 		{
 			Produs? produs = db.Produse.Find(id);
 
-            if (produs == null)
-            {
-                TempData["message"] = "Produsul cautat nu exista";
-                return RedirectToAction("Index");
-            }
+			if (produs == null)
+			{
+				TempData["message"] = "Produsul cautat nu exista";
+				return RedirectToAction("Index");
+			}
 			if (User.IsInRole("Administrator"))
 			{
 				db.Produse.Remove(produs);
@@ -184,10 +170,10 @@ namespace OnlineShop.Controllers
 				Cerere cerere = new Cerere
 				{
 					ProdusId = produs.Id,
-					Produs = null,
+					AuxProd = null,
 					Info = "Cerere stergere produs",
 					Acceptat = null,
-					Respins = false,
+					//Respins = false,
 					Data = DateTime.Now
 				};
 				db.Cereri.Add(cerere);
@@ -195,6 +181,6 @@ namespace OnlineShop.Controllers
 				TempData["message"] = "Cererea de stergere a produsului a fost trimisa";
 			}
 			return RedirectToAction("Index");
-        }
-    }
+		}
+	}
 }

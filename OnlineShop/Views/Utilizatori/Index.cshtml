@@ -7,51 +7,46 @@
 
 @if (TempData.ContainsKey("message"))
 {
-    <h1>@ViewBag.message</h1>
+	<h1>@ViewBag.message</h1>
 }
 
 <br />
 
 <div class="align-items-center justify-content-center d-flex">
-    <a class="btn btn-success" href="/Utilizatori/New">Adauga un nou utilizator</a>
+	<a class="btn btn-success" href="/Utilizatori/New">Adauga un nou utilizator</a>
 </div>
 
 <br />
 
 @foreach (var utilizator in ViewBag.Utilizatori)
 {
-    /*
-    @Html.Label("Tip", "Tip utilizator")
-    <p>@utilizator.Tip</p>
-    */
+	@Html.Label("Nume", "Nume utilizator")
+	<p>@utilizator.Nume</p>
 
-    @Html.Label("Nume", "Nume utilizator")
-    <p>@utilizator.Nume</p>
+	@Html.Label("Prenume", "Prenume utilizator")
+	<p>@utilizator.Prenume</p>
 
-    @Html.Label("Prenume", "Prenume utilizator")
-    <p>@utilizator.Prenume</p>
+	@Html.Label("Email", "Email utilizator")
+	<p>@utilizator.Email</p>
 
-    @Html.Label("Email", "Email utilizator")
-    <p>@utilizator.Email</p>
+	@Html.Label("Telefon", "Telefon utilizator")
+	@if(utilizator.Telefon == null)
+	{
+		<p>Nu a fost introdus un numar de telefon.</p>
+	}
+	else
+	{
+		<p>@utilizator.Telefon</p>
+	}
 
-    @Html.Label("Telefon", "Telefon utilizator")
-    @if(utilizator.Telefon == null)
-    {
-        <p>Nu a fost introdus un numar de telefon.</p>
-    }
-    else
-    {
-        <p>@utilizator.Telefon</p>
-    }
+	<a class="btn alert-success" href="/Utilizatori/Show/@utilizator.Id">Afisare utilizator</a>
 
-    <a class="btn alert-success" href="/Utilizatori/Show/@utilizator.Id">Afisare utilizator</a>
-
-    @if (User.IsInRole("Administrator"))
-    {
-        <a class="btn alert-success" href="/Utilizatori/Edit/@utilizator.Id">Editare utilizator</a>
-    }
-    <br />
-    <hr /> <!--Thematic break used to separate content-->
-    <br />
+	@if (User.IsInRole("Administrator"))
+	{
+		<a class="btn alert-success" href="/Utilizatori/Edit/@utilizator.Id">Editare utilizator</a>
+	}
+	<br />
+	<hr /> <!--Thematic break used to separate content-->
+	<br />
 }
 <br />

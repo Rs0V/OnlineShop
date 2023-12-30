@@ -68,7 +68,7 @@ namespace OnlineShop.Controllers
 
 		[Authorize(Roles = "Utilizator,Colaborator,Administrator")]
 		[HttpPost]
-        public ActionResult New(Comanda comanda)
+		public ActionResult New(Comanda comanda)
 		{
 			if (ModelState.IsValid)
 			{
@@ -137,12 +137,12 @@ namespace OnlineShop.Controllers
 			}
 			if (comanda.UtilizatorId == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
 			{
-                db.Comenzi.Remove(comanda);
-                TempData["message"] = "Comanda a fost stearsa!";
-                db.SaveChanges();
+				db.Comenzi.Remove(comanda);
+				TempData["message"] = "Comanda a fost stearsa!";
+				db.SaveChanges();
 
-                return RedirectToAction("Index");
-            }
+				return RedirectToAction("Index");
+			}
 			TempData["message"] = "Nu aveti dreptul sa stergeti o comanda care nu va apartine";
 			return RedirectToAction("Index");
 		}

@@ -1,7 +1,7 @@
 ﻿@model OnlineShop.Models.Utilizator
 
 @{
-    ViewBag.Titlu = "Afisare utilizator";
+	ViewBag.Titlu = "Afisare utilizator";
 }
 
 
@@ -12,11 +12,11 @@
 
 @if (ViewBag.goodlog == true || User.IsInRole("Administrator") == true)
 {
-    <form method="post" action="/Utilizatori/Delete/@Model.Id">
+	<form method="post" action="/Utilizatori/Delete/@Model.Id">
 
-        <button class="btn btn-danger" type="submit">Sterge utilizatorul</button>
+		<button class="btn btn-danger" type="submit">Sterge utilizatorul</button>
 
-    </form>
+	</form>
 }
 
 <br />

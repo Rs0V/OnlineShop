@@ -1,25 +1,24 @@
 ﻿@model OnlineShop.Models.Review
 
 @{
-    ViewBag.Titlu = "Afisare review";
+	ViewBag.Titlu = "Afisare review";
 }
 
 
 <h2>@ViewBag.Titlu</h2>
 <br />
 
-<p>@ViewBag.Utilizatori.ToList<Utilizator>().Find(@Model.UtilizatorId).Nume @ViewBag.Utilizatori.ToList<Utilizator>().Find(@Model.UtilizatorId).Prenume
-</p>
-<p>@ViewBag.Produse.ToList<Produs>().Find(@Model.ProdusId).Titlu</p>
+<p>@Model.Utilizator.Nume @Model.Utilizator.Prenume</p>
+<p>@Model.Produs.Titlu</p>
 <p>@Model.Continut</p>
 
 @if (ViewBag.canedit == true)
 {
-    <form method="post" action="/Reviewuri/Delete/@Model.UtilizatorId/@Model.ProdusId">
+	<form method="post" action="/Reviewuri/Delete/@Model.UtilizatorId/@Model.ProdusId">
 
-        <button class="btn btn-danger" type="submit">Sterge review-ul</button>
+		<button class="btn btn-danger" type="submit">Sterge review-ul</button>
 
-    </form>
+	</form>
 }
 
 <br />

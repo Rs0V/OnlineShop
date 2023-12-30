@@ -21,7 +21,7 @@
 @foreach (var exemplar in ViewBag.Exemplare)
 {
 	@Html.Label("Titlu", "Titlu exemplar")
-	<p>@ViewBag.Produse.ToList<Produs>().Find(exemplar.Id_Produs).Titlu</p>
+	<p>@ViewBag.Produse.ToList<Produs>().Find(exemplar.ProdusId).Titlu</p>
 
 	@Html.Label("Numar", "Numar exemplar")
 	<p>@exemplar.Numar_Produs</p>
@@ -29,8 +29,8 @@
 	@Html.Label("Stare", "Stare exemplar")
 	<p>@exemplar.Stare</p>
 
-	@Html.Label("Id Comanda", "Comanda exemplar")
-	<p>@exemplar.Id_Comanda</p>
+	@Html.Label("ComandaId", "Comanda exemplar")
+	<p>@exemplar.ComandaId</p>
 
 	<a class="btn alert-success" href="/Exemplare/Show/@exemplar.Id">Afisare exemplar</a>
 	<a class="btn alert-success" href="/Exemplare/Edit/@exemplar.Id">Editare exemplar</a>

@@ -51,9 +51,9 @@ namespace OnlineShop.Models
 						Prenume = "Admin",
 
 						UserName = "admin@test.com",
-                        NormalizedUserName = "ADMIN@TEST.COM",
+						NormalizedUserName = "ADMIN@TEST.COM",
 
-                        Email = "admin@test.com",
+						Email = "admin@test.com",
 						EmailConfirmed = true,
 						NormalizedEmail = "ADMIN@TEST.COM",
 
@@ -64,45 +64,36 @@ namespace OnlineShop.Models
 					{
 						Id = "8e445865-a24d-4543-a6c6-9443d048cdb1", // primary key
 
-                        Nume = "Colab1",
-                        Prenume = "Colab1",
+						Nume = "Colab1",
+						Prenume = "Colab1",
 
-                        UserName = "colab1@test.com",
-                        NormalizedUserName = "COLAB1@TEST.COM",
+						UserName = "colab1@test.com",
+						NormalizedUserName = "COLAB1@TEST.COM",
 
-                        Email = "colab1@test.com",
-                        EmailConfirmed = true,
-                        NormalizedEmail = "COLAB1@TEST.COM",
+						Email = "colab1@test.com",
+						EmailConfirmed = true,
+						NormalizedEmail = "COLAB1@TEST.COM",
 
-                        PasswordHash = hasher.HashPassword(null, "colab1")
-                    },
+						PasswordHash = hasher.HashPassword(null, "colab1")
+					},
 
 					new Utilizator
 					{ 
 						Id = "8e445865-a24d-4543-a6c6-9443d048cdb2", // primary key
 
-                        Nume = "User1",
-                        Prenume = "User1",
+						Nume = "User1",
+						Prenume = "User1",
 
-                        UserName = "user1@test.com",
-                        NormalizedUserName = "USER1@TEST.COM",
+						UserName = "user1@test.com",
+						NormalizedUserName = "USER1@TEST.COM",
 
-                        Email = "user1@test.com",
-                        EmailConfirmed = true,
-                        NormalizedEmail = "USER1@TEST.COM",
+						Email = "user1@test.com",
+						EmailConfirmed = true,
+						NormalizedEmail = "USER1@TEST.COM",
 
-                        PasswordHash = hasher.HashPassword(null, "user1")
-                    }
+						PasswordHash = hasher.HashPassword(null, "user1")
+					}
 				);
-
-				//context.Users.ToList<Utilizator>().ElementAt(0).PasswordHash =
-				//	hasher.HashPassword(context.Users.ToList<Utilizator>().ElementAt(0), "admin");
-
-				//context.Users.ToList<Utilizator>().ElementAt(1).PasswordHash =
-				//	hasher.HashPassword(context.Users.ToList<Utilizator>().ElementAt(1), "colab1");
-
-				//context.Users.ToList<Utilizator>().ElementAt(2).PasswordHash =
-				//	hasher.HashPassword(context.Users.ToList<Utilizator>().ElementAt(2), "user1");
 
 				// ASOCIEREA USER-ROLE
 				context.UserRoles.AddRange(

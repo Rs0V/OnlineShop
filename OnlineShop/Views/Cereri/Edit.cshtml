@@ -1,7 +1,7 @@
 ﻿@model OnlineShop.Models.Cerere
 
 @{
-    ViewBag.Titlu = "Editare cerere";
+	ViewBag.Titlu = "Editare cerere";
 }
 
 
@@ -9,43 +9,119 @@
 
 @using (Html.BeginForm(controllerName: "Cereri", actionName: "Edit", method: FormMethod.Post, routeValues: new { id = Model.Id }))
 {
-    @Html.Label("Titlu", "Titlu produs")
-    <p>@Model.Produs.Titlu</p>
+	@if(Model.ProdusId == null && Model.AuxProd != null)
+	{
+		var prod_params = Model.AuxProd.Split("╚");
+		Produs produs = new Produs
+		{
+			Titlu = prod_params[0],
+			Descriere = prod_params[1],
+			Pret = float.Parse(prod_params[2]),
+			Poza = prod_params[3],
+			Rating = (prod_params[4] != "") ? int.Parse(prod_params[4]) : null,
+			CategorieId = int.Parse(prod_params[5])
+		};
 
-    @Html.Label("Descriere", "Descriere produs")
-    <p>@Model.Produs.Descriere</p>
+		@Html.Label("Titlu", "Titlu produs")
+		<p>@produs.Titlu</p>
 
-    @Html.Label("Pret", "Pret produs")
-    <p>@Model.Produs.Pret</p>
+		@Html.Label("Descriere", "Descriere produs")
+		<p>@produs.Descriere</p>
 
-    @Html.Label("Poza", "Poza produs")
-    <img src="@Model.Produs.Poza" />
+		@Html.Label("Pret", "Pret produs")
+		<p>@produs.Pret</p>
 
-    @Html.Label("Categorie", "Categorie produs")
-    <p>@ViewBag.Categorii.ToList<Categorie>().Find(Model.Produs.Id_Categorie).Denumire</p>
+		@Html.Label("Poza", "Poza produs")
+		<img src="@produs.Poza" />
+
+		@Html.Label("Denumire", "Categorie produs")
+		@foreach (var categorie in ViewBag.Categorii)
+		{
+			@if (categorie.Id == produs.CategorieId)
+			{
+				<p>@categorie.Denumire</p>
+			}
+		}
+	}
+	else if (Model.ProdusId != null && Model.AuxProd != null)
+	{
+		var prod_params = Model.AuxProd.Split("╚");
+		Produs produs = new Produs
+		{
+			Titlu = prod_params[0],
+			Descriere = prod_params[1],
+			Pret = float.Parse(prod_params[2]),
+			Poza = prod_params[3],
+			Rating = (prod_params[4] != "") ? int.Parse(prod_params[4]) : null,
+			CategorieId = int.Parse(prod_params[5])
+		};
+
+		@Html.Label("Produs.Titlu", "Titlu produs")
+		<p>@Model.Produs.Titlu</p>
+		@Html.Label("Titlu", "Titlu nou produs")
+		<p>@produs.Titlu</p>
+
+		@Html.Label("Produs.Descriere", "Descriere produs")
+		<p>@Model.Produs.Descriere</p>
+		@Html.Label("Descriere", "Descriere noua produs")
+		<p>@produs.Descriere</p>
+
+		@Html.Label("Produs.Pret", "Pret produs")
+		<p>@Model.Produs.Pret</p>
+		@Html.Label("Pret", "Pret nou produs")
+		<p>@produs.Pret</p>
+
+		@Html.Label("Produs.Poza", "Pret produs")
+		<p>@Model.Produs.Poza</p>
+		@Html.Label("Poza", "Poza noua produs")
+		<img src="@produs.Poza" />
+
+		@Html.Label("Produs.Categorie.Denumire", "Categorie produs")
+		<p>@Model.Produs.Categorie.Denumire</p>
+		@Html.Label("Denumire", "Categorie noua produs")
+		@foreach (var categorie in ViewBag.Categorii)
+		{
+			@if (categorie.Id == produs.CategorieId)
+			{
+				<p>@categorie.Denumire</p>
+			}
+		}
+	}
+	else if (Model.ProdusId != null && Model.Produs == null)
+	{
+		@Html.Label("Produs.Titlu", "Titlu produs")
+		<p>@Model.Produs.Titlu</p>
+
+		@Html.Label("Produs.Descriere", "Descriere produs")
+		<p>@Model.Produs.Descriere</p>
+
+		@Html.Label("Produs.Pret", "Pret produs")
+		<p>@Model.Produs.Pret</p>
+
+		@Html.Label("Produs.Poza", "Pret produs")
+		<p>@Model.Produs.Poza</p>
+
+		@Html.Label("Produs.Categorie.Denumire", "Categorie produs")
+		<p>@Model.Produs.Categorie.Denumire</p>
+	}
+
+	@Html.Label("Info", "Info cerere")
+	<p>@Model.Info</p>
+
+	@Html.Label("Data", "Data cerere")
+	<p>@Model.Data</p>
 
 
-    @Html.Label("Info", "Info cerere")
-    <p>@Model.Info</p>
-
-    @Html.Label("Data", "Data cerere")
-    <p>@Model.Data</p>
+	<br />
 
 
-
-    <br />
-    @Html.Editor("Acceptat")
-
-    @Html.ValidationMessageFor(m => m.Acceptat, null, new { @class = "text-danger" })
-    <br />
-    <br />
-
-
-    
+	@Html.LabelFor(model => model.Acceptat, "Stare cerere")
+	<br />
+	@Html.EditorFor(model => model.Acceptat)
+	@Html.ValidationMessageFor(m => m.Acceptat, null, new { @class = "text-danger" })
+	<br />
+	<br />
 
 
-    <button class="btn btn-success" type="submit">Modifica cererea</button>
+	<button class="btn btn-success" type="submit">Modifica cererea</button>
 }
-
-
-
