@@ -41,6 +41,7 @@ namespace OnlineShop.Models
 		{
 			string conv = "";
 
+			conv += Id.ToString() + "╚";
 			conv += Titlu + "╚";
 			conv += Descriere + "╚";
 			conv += Pret.ToString() + "╚";

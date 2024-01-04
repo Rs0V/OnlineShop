@@ -14,12 +14,13 @@ namespace OnlineShop.Controllers
 			var prod_params = str.Split("╚");
 			Produs produs = new Produs
 			{
-				Titlu = prod_params[0],
-				Descriere = prod_params[1],
-				Pret = float.Parse(prod_params[2]),
-				Poza = prod_params[3],
-				Rating = (prod_params[4] != "") ? int.Parse(prod_params[4]) : null,
-				CategorieId = int.Parse(prod_params[5])
+				Id = int.Parse(prod_params[0]),
+				Titlu = prod_params[1],
+				Descriere = prod_params[2],
+				Pret = float.Parse(prod_params[3]),
+				Poza = prod_params[4],
+				Rating = (prod_params[5] != "") ? int.Parse(prod_params[5]) : null,
+				CategorieId = int.Parse(prod_params[6])
 			};
 			return produs;
 		}
@@ -45,7 +46,11 @@ namespace OnlineShop.Controllers
 			var categorii = from categorie in db.Categorii
 							select categorie;
 
+			var produse = from produs in db.Produse
+							select produs;
+
 			ViewBag.Cereri = cereri;
+			ViewBag.Produse = produse;
 			ViewBag.Categorii = categorii;
 			return View();
 		}
@@ -60,11 +65,19 @@ namespace OnlineShop.Controllers
 				TempData["message"] = "Cererea nu exista";
 				return RedirectToAction("Index");
 			}
-
+			if (cerere.Acceptat != Acceptare.In_Asteptare)
+			{
+				TempData["message"] = "Cererea nu mai poate fi modificata";
+				return RedirectToAction("Index");
+			}
 			var categorii = from categorie in db.Categorii
 							select categorie;
-			ViewBag.Categorii = categorii;
 
+			var produse = from produs in db.Produse
+						  select produs;
+
+			ViewBag.Categorii = categorii;
+			ViewBag.Produse = produse;
 			return View(cerere);
 		}
 
@@ -82,38 +95,41 @@ namespace OnlineShop.Controllers
 			cerere.Acceptat = request.Acceptat;
 			//if (ModelState.IsValid)
 			{
-				//cerere.ProdusId = request.ProdusId;
-				//cerere.AuxProd = request.AuxProd;
-				//cerere.Acceptat = request.Acceptat;
-				////cerere.Respins = request.Respins;
-				//cerere.Data = request.Data;
-				//cerere.Info = request.Info;
-
 				TempData["message"] = "Cererea a fost modificata!";
 
 				if (cerere.Acceptat == Acceptare.Acceptat)
 				{
 					if (cerere.ProdusId == null && cerere.AuxProd != null)
 					{
-						db.Produse.Add(String2Produs(cerere.AuxProd));
+						var auxProd = String2Produs(cerere.AuxProd);
+
+						db.Produse.Add(auxProd);
 						TempData["message"] += " Produsul a fost adaugat";
 					}
 					else if (cerere.ProdusId != null && cerere.AuxProd != null)
 					{
 						var auxProd = String2Produs(cerere.AuxProd);
 
-						cerere.Produs.Titlu = auxProd.Titlu;
-						cerere.Produs.Descriere = auxProd.Descriere;
-						cerere.Produs.Pret = auxProd.Pret;
-						cerere.Produs.Poza = auxProd.Poza;
-						cerere.Produs.Rating = auxProd.Rating;
-						cerere.Produs.CategorieId = auxProd.CategorieId;
+						var produs = (from p in db.Produse
+									  where p.Id == cerere.ProdusId
+									  select p).ToList().ElementAt(0);
+
+						produs.Titlu = auxProd.Titlu;
+						produs.Descriere = auxProd.Descriere;
+						produs.Pret = auxProd.Pret;
+						produs.Poza = auxProd.Poza;
+						produs.Rating = auxProd.Rating;
+						produs.CategorieId = auxProd.CategorieId;
 
 						TempData["message"] += " Produsul a fost editat!";
 					}
 					else if (cerere.ProdusId != null && cerere.Produs == null)
 					{
-						db.Produse.Remove(cerere.Produs);
+						var produs = (from p in db.Produse
+									  where p.Id == cerere.ProdusId
+									  select p).ToList().ElementAt(0);
+
+						db.Produse.Remove(produs);
 						TempData["message"] = "Produsul a fost sters!";
 					}
 				}

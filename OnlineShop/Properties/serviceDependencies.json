@@ -2,7 +2,7 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:OnlineShopDB7"
+      "connectionId": "ConnectionStrings:OnlineShopDB10"
     }
   }
 }

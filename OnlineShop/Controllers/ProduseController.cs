@@ -31,8 +31,11 @@ namespace OnlineShop.Controllers
 						  orderby produs.Titlu
 						  select produs;
 			}
+			var categorii = from categorie in db.Categorii
+							select categorie;
+
 			ViewBag.Produse = produse;
-			
+			ViewBag.Categorii = categorii;
 			return View();
 		}
 
@@ -73,7 +76,7 @@ namespace OnlineShop.Controllers
 						ProdusId = null,
 						AuxProd = produs.ToString(),
 						Info = "Cerere adaugare produs",
-						Acceptat = null,
+						Acceptat = Acceptare.In_Asteptare,
 						//Respins = false,
 						Data = DateTime.Now
 					};
@@ -125,10 +128,7 @@ namespace OnlineShop.Controllers
 					TempData["message"] = "Produsul a fost modificat!";
 					return RedirectToAction("Index");
 				}
-				
 				return View(reqProd);
-				
-				
 			}
 			else
 			{
@@ -137,7 +137,7 @@ namespace OnlineShop.Controllers
 					ProdusId = reqProd.Id,
 					AuxProd = reqProd.ToString(),
 					Info = "Cerere editare produs",
-					Acceptat = null,
+					Acceptat = Acceptare.In_Asteptare,
 					//Respins = false,
 					Data = DateTime.Now
 				};
@@ -172,7 +172,7 @@ namespace OnlineShop.Controllers
 					ProdusId = produs.Id,
 					AuxProd = null,
 					Info = "Cerere stergere produs",
-					Acceptat = null,
+					Acceptat = Acceptare.In_Asteptare,
 					//Respins = false,
 					Data = DateTime.Now
 				};

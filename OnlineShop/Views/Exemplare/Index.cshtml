@@ -21,7 +21,13 @@
 @foreach (var exemplar in ViewBag.Exemplare)
 {
 	@Html.Label("Titlu", "Titlu exemplar")
-	<p>@ViewBag.Produse.ToList<Produs>().Find(exemplar.ProdusId).Titlu</p>
+	@foreach (var produs in ViewBag.Produse)
+	{
+		@if(produs.Id == exemplar.ProdusId)
+		{
+			<p>@produs.Titlu</p>
+		}
+	}
 
 	@Html.Label("Numar", "Numar exemplar")
 	<p>@exemplar.Numar_Produs</p>

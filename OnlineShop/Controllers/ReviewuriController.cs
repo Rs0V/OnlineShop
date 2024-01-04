@@ -59,7 +59,15 @@ namespace OnlineShop.Controllers
 								select review;
 				}
 			}
+			var utilizatori = from utilizator in db.Utilizatori
+							  select utilizator;
+
+			var produse = from produs in db.Produse
+						  select produs;
+
 			ViewBag.Reviewuri = reviewuri;
+			ViewBag.Utilizatori = utilizatori;
+			ViewBag.Produse = produse;
 			ViewBag.userManager = _userManager;
 			return View();
 		}
@@ -76,7 +84,15 @@ namespace OnlineShop.Controllers
 			}
 			if (review.UtilizatorId == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
 				ViewBag.canedit = true;
-			
+
+			var utilizatori = from utilizator in db.Utilizatori
+							  select utilizator;
+
+			var produse = from produs in db.Produse
+						  select produs;
+
+			ViewBag.Utilizatori = utilizatori;
+			ViewBag.Produse = produse;
 			return View(review);
 		}
 

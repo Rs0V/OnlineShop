@@ -8,8 +8,21 @@
 <h2>@ViewBag.Titlu</h2>
 <br />
 
-<p>@Model.Utilizator.Nume @Model.Utilizator.Prenume</p>
-<p>@Model.Produs.Titlu</p>
+@foreach (var utilizatori in ViewBag.Utilizatori)
+{
+	@if (utilizatori.Id == Model.UtilizatorId)
+	{
+		<p>@utilizatori.Nume @utilizatori.Prenume</p>
+	}
+}
+@Html.Label("Titlu ", "Review produs")
+@foreach (var produs in ViewBag.Produse)
+{
+	@if (produs.Id == Model.ProdusId)
+	{
+		<p>@produs.Titlu</p>
+	}
+}
 <p>@Model.Continut</p>
 
 @if (ViewBag.canedit == true)

@@ -8,7 +8,13 @@
 <h2>@ViewBag.Titlu</h2>
 <br />
 
-<p>@ViewBag.Produse.ToList<Produs>().Find(@Model.ProdusId).Titlu</p>
+@foreach (var produs in ViewBag.Produse)
+{
+	@if (produs.Id == @Model.ProdusId)
+	{
+		<p>@produs.Titlu</p>
+	}
+}
 <p>@Model.Numar_Produs</p>
 
 @if (User.IsInRole("Administrator"))

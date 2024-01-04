@@ -40,7 +40,12 @@ namespace OnlineShop.Controllers
 						  orderby utilizator.Nume, utilizator.Prenume, comanda.Data descending
 						  select comanda;
 			}
+
+			var utilizatori = from utilizator in db.Utilizatori
+							  select utilizator;
+
 			ViewBag.Comenzi = comenzi;
+			ViewBag.Utilizatori = utilizatori;
 			return View();
 		}
 

@@ -12,32 +12,34 @@
 	@if(Model.ProdusId == null && Model.AuxProd != null)
 	{
 		var prod_params = Model.AuxProd.Split("╚");
-		Produs produs = new Produs
+		Produs auxprod = new Produs
 		{
-			Titlu = prod_params[0],
-			Descriere = prod_params[1],
-			Pret = float.Parse(prod_params[2]),
-			Poza = prod_params[3],
-			Rating = (prod_params[4] != "") ? int.Parse(prod_params[4]) : null,
-			CategorieId = int.Parse(prod_params[5])
+			Id = int.Parse(prod_params[0]),
+			Titlu = prod_params[1],
+			Descriere = prod_params[2],
+			Pret = float.Parse(prod_params[3]),
+			Poza = prod_params[4],
+			Rating = (prod_params[5] != "") ? int.Parse(prod_params[5]) : null,
+			CategorieId = int.Parse(prod_params[6])
 		};
 
+
 		@Html.Label("Titlu", "Titlu produs")
-		<p>@produs.Titlu</p>
+		<p>@auxprod.Titlu</p>
 
 		@Html.Label("Descriere", "Descriere produs")
-		<p>@produs.Descriere</p>
+		<p>@auxprod.Descriere</p>
 
 		@Html.Label("Pret", "Pret produs")
-		<p>@produs.Pret</p>
+		<p>@auxprod.Pret</p>
 
 		@Html.Label("Poza", "Poza produs")
-		<img src="@produs.Poza" />
+		<img src="@auxprod.Poza" />
 
 		@Html.Label("Denumire", "Categorie produs")
 		@foreach (var categorie in ViewBag.Categorii)
 		{
-			@if (categorie.Id == produs.CategorieId)
+			@if (categorie.Id == auxprod.CategorieId)
 			{
 				<p>@categorie.Denumire</p>
 			}
@@ -46,39 +48,87 @@
 	else if (Model.ProdusId != null && Model.AuxProd != null)
 	{
 		var prod_params = Model.AuxProd.Split("╚");
-		Produs produs = new Produs
+		Produs auxprod = new Produs
 		{
-			Titlu = prod_params[0],
-			Descriere = prod_params[1],
-			Pret = float.Parse(prod_params[2]),
-			Poza = prod_params[3],
-			Rating = (prod_params[4] != "") ? int.Parse(prod_params[4]) : null,
-			CategorieId = int.Parse(prod_params[5])
+			Id = int.Parse(prod_params[0]),
+			Titlu = prod_params[1],
+			Descriere = prod_params[2],
+			Pret = float.Parse(prod_params[3]),
+			Poza = prod_params[4],
+			Rating = (prod_params[5] != "") ? int.Parse(prod_params[5]) : null,
+			CategorieId = int.Parse(prod_params[6])
 		};
+		Produs produs = new Produs();
+		@foreach (var p in ViewBag.Produse)
+		{
+			@if (p.Id == Model.ProdusId)
+			{
+				produs = p;
+			}
+		}
 
 		@Html.Label("Produs.Titlu", "Titlu produs")
-		<p>@Model.Produs.Titlu</p>
+		<p>@produs.Titlu</p>
 		@Html.Label("Titlu", "Titlu nou produs")
+		<p>@auxprod.Titlu</p>
+
+		@Html.Label("Produs.Descriere", "Descriere produs")
+		<p>@produs.Descriere</p>
+		@Html.Label("Descriere", "Descriere noua produs")
+		<p>@auxprod.Descriere</p>
+
+		@Html.Label("Produs.Pret", "Pret produs")
+		<p>@produs.Pret</p>
+		@Html.Label("Pret", "Pret nou produs")
+		<p>@auxprod.Pret</p>
+
+		@Html.Label("Produs.Poza", "Poza produs")
+		<img src="@produs.Poza" />
+		@Html.Label("Poza", "Poza noua produs")
+		<img src="@auxprod.Poza" />
+
+		@Html.Label("Produs.Categorie.Denumire", "Categorie produs")
+		@foreach (var categorie in ViewBag.Categorii)
+		{
+			@if (categorie.Id == produs.CategorieId)
+			{
+				<p>@categorie.Denumire</p>
+			}
+		}
+		@Html.Label("Denumire", "Categorie noua produs")
+		@foreach (var categorie in ViewBag.Categorii)
+		{
+			@if (categorie.Id == auxprod.CategorieId)
+			{
+				<p>@categorie.Denumire</p>
+			}
+		}
+	}
+	else if (Model.ProdusId != null && Model.Produs == null)
+	{
+		Produs produs = new Produs();
+		@foreach (var p in ViewBag.Produse)
+		{
+			@if (p.Id == Model.ProdusId)
+			{
+				produs = p;
+			}
+		}
+
+		@Html.Label("Produs.Titlu", "Titlu produs")
 		<p>@produs.Titlu</p>
 
 		@Html.Label("Produs.Descriere", "Descriere produs")
-		<p>@Model.Produs.Descriere</p>
-		@Html.Label("Descriere", "Descriere noua produs")
 		<p>@produs.Descriere</p>
 
 		@Html.Label("Produs.Pret", "Pret produs")
-		<p>@Model.Produs.Pret</p>
-		@Html.Label("Pret", "Pret nou produs")
 		<p>@produs.Pret</p>
 
-		@Html.Label("Produs.Poza", "Pret produs")
-		<p>@Model.Produs.Poza</p>
-		@Html.Label("Poza", "Poza noua produs")
+		@Html.Label("Poza", "Poza produs")
 		<img src="@produs.Poza" />
 
+
 		@Html.Label("Produs.Categorie.Denumire", "Categorie produs")
-		<p>@Model.Produs.Categorie.Denumire</p>
-		@Html.Label("Denumire", "Categorie noua produs")
 		@foreach (var categorie in ViewBag.Categorii)
 		{
 			@if (categorie.Id == produs.CategorieId)
@@ -87,24 +137,6 @@
 			}
 		}
 	}
-	else if (Model.ProdusId != null && Model.Produs == null)
-	{
-		@Html.Label("Produs.Titlu", "Titlu produs")
-		<p>@Model.Produs.Titlu</p>
-
-		@Html.Label("Produs.Descriere", "Descriere produs")
-		<p>@Model.Produs.Descriere</p>
-
-		@Html.Label("Produs.Pret", "Pret produs")
-		<p>@Model.Produs.Pret</p>
-
-		@Html.Label("Produs.Poza", "Pret produs")
-		<p>@Model.Produs.Poza</p>
-
-		@Html.Label("Produs.Categorie.Denumire", "Categorie produs")
-		<p>@Model.Produs.Categorie.Denumire</p>
-	}
-
 	@Html.Label("Info", "Info cerere")
 	<p>@Model.Info</p>
 

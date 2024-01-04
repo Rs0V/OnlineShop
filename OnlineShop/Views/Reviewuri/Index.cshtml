@@ -21,10 +21,22 @@
 @foreach (var review in ViewBag.Reviewuri)
 {
 	@Html.Label("Nume", "Review utilizator")
-	<p>@review.Utilizator.Nume @review.Utilizator.Prenume</p>
+	@foreach (var utilizatori in ViewBag.Utilizatori)
+	{
+		@if (utilizatori.Id == review.UtilizatorId)
+		{
+			<p>@utilizatori.Nume @utilizatori.Prenume</p>
+		}
+	}
 
 	@Html.Label("Titlu ", "Review produs")
-	<p>@review.Produs.Titlu</p>
+	@foreach (var produs in ViewBag.Produse)
+	{
+		@if (produs.Id == review.ProdusId)
+		{
+			<p>@produs.Titlu</p>
+		}
+	}
 
 	@Html.Label("Rating", "Review rating")
 	@for (int i = 1; i <= 5; ++i)
@@ -53,7 +65,6 @@
 	{
 		<a class="btn alert-success" href="/Reviewuri/Edit/@review.Id">Editare review</a>
 	}
-	
 	<br />
 	<hr />
 	<br />

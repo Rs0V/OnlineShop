@@ -26,7 +26,11 @@ namespace OnlineShop.Controllers
 							orderby produs.Titlu, exemplar.Numar_Produs
 							select exemplar;
 
+			var produse = from produs in db.Produse
+						  select produs;
+
 			ViewBag.Exemplare = exemplare;
+			ViewBag.Produse = produse;
 			return View();
 		}
 
@@ -40,6 +44,11 @@ namespace OnlineShop.Controllers
 				TempData["message"] = "Exemplarul cautat nu exista";
 				return RedirectToAction("Index");
 			}
+
+			var produse = from produs in db.Produse
+						  select produs;
+			ViewBag.Produse = produse;
+
 			return View(exemplar);
 		}
 

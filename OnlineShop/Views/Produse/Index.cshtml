@@ -37,7 +37,13 @@
 
 
 	@Html.Label("Denumire", "Categorie produs")
-	<p>@produs.Categorie.Denumire</p>
+	@foreach(var categorie in ViewBag.Categorii)
+	{
+		@if(categorie.Id == produs.CategorieId)
+		{
+			<p>@categorie.Denumire</p>
+		}
+	}
 
 	<a class="btn alert-success" href="/Produse/Show/@produs.Id">Afisare produs</a>
 

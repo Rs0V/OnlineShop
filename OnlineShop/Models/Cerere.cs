@@ -28,7 +28,7 @@ namespace OnlineShop.Models
 		public string? Info { get; set; }
 
 		// [Required(ErrorMessage = "Statusul de acceptat este obligatoriu")]
-		public Acceptare? Acceptat { get; set; }
+		public Acceptare Acceptat { get; set; }
 
 		//[Required(ErrorMessage = "Statusul de respins este obligatoriu")]
 		//public bool Respins { get; set; }

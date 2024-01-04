@@ -30,8 +30,13 @@
 	<p>@comanda.Valoare</p>
 
 	@Html.Label("Nume", "Utilizator comanda")
-	<p>@comanda.Utilizator.Nume @comanda.Utilizator.Prenume</p>
-
+	@foreach(var utilizator in ViewBag.Utilizatori)
+	{
+		@if(utilizator.Id == comanda.UtilizatorId)
+		{
+			<p>@utilizator.Nume @utilizator.Prenume</p>
+		}
+	}
 	<a class="btn alert-success" href="/Comenzi/Show/@comanda.Id">Afisare comanda</a>
 	<a class="btn alert-success" href="/Comenzi/Edit/@comanda.Id">Editare comanda</a>
 	<br />
