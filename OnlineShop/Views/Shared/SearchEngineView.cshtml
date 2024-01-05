@@ -1,0 +1,71 @@
+﻿
+@*
+<form method="get" action="/Produse/Index">
+    <input class="search-bar"
+        type="text"
+        placeholder="Cauta un produs"
+        name="search"
+        value="@ViewBag.SearchString"
+        spellcheck="false" />
+    <div class="search-btn-box">
+        <button class="search-btn" type="submit" />
+        <img class="search-btn-icon" src="https://static.vecteezy.com/system/resources/previews/009/589/789/original/magnifying-icon-magnifying-clipart-transparent-free-png.png" />
+    </div>
+</form>
+*@
+
+
+<form method="get" action="/Produse/Index" class="input-group mb-3">
+    <input type="text" class="form-control"
+           placeholder="Cauta un produs" name="search"
+           value="@ViewBag.SearchString"
+           spellcheck="false">
+
+    <select id="sort-value" name="sort-value" class="form-control">
+        @if(ViewBag.FilterValue == "titlu")
+        {
+            <option value="titlu" selected>Titlu</option>
+        }
+        else
+        {
+            <option value="titlu">Titlu</option>
+        }
+        @if (ViewBag.FilterValue == "pret")
+        {
+            <option value="pret" selected>Pret</option>
+        }
+        else
+        {
+            <option value="pret">Pret</option>
+        }
+        @if (ViewBag.FilterValue == "rating")
+        {
+            <option value="rating" selected>Rating</option>
+        }
+        else
+        {
+            <option value="rating">Rating</option>
+        }
+    </select>
+
+    <select id="sort-order" name="sort-order" class="form-control">
+        @if (ViewBag.FilterOrder == "cresc")
+        {
+            <option value="cresc" selected>Crescator</option>
+        }
+        else
+        {
+            <option value="cresc">Crescator</option>
+        }
+        @if (ViewBag.FilterOrder == "desc")
+        {
+            <option value="desc" selected>Descrescator</option>
+        }
+        else
+        {
+            <option value="desc">Descrescator</option>
+        }
+    </select>
+
+    <button class="btn btn-outline-success" type="submit">🔍</button>
+</form>
