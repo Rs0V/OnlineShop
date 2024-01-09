@@ -117,3 +117,52 @@ body {
     width: 92px;
     height: 92px;
 }
+
+/* Search Engine View Design */
+
+.container {
+    display: inline-flex;
+    height: 35px;
+    margin-top: 20px;
+    margin-left: 800px;
+}
+
+.search-bars, .search-icon {
+    border: 1px solid black;
+    border-radius: 30px;
+    background-color: rgba(255, 106, 0, 0.2);
+    font-weight: 700;
+    text-align: center;
+    font-size: 15px;
+}
+
+.search-icon {
+    width: auto;
+    border-radius: 100%;
+    background-color:rgba(0, 255, 239, 0.2);
+    margin-left: 40px;
+}
+
+.container > input {
+    width: 240px;
+    font-style: italic;
+    margin-left: 35px;
+    margin-right: 35px;
+    background-color: rgba(163, 163, 163, 0.2);
+}
+
+.container > select {
+    width: 120px;
+}
+
+#sort-value {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    margin-right: 0;
+}
+
+#sort-order {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    margin-left: 0;
+}

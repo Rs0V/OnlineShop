@@ -16,56 +16,66 @@
 
 
 <form method="get" action="/Produse/Index" class="input-group mb-3">
-    <input type="text" class="form-control"
-           placeholder="Cauta un produs" name="search"
-           value="@ViewBag.SearchString"
-           spellcheck="false">
 
-    <select id="sort-value" name="sort-value" class="form-control">
-        @if(ViewBag.FilterValue == "titlu")
-        {
-            <option value="titlu" selected>Titlu</option>
-        }
-        else
-        {
-            <option value="titlu">Titlu</option>
-        }
-        @if (ViewBag.FilterValue == "pret")
-        {
-            <option value="pret" selected>Pret</option>
-        }
-        else
-        {
-            <option value="pret">Pret</option>
-        }
-        @if (ViewBag.FilterValue == "rating")
-        {
-            <option value="rating" selected>Rating</option>
-        }
-        else
-        {
-            <option value="rating">Rating</option>
-        }
-    </select>
 
-    <select id="sort-order" name="sort-order" class="form-control">
-        @if (ViewBag.FilterOrder == "cresc")
-        {
-            <option value="cresc" selected>Crescator</option>
-        }
-        else
-        {
-            <option value="cresc">Crescator</option>
-        }
-        @if (ViewBag.FilterOrder == "desc")
-        {
-            <option value="desc" selected>Descrescator</option>
-        }
-        else
-        {
-            <option value="desc">Descrescator</option>
-        }
-    </select>
+    <div class="container">
+        <input type="text" class="form-control search-bars"
+               placeholder="Cauta un produs" name="search"
+               value="@ViewBag.SearchString"
+               spellcheck="false">
 
-    <button class="btn btn-outline-success" type="submit">🔍</button>
+        <select id="sort-value" name="sort-value" class="form-control search-bars">
+            @if (ViewBag.FilterValue == "titlu")
+            {
+                <option value="titlu" selected>Titlu</option>
+            }
+            else
+            {
+                <option value="titlu">Titlu</option>
+            }
+            @if (ViewBag.FilterValue == "pret")
+            {
+                <option value="pret" selected>Pret</option>
+            }
+            else
+            {
+                <option value="pret">Pret</option>
+            }
+            @if (ViewBag.FilterValue == "rating")
+            {
+                <option value="rating" selected>Rating</option>
+            }
+            else
+            {
+                <option value="rating">Rating</option>
+            }
+        </select>
+
+        <select id="sort-order" name="sort-order" class="form-control search-bars">
+            @if (ViewBag.FilterOrder == "cresc")
+            {
+                <option value="cresc" selected>Crescator</option>
+            }
+            else
+            {
+                <option value="cresc">Crescator</option>
+            }
+            @if (ViewBag.FilterOrder == "desc")
+            {
+                <option value="desc" selected>Descrescator</option>
+            }
+            else
+            {
+                <option value="desc">Descrescator</option>
+            }
+        </select>
+
+        <button class="btn btn-outline-success search-icon" type="submit">🔍</button>
+
+    </div>
+    
+    
+    
+
+   
 </form>
