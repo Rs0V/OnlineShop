@@ -46,7 +46,7 @@
 {
 	<a class="btn alert-success" href="/Reviewuri/Edit/@Model.UtilizatorId/@Model.ProdusId">Editare review</a>
 
-	<form method="post" action="/Reviewuri/Delete/@Model.UtilizatorId/@Model.ProdusId">
+	<form method="post" action="/Reviewuri/Delete?id_utilizator=@Model.UtilizatorId&id_produs=@Model.ProdusId">
 
 		<button class="btn btn-danger" type="submit">Sterge review-ul</button>
 
@@ -54,7 +54,7 @@
 }
 
 <br />
-<a class="btn alert-success" href="/Reviewuri/Index/">Afisare lista review-uri</a>
+<a class="btn alert-success" href="/Reviewuri/Index">Afisare lista review-uri</a>
 
 <br />
 <hr />

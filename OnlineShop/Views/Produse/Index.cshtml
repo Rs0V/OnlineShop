@@ -20,17 +20,11 @@
 
 @foreach (var produs in ViewBag.Produse)
 {
-	@*@Html.Label("Rating", "Rating produs")*@
 	<p>@produs.Rating</p>
 
-	@*@Html.Label("Poza", "Poza produs")*@
 	<img class="prod-img" src="@produs.Poza" />
 
-	@*@Html.Label("Titlu", "Titlu produs")*@
 	<p>@produs.Titlu</p>
-
-	//@Html.Label("Descriere", "Descriere produs")
-	//<p>@produs.Descriere</p>
 
 	@Html.Label("Pret", "Pret produs")
 	<p>@produs.Pret</p>

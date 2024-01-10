@@ -4,7 +4,7 @@
 
 
 
-@using (Html.BeginForm(controllerName: "Reviewuri", actionName: "Edit", method: FormMethod.Post, routeValues: new { utilizatorId = Model.UtilizatorId, produsId = Model.ProdusId }))
+@using (Html.BeginForm(controllerName: "Reviewuri", actionName: "Edit", method: FormMethod.Post, routeValues: new { id_utilizator = Model.UtilizatorId, id_produs = Model.ProdusId }))
 {
 	@Html.Label("Rating", "Rating review")
 	<br />

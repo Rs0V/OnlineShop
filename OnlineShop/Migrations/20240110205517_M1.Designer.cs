@@ -12,8 +12,8 @@ using OnlineShop.Data;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240110190222_Q14")]
-    partial class Q14
+    [Migration("20240110205517_M1")]
+    partial class M1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

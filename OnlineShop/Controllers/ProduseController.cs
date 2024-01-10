@@ -23,7 +23,7 @@ namespace OnlineShop.Controllers
 			db = context;
 		}
 
-		public ActionResult Index()
+		public ActionResult Index(int? categ)
 		{
 			var perPagina = 4;
 
@@ -35,172 +35,61 @@ namespace OnlineShop.Controllers
 						  select produs;
 
 
+			if (categ != null)
+				produse = (IOrderedQueryable<Produs>)produse.Where(p => p.CategorieId == categ);
 
-			string? filter_value = Convert.ToString(HttpContext.Request.Query["filter"]);
-			if (filter_value == null)
-				filter_value = Convert.ToString(HttpContext.Request.Query["sort-value"]);
-
-			string? filter_order = Convert.ToString(HttpContext.Request.Query["order"]);
-			if (filter_order == null)
-				filter_order = Convert.ToString(HttpContext.Request.Query["sort-order"]);
-
-
-			if (filter_value != null && filter_order != null)
-			{
-				filter_value = filter_value.Trim();
-				filter_order = filter_order.Trim();
-			}
-			else
-			{
-				filter_value = "titlu";
-				filter_order = "cresc";
-			}
-
-
-
+			
 			var search = Convert.ToString(HttpContext.Request.Query["search"]);
 			if (search != null && search.Trim() != "")
 			{
 				search = search.Trim();
-
-				var prodIds = (from produs in db.Produse
-							   where produs.Titlu.Contains(search) ||
-							   produs.Descriere.Contains(search)
-							   select produs.Id).ToList();
-
-				//var prodIdsFromReviews = (from produs in db.Produse
-				//						  join review in db.Reviewuri on produs.Id equals review.ProdusId
-				//						  where review.Continut.Contains(search)
-				//						  select produs.Id).ToList();
-
-				//var mergedIds = prodIds.Union(prodIdsFromReviews).ToList();
-
-				produse = from produs in db.Produse
-						  where prodIds.Contains(produs.Id)
-						  orderby produs.Titlu
-						  select produs;
-
-				switch (filter_value)
-				{
-					case "titlu":
-						switch (filter_order)
-						{
-							case "cresc":
-								produse = from produs in db.Produse
-										  where prodIds.Contains(produs.Id)
-										  orderby produs.Titlu
-										  select produs;
-								break;
-
-							case "desc":
-								produse = from produs in db.Produse
-										  where prodIds.Contains(produs.Id)
-										  orderby produs.Titlu descending
-										  select produs;
-								break;
-						}
-						break;
-
-					case "pret":
-						switch (filter_order)
-						{
-							case "cresc":
-								produse = from produs in db.Produse
-										  where prodIds.Contains(produs.Id)
-										  orderby produs.Pret
-										  select produs;
-								break;
-
-							case "desc":
-								produse = from produs in db.Produse
-										  where prodIds.Contains(produs.Id)
-										  orderby produs.Pret descending
-										  select produs;
-								break;
-						}
-						break;
-
-					case "rating":
-						switch (filter_order)
-						{
-							case "cresc":
-								produse = from produs in db.Produse
-										  where prodIds.Contains(produs.Id)
-										  orderby produs.Rating
-										  select produs;
-								break;
-
-							case "desc":
-								produse = from produs in db.Produse
-										  where prodIds.Contains(produs.Id)
-										  orderby produs.Rating descending
-										  select produs;
-								break;
-						}
-						break;
-				}
-				ViewBag.PaginationBaseUrl = "/Produse/Index/?search=" + search + "&filter=" + filter_value + "&order=" + filter_order + "&page";
+				produse = (IOrderedQueryable<Produs>)produse.Where(p => p.Titlu.Contains(search) || p.Descriere.Contains(search));
 			}
-			else
+
+
+			var sort = Convert.ToString(HttpContext.Request.Query["sort"]);
+			if (sort == null)
+				sort = Convert.ToString(HttpContext.Request.Query["sort-value"]);
+			if (sort == null)
+				sort = "titlu";
+
+			var order = Convert.ToString(HttpContext.Request.Query["order"]);
+			if (order == null)
+				order = Convert.ToString(HttpContext.Request.Query["sort-order"]);
+			if (order == null)
+				order = "cresc";
+
+			sort = sort.Trim();
+			order = order.Trim();
+
+
+			switch (order)
 			{
-				switch (filter_value)
-				{
-					case "titlu":
-						switch (filter_order)
-						{
-							case "cresc":
-								produse = from produs in db.Produse
-										  orderby produs.Titlu
-										  select produs;
-								break;
+				case "cresc":
+					produse = produse.OrderBy(p =>
+						(sort == "titlu") ? p.Titlu :
+						(sort == "pret") ? p.Pret.ToString() :
+						p.Rating.ToString());
+					break;
 
-							case "desc":
-								produse = from produs in db.Produse
-										  orderby produs.Titlu descending
-										  select produs;
-								break;
-						}
-						break;
-
-					case "pret":
-						switch (filter_order)
-						{
-							case "cresc":
-								produse = from produs in db.Produse
-										  orderby produs.Pret
-										  select produs;
-								break;
-
-							case "desc":
-								produse = from produs in db.Produse
-										  orderby produs.Pret descending
-										  select produs;
-								break;
-						}
-						break;
-
-					case "rating":
-						switch (filter_order)
-						{
-							case "cresc":
-								produse = from produs in db.Produse
-										  orderby produs.Rating
-										  select produs;
-								break;
-
-							case "desc":
-								produse = from produs in db.Produse
-										  orderby produs.Rating descending
-										  select produs;
-								break;
-						}
-						break;
-				}
-				ViewBag.PaginationBaseUrl = "/Produse/Index/?filter=" + filter_value + "&order=" + filter_order + "&page";
+				case "desc":
+					produse = produse.OrderBy(p =>
+						(sort == "titlu") ? p.Titlu :
+						(sort == "pret") ? p.Pret.ToString() :
+						p.Rating.ToString());
+					break;
 			}
+
+			ViewBag.PaginationBaseUrl = "/Produse/Index/?categ=" + ((categ != null) ? categ.ToString() : "null") +
+					"&search=" + ((search != null) ? search.ToString() : "null") +
+					"&sort=" + ((sort != null) ? sort.ToString() : "null") +
+					"&order=" + ((order != null) ? order.ToString() : "null") +
+					"&page";
+
+
 			ViewBag.SearchString = search;
-			ViewBag.FilterValue = filter_value;
-			ViewBag.FilterOrder = filter_order;
+			ViewBag.FilterValue = sort;
+			ViewBag.FilterOrder = order;
 
 
 
@@ -215,81 +104,10 @@ namespace OnlineShop.Controllers
 
 			ViewBag.lastPage = Math.Ceiling((float)prodCount / (float)perPagina);
 
-			/*
-			if (id_categ != null)
-			{
-				produse = from produs in db.Produse
-						  where produs.CategorieId == id_categ
-						  orderby produs.Titlu
-						  select produs;
-			}
-			string? search = Convert.ToString(HttpContext.Request.Query["search"]);
-			if (search != null)
-			{
-				search = search.Trim();
-				produse = from produs in db.Produse
-						  where produs.CategorieId == id_categ &&
-						  (produs.Titlu.Contains(search) ||
-						  produs.Descriere.Contains(search))
-						  orderby produs.Titlu
-						  select produs;
 
-				ViewBag.SearchString = search;
-
-				if (filter != null)
-				{
-					switch ((SearchFilter)filter)
-					{
-						case SearchFilter.Nume_Crescator:
-							break;
-
-						case SearchFilter.Nume_Descrescator:
-							produse = from produs in db.Produse
-									  where produs.CategorieId == id_categ
-									  where produs.Titlu.Contains(search)
-									  orderby produs.Titlu descending
-									  select produs;
-							break;
-
-						case SearchFilter.Pret_Crescator:
-							produse = from produs in db.Produse
-									  where produs.CategorieId == id_categ
-									  where produs.Titlu.Contains(search)
-									  orderby produs.Pret
-									  select produs;
-							break;
-
-						case SearchFilter.Pret_Descrescator:
-							produse = from produs in db.Produse
-									  where produs.CategorieId == id_categ
-									  where produs.Titlu.Contains(search)
-									  orderby produs.Pret descending
-									  select produs;
-							break;
-
-						case SearchFilter.Rating_Crescator:
-							produse = from produs in db.Produse
-									  where produs.CategorieId == id_categ
-									  where produs.Titlu.Contains(search)
-									  orderby produs.Rating
-									  select produs;
-							break;
-
-						case SearchFilter.Rating_Descrescator:
-							produse = from produs in db.Produse
-									  where produs.CategorieId == id_categ
-									  where produs.Titlu.Contains(search)
-									  orderby produs.Rating descending
-									  select produs;
-							break;
-					}
-				}
-			}
-			*/
 
 			var categorii = from categorie in db.Categorii
 							select categorie;
-
 
 
 			ViewBag.Produse = prodPag;

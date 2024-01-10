@@ -22,7 +22,7 @@ namespace OnlineShop.Controllers
 			_roleManager = roleManager;
 		}
 
-		public ActionResult Index(object? id_bonus, string? tip_idb)
+		public ActionResult Index(string? id_filtru, string? tip_id)
 		{
 			if (TempData.ContainsKey("message"))
 				ViewBag.message = TempData["message"].ToString();
@@ -33,37 +33,21 @@ namespace OnlineShop.Controllers
 							orderby produs.Titlu, review.Rating descending, utilizator.Nume, utilizator.Prenume
 							select review;
 
-			if (id_bonus != null)
+
+			if (id_filtru != null && tip_id != null)
 			{
-				if (tip_idb == null)
-				{
-					ViewBag.message = "Tipul id-ului cautat trebuie specificat";
-					reviewuri = null;
-				}
-				else if (tip_idb == "produs")
-				{
-					reviewuri = from review in db.Reviewuri
-								join utilizator in db.Utilizatori on review.UtilizatorId equals utilizator.Id
-								join produs in db.Produse on review.ProdusId equals produs.Id
-								where review.ProdusId == (int)id_bonus
-								orderby produs.Titlu, review.Rating descending, utilizator.Nume, utilizator.Prenume
-								select review;
-				}
-				else if (tip_idb == "utilizator")
-				{
-					reviewuri = from review in db.Reviewuri
-								join utilizator in db.Utilizatori on review.UtilizatorId equals utilizator.Id
-								join produs in db.Produse on review.ProdusId equals produs.Id
-								where review.UtilizatorId == (string)id_bonus
-								orderby produs.Titlu, review.Rating descending, utilizator.Nume, utilizator.Prenume
-								select review;
-				}
+				if (tip_id == "produs")
+					reviewuri = reviewuri.Where(r => r.ProdusId == int.Parse(id_filtru));
+				else
+					reviewuri = reviewuri.Where(r => r.UtilizatorId == id_filtru);
 			}
+		
 			var utilizatori = from utilizator in db.Utilizatori
 							  select utilizator;
 
 			var produse = from produs in db.Produse
 						  select produs;
+
 
 			ViewBag.Reviewuri = reviewuri;
 			ViewBag.Utilizatori = utilizatori;
