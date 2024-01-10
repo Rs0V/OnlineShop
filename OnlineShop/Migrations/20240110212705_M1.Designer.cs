@@ -12,7 +12,7 @@ using OnlineShop.Data;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240110211241_M1")]
+    [Migration("20240110212705_M1")]
     partial class M1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -307,10 +307,16 @@ namespace OnlineShop.Migrations
 
             modelBuilder.Entity("OnlineShop.Models.Review", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<string>("UtilizatorId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("ProdusId")
+                    b.Property<int?>("ProdusId")
                         .HasColumnType("int");
 
                     b.Property<string>("Continut")
@@ -320,9 +326,11 @@ namespace OnlineShop.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.HasKey("UtilizatorId", "ProdusId");
+                    b.HasKey("Id", "UtilizatorId", "ProdusId");
 
                     b.HasIndex("ProdusId");
+
+                    b.HasIndex("UtilizatorId");
 
                     b.ToTable("Reviewuri");
                 });

@@ -58,7 +58,12 @@ namespace OnlineShop.Controllers
 
 		public ActionResult Show(string id_utilizator, int id_produs)
 		{
-			Review? review = db.Reviewuri.Find(id_utilizator, id_produs);
+			var id = (from r in db.Reviewuri
+					 where r.UtilizatorId == id_utilizator &&
+					 r.ProdusId == id_produs
+					 select r).ToList().ElementAt(0).Id;
+
+			Review ? review = db.Reviewuri.Find(id, id_utilizator, id_produs);
 			ViewBag.canedit = false;
 
 			if (review == null)
@@ -84,6 +89,8 @@ namespace OnlineShop.Controllers
 		[Authorize(Roles = "Utilizator,Colaborator,Administrator")]
 		public ActionResult New()
 		{
+			ViewBag.produsReview = HttpContext.Session.GetString("produs-review");
+			ViewBag.userReview = _userManager.GetUserId(User);
 			return View();
 		}
 
@@ -103,7 +110,12 @@ namespace OnlineShop.Controllers
 
 		public ActionResult Edit(string id_utilizator, int id_produs)
 		{
-			Review? review = db.Reviewuri.Find(id_utilizator, id_produs);
+			var id = (from r in db.Reviewuri
+					  where r.UtilizatorId == id_utilizator &&
+					  r.ProdusId == id_produs
+					  select r).ToList().ElementAt(0).Id;
+
+			Review? review = db.Reviewuri.Find(id, id_utilizator, id_produs);
 
 			if (review == null)
 			{
@@ -120,7 +132,12 @@ namespace OnlineShop.Controllers
 		[HttpPost]
 		public ActionResult Edit(string id_utilizator, int id_produs, Review reqReview)
 		{
-			Review? review = db.Reviewuri.Find(id_utilizator, id_produs);
+			var id = (from r in db.Reviewuri
+					  where r.UtilizatorId == id_utilizator &&
+					  r.ProdusId == id_produs
+					  select r).ToList().ElementAt(0).Id;
+
+			Review? review = db.Reviewuri.Find(id, id_utilizator, id_produs);
 
 			if (review == null)
 			{
@@ -146,7 +163,12 @@ namespace OnlineShop.Controllers
 		[HttpPost]
 		public ActionResult Delete(string id_utilizator, int id_produs)
 		{
-			Review? review = db.Reviewuri.Find(id_utilizator, id_produs);
+			var id = (from r in db.Reviewuri
+					  where r.UtilizatorId == id_utilizator &&
+					  r.ProdusId == id_produs
+					  select r).ToList().ElementAt(0).Id;
+
+			Review? review = db.Reviewuri.Find(id, id_utilizator, id_produs);
 
 			if (review == null)
 			{

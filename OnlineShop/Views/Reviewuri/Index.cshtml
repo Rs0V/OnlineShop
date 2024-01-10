@@ -57,7 +57,7 @@
 
 
 
-	<a class="btn alert-success" href="/Reviewuri/Show?id_utilizator=@review.UtilizatorId&id_produs=@review.ProdusId">">Afisare review</a>
+	<a class="btn alert-success" href="/Reviewuri/Show?id_utilizator=@review.UtilizatorId&id_produs=@review.ProdusId">Afisare review</a>
 
 	@if (ViewBag.userManager.GetUserId(User) == review.UtilizatorId || User.IsInRole("Administrator"))
 	{

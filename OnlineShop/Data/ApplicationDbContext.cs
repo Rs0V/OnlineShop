@@ -20,7 +20,7 @@ namespace OnlineShop.Data
 				.HasKey(ex => new { ex.Id, ex.ProdusId });
 
 			modelBuilder.Entity<Review>()
-				.HasKey(rev => new { rev.UtilizatorId, rev.ProdusId });
+				.HasKey(rev => new { rev.Id, rev.UtilizatorId, rev.ProdusId });
 		}
 
 		public DbSet<Utilizator> Utilizatori { get; set; }

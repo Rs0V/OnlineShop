@@ -268,6 +268,8 @@ namespace OnlineShop.Migrations
                 name: "Reviewuri",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UtilizatorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProdusId = table.Column<int>(type: "int", nullable: false),
                     Continut = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -275,7 +277,7 @@ namespace OnlineShop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reviewuri", x => new { x.UtilizatorId, x.ProdusId });
+                    table.PrimaryKey("PK_Reviewuri", x => new { x.Id, x.UtilizatorId, x.ProdusId });
                     table.ForeignKey(
                         name: "FK_Reviewuri_AspNetUsers_UtilizatorId",
                         column: x => x.UtilizatorId,
@@ -358,6 +360,11 @@ namespace OnlineShop.Migrations
                 name: "IX_Reviewuri_ProdusId",
                 table: "Reviewuri",
                 column: "ProdusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviewuri_UtilizatorId",
+                table: "Reviewuri",
+                column: "UtilizatorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

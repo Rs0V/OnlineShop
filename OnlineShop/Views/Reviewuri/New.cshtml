@@ -26,5 +26,12 @@
 	<br />
 
 
+	int pid = int.Parse(ViewBag.produsReview);
+	@Html.Hidden("ProdusId", pid)
+
+	string uid = ViewBag.userReview;
+	@Html.Hidden("UtilizatorId", uid)
+
+
 	<button class="btn btn-success" type="submit">Adauga un review</button>
 }

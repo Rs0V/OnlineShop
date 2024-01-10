@@ -76,3 +76,10 @@
 <br />
 <hr />
 <br />
+
+@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator") || User.IsInRole("Utilizator"))
+{
+	<form method="post" action="/Produse/ScrieReview/@Model.Id">
+		<button class="btn btn-danger" type="submit">Scrie Review</button>
+	</form>
+}

@@ -1,15 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace OnlineShop.Models
 {
 	public class Review
 	{
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
+
 		public string? UtilizatorId { get; set; }
 
 		public virtual Utilizator? Utilizator { get; set; }
 
-		public int ProdusId { get; set; }
+		public int? ProdusId { get; set; }
 
 		public virtual Produs? Produs { get; set; }
 

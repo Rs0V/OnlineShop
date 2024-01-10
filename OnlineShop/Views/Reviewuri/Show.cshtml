@@ -44,7 +44,7 @@
 
 @if (ViewBag.canedit == true)
 {
-	<a class="btn alert-success" href="/Reviewuri/Edit/@Model.UtilizatorId/@Model.ProdusId">Editare review</a>
+	<a class="btn alert-success" href="/Reviewuri/Edit?id_utilizator=@Model.UtilizatorId&id_produs=@Model.ProdusId">Editare review</a>
 
 	<form method="post" action="/Reviewuri/Delete?id_utilizator=@Model.UtilizatorId&id_produs=@Model.ProdusId">
 

@@ -4,6 +4,7 @@ using OnlineShop.Models;
 using OnlineShop.Data;
 using System.Data;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Identity;
 
 namespace OnlineShop.Controllers
 {
@@ -294,5 +295,25 @@ namespace OnlineShop.Controllers
 
 			return RedirectToAction("Index");
         }
+
+
+
+		[HttpPost]
+		public ActionResult ScrieReview(int id)
+		{
+			Produs? produs = db.Produse.Find(id);
+
+			if (produs == null)
+			{
+				TempData["message"] = "Produsul cautat nu exista";
+				return RedirectToAction("Index");
+			}
+
+			if (HttpContext.Session.GetString("produs-review") == null)
+			{
+				HttpContext.Session.SetString("produs-review", produs.Id.ToString());
+			}
+			return Redirect("/Reviewuri/New");
+		}
 	}
 }
