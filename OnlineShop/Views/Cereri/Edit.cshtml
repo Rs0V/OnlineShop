@@ -1,11 +1,8 @@
 ﻿@model OnlineShop.Models.Cerere
 
-@{
-	ViewBag.Titlu = "Editare cerere";
-}
+<h2>Editare cerere</h2>
 
 
-<h2>@ViewBag.Titlu</h2>
 
 @using (Html.BeginForm(controllerName: "Cereri", actionName: "Edit", method: FormMethod.Post, routeValues: new { id = Model.Id }))
 {

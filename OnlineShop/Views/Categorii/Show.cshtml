@@ -1,11 +1,8 @@
 ﻿@model OnlineShop.Models.Categorie
 
-@{
-	ViewBag.Titlu = "Afisare categorie";
-}
 
 
-<h2>@ViewBag.Titlu</h2>
+<h2>Afisare categorie</h2>
 <br />
 
 @Html.Label("Id", "Id categorie")
@@ -13,6 +10,17 @@
 
 @Html.Label("Denumire", "Denumire categorie")
 <p>@Model.Denumire</p>
+
+
+
+@if (User.IsInRole("Administrator"))
+{
+	<a class="btn alert-success" href="/Categorii/Edit/@Model.Id">Editare categorie</a>
+}
+
+<br />
+<hr />
+<br />
 
 <form method="post" action="/Categorii/Delete/@Model.Id">
 
@@ -25,3 +33,5 @@
 <br />
 <hr />
 <br />
+
+<a class="btn alert-success" href="/Produse/Index/@Model.Id">Afisare produse</a>

@@ -1,11 +1,8 @@
 ﻿@model OnlineShop.Models.Categorie
 
-@{
-	ViewBag.Titlu = "Adaugare categorie";
-}
 
 
-<h2>@ViewBag.Titlu</h2>
+<h2>Adaugare categorie</h2>
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Categorii", method: FormMethod.Post))
 {

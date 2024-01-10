@@ -1,9 +1,9 @@
-﻿@{
-	ViewBag.Titlu = "Lista review-uri";
-}
+﻿
 <br />
-<h2 class="text-center">@ViewBag.Titlu</h2>
+<h2 class="text-center">Lista review-uri</h2>
 <br />
+
+
 
 @if (TempData.ContainsKey("message"))
 {
@@ -57,14 +57,14 @@
 
 	@*@Html.Label("Continut", "Continut review")*@
 	<p>@review.Continut</p>
-	
 
 
-	<a class="btn alert-success" href="/Reviewuri/Show/@review.Id">Afisare review</a>
+
+	<a class="btn alert-success" href="/Reviewuri/Show/@review.UtilizatorId/@review.ProdusId">">Afisare review</a>
 
 	@if (ViewBag.userManager.GetUserId(User) == review.UtilizatorId || User.IsInRole("Administrator"))
 	{
-		<a class="btn alert-success" href="/Reviewuri/Edit/@review.Id">Editare review</a>
+		<a class="btn alert-success" href="/Reviewuri/Edit/@review.UtilizatorId/@review.ProdusId">Editare review</a>
 	}
 	<br />
 	<hr />

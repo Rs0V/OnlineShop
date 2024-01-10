@@ -1,11 +1,8 @@
 ﻿@model OnlineShop.Models.Review
 
-@{
-	ViewBag.Titlu = "Editare review";
-}
+<h2>Editare review</h2>
 
 
-<h2>@ViewBag.Titlu</h2>
 
 @using (Html.BeginForm(controllerName: "Reviewuri", actionName: "Edit", method: FormMethod.Post, routeValues: new { utilizatorId = Model.UtilizatorId, produsId = Model.ProdusId }))
 {

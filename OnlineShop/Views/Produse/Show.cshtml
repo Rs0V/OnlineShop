@@ -1,14 +1,14 @@
 ﻿@model OnlineShop.Models.Produs
 
-@{
-	ViewBag.Titlu = "Afisare produs";
-}
-
-
-<h2>@ViewBag.Titlu</h2>
+<h2>Afisare produs</h2>
 <br />
 
 
+
+@Html.Label("Id", "Id produs")
+<p>@Model.Id</p>
+
+<hr />
 
 <p>@Model.Rating</p>
 
@@ -38,7 +38,13 @@
 }
 
 
-
+@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
+{
+	<a class="btn alert-success" href="/Produse/Edit/@Model.Id">Editare produs</a>
+}
+<br />
+<hr />
+<br />
 @if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
 {
 	<form method="post" action="/Produse/Delete/@Model.Id">
@@ -54,7 +60,14 @@
 }
 
 <br />
+<hr />
+<br />
+
 <a class="btn alert-success" href="/Produse/Index/">Afisare lista produse</a>
+
+<br />
+<hr />
+<br />
 
 <form method="post" action="/Produse/AdaugaCos/@Model.Id">
 	<button class="btn btn-danger" type="submit">Adauga in cos</button>

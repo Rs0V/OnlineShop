@@ -1,11 +1,8 @@
 ﻿@model OnlineShop.Models.Utilizator
 
-@{
-	ViewBag.Titlu = "Adaugare utilizator";
-}
+<h2>Adaugare utilizator</h2>
 
 
-<h2>@ViewBag.Titlu</h2>
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Utilizatori", method: FormMethod.Post))
 {

@@ -1,11 +1,7 @@
 ﻿@model OnlineShop.Models.Comanda
 
-@{
-	ViewBag.Titlu = "Afisare comanda";
-}
 
-
-<h2>@ViewBag.Titlu</h2>
+<h2>Afisare comanda</h2>
 <br />
 
 
@@ -32,6 +28,10 @@
 		}
 	}
 }
+
+<br />
+
+<a class="btn alert-success" href="/Comenzi/Edit/@Model.Id">Editare comanda</a>
 
 <br />
 

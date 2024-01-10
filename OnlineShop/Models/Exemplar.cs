@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineShop.Models
 {
@@ -17,10 +17,12 @@ namespace OnlineShop.Models
 
 	public class Exemplar
 	{
+		[Key]
 		public int ProdusId { get; set; }
 
 		public virtual Produs? Produs { get; set; }
 
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Numar_Produs { get; set; }
 
 		[Required(ErrorMessage = "Starea exemplarului este obligatorie")]

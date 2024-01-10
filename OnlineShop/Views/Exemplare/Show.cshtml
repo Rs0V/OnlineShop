@@ -1,11 +1,6 @@
 ﻿@model OnlineShop.Models.Exemplar
 
-@{
-	ViewBag.Titlu = "Afisare exemplar";
-}
-
-
-<h2>@ViewBag.Titlu</h2>
+<h2>Afisare exemplar</h2>
 <br />
 
 
@@ -35,6 +30,8 @@
 
 @if (User.IsInRole("Administrator"))
 {
+	<a class="btn alert-success" href="/Exemplare/Edit/@Model.ProdusId/@Model.Numar_Produs">Editare exemplar</a>
+
 	<form method="post" action="/Exemplare/Delete/@Model.ProdusId/@Model.Numar_Produs">
 
 		<button class="btn btn-danger" type="submit">Sterge exemplarul</button>

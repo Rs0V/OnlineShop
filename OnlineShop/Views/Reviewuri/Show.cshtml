@@ -1,11 +1,6 @@
 ﻿@model OnlineShop.Models.Review
 
-@{
-	ViewBag.Titlu = "Afisare review";
-}
-
-
-<h2>@ViewBag.Titlu</h2>
+<h2>Afisare review</h2>
 <br />
 
 
@@ -49,6 +44,8 @@
 
 @if (ViewBag.canedit == true)
 {
+	<a class="btn alert-success" href="/Reviewuri/Edit/@Model.UtilizatorId/@Model.ProdusId">Editare review</a>
+
 	<form method="post" action="/Reviewuri/Delete/@Model.UtilizatorId/@Model.ProdusId">
 
 		<button class="btn btn-danger" type="submit">Sterge review-ul</button>

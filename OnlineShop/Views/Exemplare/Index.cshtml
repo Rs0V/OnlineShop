@@ -1,9 +1,9 @@
-﻿@{
-	ViewBag.Titlu = "Lista exemplare";
-}
+﻿
 <br />
-<h2 class="text-center">@ViewBag.Titlu</h2>
+<h2 class="text-center">Lista exemplare</h2>
 <br />
+
+
 
 @if (TempData.ContainsKey("message"))
 {
@@ -41,8 +41,12 @@
 		<p>@exemplar.ComandaId</p>
 	}
 
-	<a class="btn alert-success" href="/Exemplare/Show/@exemplar.Id">Afisare exemplar</a>
-	<a class="btn alert-success" href="/Exemplare/Edit/@exemplar.Id">Editare exemplar</a>
+	<a class="btn alert-success" href="/Exemplare/Show/@exemplar.ProdusId/@exemplar.Numar_Produs">Afisare exemplar</a>
+
+	@if (User.IsInRole("Administrator"))
+	{
+		<a class="btn alert-success" href="/Exemplare/Edit/@exemplar.ProdusId/@exemplar.Numar_Produs">Editare exemplar</a>
+	}
 	<br />
 	<hr />
 	<br />

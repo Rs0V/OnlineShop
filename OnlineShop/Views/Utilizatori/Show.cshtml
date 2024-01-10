@@ -1,12 +1,8 @@
 ﻿@model OnlineShop.Models.Utilizator
 
-@{
-	ViewBag.Titlu = "Afisare utilizator";
-}
-
-
-<h2>@ViewBag.Titlu</h2>
+<h2>Afisare utilizator</h2>
 <br />
+
 
 
 @Html.Label("Nume", "Nume utilizator")
@@ -31,6 +27,8 @@ else
 
 @if (ViewBag.goodlog == true || User.IsInRole("Administrator") == true)
 {
+	<a class="btn alert-success" href="/Utilizatori/Edit/@Model.Id">Editare utilizator</a>
+
 	<form method="post" action="/Utilizatori/Delete/@Model.Id">
 
 		<button class="btn btn-danger" type="submit">Sterge utilizatorul</button>

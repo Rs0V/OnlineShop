@@ -25,7 +25,7 @@ namespace OnlineShop.Controllers
 
 		public ActionResult Index()
 		{
-			var perPagina = 9;
+			var perPagina = 4;
 
 			if (TempData.ContainsKey("message"))
 				ViewBag.message = TempData["message"].ToString();
@@ -36,8 +36,15 @@ namespace OnlineShop.Controllers
 
 
 
-			var filter_value = Convert.ToString(HttpContext.Request.Query["sort-value"]);
-			var filter_order = Convert.ToString(HttpContext.Request.Query["sort-order"]);
+			string? filter_value = Convert.ToString(HttpContext.Request.Query["filter"]);
+			if (filter_value == null)
+				filter_value = Convert.ToString(HttpContext.Request.Query["sort-value"]);
+
+			string? filter_order = Convert.ToString(HttpContext.Request.Query["order"]);
+			if (filter_order == null)
+				filter_order = Convert.ToString(HttpContext.Request.Query["sort-order"]);
+
+
 			if (filter_value != null && filter_order != null)
 			{
 				filter_value = filter_value.Trim();
@@ -319,6 +326,14 @@ namespace OnlineShop.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				//var categorii = from categorie in db.Categorii
+				//				where categorie.Id == produs.CategorieId
+				//				select categorie;
+
+				//if (categorii.Count() == 0)
+				//{
+				//	TempData["message"] = "Categoria " + produs.CategorieId.ToString() + " nu exista";
+				//}
 				if (User.IsInRole("Administrator"))
 				{
 					db.Produse.Add(produs);

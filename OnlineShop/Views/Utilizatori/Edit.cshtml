@@ -1,11 +1,8 @@
 ﻿@model OnlineShop.Models.Utilizator
 
-@{
-	ViewBag.Titlu = "Editare utilizator";
-}
+<h2>Editare utilizator</h2>
 
 
-<h2>@ViewBag.Titlu</h2>
 
 @using (Html.BeginForm(controllerName: "Utilizatori", actionName: "Edit", method: FormMethod.Post, routeValues: new { id = Model.Id }))
 {
