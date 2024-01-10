@@ -433,5 +433,28 @@ namespace OnlineShop.Controllers
 			}
 			return RedirectToAction("Index");
 		}
+
+		// Shopping Cart
+
+		[HttpPost]
+		public ActionResult AdaugaCos(int id) 
+		{
+            Produs? produs = db.Produse.Find(id);
+
+            if (produs == null)
+            {
+                TempData["message"] = "Produsul cautat nu exista";
+                return RedirectToAction("Index");
+            }
+			
+			if (HttpContext.Session.GetString("cos") == null)
+			{
+				HttpContext.Session.SetString("cos", "");
+            }
+			
+			HttpContext.Session.SetString("cos", HttpContext.Session.GetString("cos") + id.ToString() + " ");
+
+			return RedirectToAction("Index");
+        }
 	}
 }

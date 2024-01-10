@@ -21,7 +21,7 @@ namespace OnlineShop.Models
 		public int Id { get; set; }
 
 		[Required(ErrorMessage = "Valoarea este obligatorie")]
-		public int Valoare { get; set; }
+		public float Valoare { get; set; }
 
 		[Required(ErrorMessage = "Starea comenzii este obligatorie")]
 		[StareComanda(ErrorMessage = "Stare invalida")]

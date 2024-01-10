@@ -16,6 +16,17 @@ builder.Services.AddDefaultIdentity<Utilizator>(options => options.SignIn.Requir
 	.AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+	options.IdleTimeout = TimeSpan.FromMinutes(30);
+	options.Cookie.HttpOnly = true;
+	options.Cookie.IsEssential = true;
+});
+
+
+
 var app = builder.Build();
 // PASUL 5 - useri si roluri
 using (var scope = app.Services.CreateScope())
@@ -24,6 +35,8 @@ using (var scope = app.Services.CreateScope())
 	SeedData.Initialize(services);
 }
 
+
+app.UseSession();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
