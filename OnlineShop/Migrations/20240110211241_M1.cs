@@ -242,14 +242,15 @@ namespace OnlineShop.Migrations
                 name: "Exemplare",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ProdusId = table.Column<int>(type: "int", nullable: false),
-                    Numar_Exemplar = table.Column<int>(type: "int", nullable: false),
                     Stare = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ComandaId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Exemplare", x => new { x.ProdusId, x.Numar_Exemplar });
+                    table.PrimaryKey("PK_Exemplare", x => new { x.Id, x.ProdusId });
                     table.ForeignKey(
                         name: "FK_Exemplare_Comenzi_ComandaId",
                         column: x => x.ComandaId,
@@ -342,6 +343,11 @@ namespace OnlineShop.Migrations
                 name: "IX_Exemplare_ComandaId",
                 table: "Exemplare",
                 column: "ComandaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Exemplare_ProdusId",
+                table: "Exemplare",
+                column: "ProdusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Produse_CategorieId",

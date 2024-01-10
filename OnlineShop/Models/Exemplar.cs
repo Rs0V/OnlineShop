@@ -17,13 +17,13 @@ namespace OnlineShop.Models
 
 	public class Exemplar
 	{
-		// [Key]
-		public int ProdusId { get; set; }
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; } // Numar_Exemplar
+
+		public int? ProdusId { get; set; }
 
 		public virtual Produs? Produs { get; set; }
-
-		// [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Numar_Exemplar { get; set; }
+        
 
 		[Required(ErrorMessage = "Starea exemplarului este obligatorie")]
 		[StareExemplar(ErrorMessage = "Stare invalida")]

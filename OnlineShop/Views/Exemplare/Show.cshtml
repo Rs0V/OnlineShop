@@ -15,7 +15,7 @@
 }
 
 @Html.Label("Numar", "Numar exemplar")
-<p>@Model.Numar_Exemplar</p>
+<p>@Model.Id</p>
 
 @Html.Label("Stare", "Stare exemplar")
 <p>@Model.Stare</p>
@@ -30,9 +30,9 @@
 
 @if (User.IsInRole("Administrator"))
 {
-	<a class="btn alert-success" href="/Exemplare/Edit?id_produs=@Model.ProdusId&nr_exemplar=@Model.Numar_Exemplar">Editare exemplar</a>
+	<a class="btn alert-success" href="/Exemplare/Edit?id_produs=@Model.ProdusId&nr_exemplar=@Model.Id">Editare exemplar</a>
 
-	<form method="post" action="/Exemplare/Delete?id_produs=@Model.ProdusId&nr_exemplar=@Model.Numar_Exemplar">
+	<form method="post" action="/Exemplare/Delete?id_produs=@Model.ProdusId&nr_exemplar=@Model.Id">
 
 		<button class="btn btn-danger" type="submit">Sterge exemplarul</button>
 

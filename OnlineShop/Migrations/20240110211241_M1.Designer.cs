@@ -12,7 +12,7 @@ using OnlineShop.Data;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240110205517_M1")]
+    [Migration("20240110211241_M1")]
     partial class M1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -241,10 +241,13 @@ namespace OnlineShop.Migrations
 
             modelBuilder.Entity("OnlineShop.Models.Exemplar", b =>
                 {
-                    b.Property<int>("ProdusId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Numar_Exemplar")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("ProdusId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ComandaId")
@@ -254,9 +257,11 @@ namespace OnlineShop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProdusId", "Numar_Exemplar");
+                    b.HasKey("Id", "ProdusId");
 
                     b.HasIndex("ComandaId");
+
+                    b.HasIndex("ProdusId");
 
                     b.ToTable("Exemplare");
                 });

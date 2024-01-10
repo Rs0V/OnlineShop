@@ -23,7 +23,7 @@ namespace OnlineShop.Controllers
 
 			var exemplare = from exemplar in db.Exemplare
 							join produs in db.Produse on exemplar.ProdusId equals produs.Id
-							orderby produs.Titlu, exemplar.Numar_Exemplar
+							orderby produs.Titlu, exemplar.Id
 							select exemplar;
 
 			var produse = from produs in db.Produse
