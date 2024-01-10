@@ -1,1 +1,22 @@
 ﻿
+<div class="div-stilizare">
+
+    <a class="btn alert-success butoane_layout" href="/Categorii/Index">Categorii</a>
+
+    <a class="btn alert-success butoane_layout" href="/Produse/Index">Produse</a>
+
+    @if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
+    {
+        <a class="btn alert-success butoane_layout" href="/Exemplare/Index">Exemplare</a>
+
+        <a class="btn alert-success butoane_layout" href="/Utilizatori/Index">Utilizatori</a>
+    }
+
+    <a class="btn alert-success butoane_layout" href="/Reviewuri/Index">Reviewuri</a>
+
+    @if (User.IsInRole("Administrator") || User.IsInRole("Colaborator") || User.IsInRole("Utilizator"))
+    {
+        <a class="btn alert-success butoane_layout" href="/Comenzi/Index">Comenzi</a>
+    }
+</div>
+

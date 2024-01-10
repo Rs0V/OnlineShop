@@ -124,7 +124,7 @@ body {
     display: inline-flex;
     height: 35px;
     margin-top: 20px;
-    margin-left: 800px;
+    margin-left: 100px;
 }
 
 .search-bars, .search-icon {
@@ -165,4 +165,24 @@ body {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     margin-left: 0;
+}
+
+/* Layout de butoane pentru simplitate */
+
+.div-stilizare {
+    display: inline-flex;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 100px;
+    /*background-color: aqua;*/
+}
+
+.butoane_layout {
+    border: 1px solid black;
+    border-radius: 30px;
+    background-color: rgba(95, 200, 129, 0.2);
+    font-weight: 700;
+    text-align: center;
+    font-size: 15px;
+    margin-left: 10px;
 }
