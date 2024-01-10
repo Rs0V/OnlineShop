@@ -30,7 +30,7 @@
 	}
 
 	@Html.Label("Numar", "Numar exemplar")
-	<p>@exemplar.Numar_Produs</p>
+	<p>@exemplar.Numar_Exemplar</p>
 
 	@Html.Label("Stare", "Stare exemplar")
 	<p>@exemplar.Stare</p>
@@ -41,11 +41,11 @@
 		<p>@exemplar.ComandaId</p>
 	}
 
-	<a class="btn alert-success" href="/Exemplare/Show/@exemplar.ProdusId/@exemplar.Numar_Produs">Afisare exemplar</a>
+	<a class="btn alert-success" href="/Exemplare/Show?id_produs=@exemplar.ProdusId&nr_exemplar=@exemplar.Numar_Exemplar">Afisare exemplar</a>
 
 	@if (User.IsInRole("Administrator"))
 	{
-		<a class="btn alert-success" href="/Exemplare/Edit/@exemplar.ProdusId/@exemplar.Numar_Produs">Editare exemplar</a>
+		<a class="btn alert-success" href="/Exemplare/Edit/@exemplar.ProdusId/@exemplar.Numar_Exemplar">Editare exemplar</a>
 	}
 	<br />
 	<hr />

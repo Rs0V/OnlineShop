@@ -12,8 +12,8 @@ using OnlineShop.Data;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231221162516_OS5")]
-    partial class OS5
+    [Migration("20240110190222_Q14")]
+    partial class Q14
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -178,6 +178,38 @@ namespace OnlineShop.Migrations
                     b.ToTable("Categorii");
                 });
 
+            modelBuilder.Entity("OnlineShop.Models.Cerere", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Acceptat")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AuxProd")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Info")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int?>("ProdusId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdusId");
+
+                    b.ToTable("Cereri");
+                });
+
             modelBuilder.Entity("OnlineShop.Models.Comanda", b =>
                 {
                     b.Property<int>("Id")
@@ -197,8 +229,8 @@ namespace OnlineShop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Valoare")
-                        .HasColumnType("int");
+                    b.Property<float>("Valoare")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -209,30 +241,22 @@ namespace OnlineShop.Migrations
 
             modelBuilder.Entity("OnlineShop.Models.Exemplar", b =>
                 {
-                    b.Property<int>("Id_Produs")
+                    b.Property<int>("ProdusId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Numar_Produs")
+                    b.Property<int>("Numar_Exemplar")
                         .HasColumnType("int");
 
                     b.Property<int?>("ComandaId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Id_Comanda")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProdusId")
                         .HasColumnType("int");
 
                     b.Property<string>("Stare")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id_Produs", "Numar_Produs");
+                    b.HasKey("ProdusId", "Numar_Exemplar");
 
                     b.HasIndex("ComandaId");
-
-                    b.HasIndex("ProdusId");
 
                     b.ToTable("Exemplare");
                 });
@@ -246,15 +270,13 @@ namespace OnlineShop.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int?>("CategorieId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Descriere")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Id_Categorie")
-                        .IsRequired()
-                        .HasColumnType("int");
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<string>("Poza")
                         .IsRequired()
@@ -268,7 +290,8 @@ namespace OnlineShop.Migrations
 
                     b.Property<string>("Titlu")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 
@@ -288,6 +311,9 @@ namespace OnlineShop.Migrations
                     b.Property<string>("Continut")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
                     b.HasKey("UtilizatorId", "ProdusId");
 
@@ -330,7 +356,8 @@ namespace OnlineShop.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Nume")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -342,7 +369,8 @@ namespace OnlineShop.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Prenume")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -422,6 +450,15 @@ namespace OnlineShop.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("OnlineShop.Models.Cerere", b =>
+                {
+                    b.HasOne("OnlineShop.Models.Produs", "Produs")
+                        .WithMany()
+                        .HasForeignKey("ProdusId");
+
+                    b.Navigation("Produs");
+                });
+
             modelBuilder.Entity("OnlineShop.Models.Comanda", b =>
                 {
                     b.HasOne("OnlineShop.Models.Utilizator", "Utilizator")
@@ -439,25 +476,31 @@ namespace OnlineShop.Migrations
                         .WithMany("Exemplare")
                         .HasForeignKey("ComandaId");
 
-                    b.HasOne("OnlineShop.Models.Produs", null)
+                    b.HasOne("OnlineShop.Models.Produs", "Produs")
                         .WithMany("Exemplare")
-                        .HasForeignKey("ProdusId");
+                        .HasForeignKey("ProdusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Comanda");
+
+                    b.Navigation("Produs");
                 });
 
             modelBuilder.Entity("OnlineShop.Models.Produs", b =>
                 {
                     b.HasOne("OnlineShop.Models.Categorie", "Categorie")
                         .WithMany("Produse")
-                        .HasForeignKey("CategorieId");
+                        .HasForeignKey("CategorieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Categorie");
                 });
 
             modelBuilder.Entity("OnlineShop.Models.Review", b =>
                 {
-                    b.HasOne("OnlineShop.Models.Produs", null)
+                    b.HasOne("OnlineShop.Models.Produs", "Produs")
                         .WithMany("Reviewuri")
                         .HasForeignKey("ProdusId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -468,6 +511,8 @@ namespace OnlineShop.Migrations
                         .HasForeignKey("UtilizatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Produs");
 
                     b.Navigation("Utilizator");
                 });

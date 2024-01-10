@@ -17,7 +17,7 @@ namespace OnlineShop.Data
 			base.OnModelCreating(modelBuilder);
 
 			modelBuilder.Entity<Exemplar>()
-				.HasKey(ex => new { ex.ProdusId, ex.Numar_Produs });
+				.HasKey(ex => new { ex.ProdusId, ex.Numar_Exemplar });
 
 			modelBuilder.Entity<Review>()
 				.HasKey(rev => new { rev.UtilizatorId, rev.ProdusId });

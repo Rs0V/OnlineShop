@@ -23,7 +23,7 @@ namespace OnlineShop.Controllers
 
 			var exemplare = from exemplar in db.Exemplare
 							join produs in db.Produse on exemplar.ProdusId equals produs.Id
-							orderby produs.Titlu, exemplar.Numar_Produs
+							orderby produs.Titlu, exemplar.Numar_Exemplar
 							select exemplar;
 
 			var produse = from produs in db.Produse
@@ -33,11 +33,10 @@ namespace OnlineShop.Controllers
 			ViewBag.Produse = produse;
 			return View();
 		}
-
 		[Authorize(Roles = "Colaborator,Administrator")]
-		public ActionResult Show(int id_produs, int nr_produs)
+		public ActionResult Show(int id_produs, int nr_exemplar)
 		{
-			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
+			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_exemplar);
 
 			if (exemplar == null)
 			{
@@ -73,9 +72,9 @@ namespace OnlineShop.Controllers
 		}
 
 		[Authorize(Roles = "Administrator")]
-		public ActionResult Edit(int id_produs, int nr_produs)
+		public ActionResult Edit(int id_produs, int nr_exemplar)
 		{
-			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
+			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_exemplar);
 
 			if (exemplar == null)
 			{
@@ -84,12 +83,11 @@ namespace OnlineShop.Controllers
 			}
 			return View(exemplar);
 		}
-
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
-		public ActionResult Edit(int id_produs, int nr_produs, Exemplar reqEx)
+		public ActionResult Edit(int id_produs, int nr_exemplar, Exemplar reqEx)
 		{
-			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
+			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_exemplar);
 
 			if (exemplar == null)
 			{
@@ -110,9 +108,9 @@ namespace OnlineShop.Controllers
 
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
-		public ActionResult Delete(int id_produs, int nr_produs)
+		public ActionResult Delete(int id_produs, int nr_exemplar)
 		{
-			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
+			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_exemplar);
 
 			if (exemplar == null)
 			{

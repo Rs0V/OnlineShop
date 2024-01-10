@@ -242,11 +242,8 @@ namespace OnlineShop.Migrations
                     b.Property<int>("ProdusId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Numar_Produs")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Numar_Exemplar")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Numar_Produs"), 1L, 1);
 
                     b.Property<int?>("ComandaId")
                         .HasColumnType("int");
@@ -255,7 +252,7 @@ namespace OnlineShop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProdusId", "Numar_Produs");
+                    b.HasKey("ProdusId", "Numar_Exemplar");
 
                     b.HasIndex("ComandaId");
 

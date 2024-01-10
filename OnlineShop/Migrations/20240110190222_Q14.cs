@@ -4,7 +4,7 @@
 
 namespace OnlineShop.Migrations
 {
-    public partial class C3 : Migration
+    public partial class Q14 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
