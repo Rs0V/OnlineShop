@@ -8,6 +8,10 @@
 <h2>@ViewBag.Titlu</h2>
 <br />
 
+@Html.Label("Id", "Id categorie")
+<p>@Model.Id</p>
+
+@Html.Label("Denumire", "Denumire categorie")
 <p>@Model.Denumire</p>
 
 <form method="post" action="/Categorii/Delete/@Model.Id">

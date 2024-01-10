@@ -20,22 +20,23 @@
 
 @foreach (var produs in ViewBag.Produse)
 {
-	@Html.Label("Titlu", "Titlu produs")
+	@*@Html.Label("Rating", "Rating produs")*@
+	<p>@produs.Rating</p>
+
+	@*@Html.Label("Poza", "Poza produs")*@
+	<img class="prod-img" src="@produs.Poza" />
+
+	@*@Html.Label("Titlu", "Titlu produs")*@
 	<p>@produs.Titlu</p>
 
-	@Html.Label("Descriere", "Descriere produs")
-	<p>@produs.Descriere</p>
+	//@Html.Label("Descriere", "Descriere produs")
+	//<p>@produs.Descriere</p>
 
 	@Html.Label("Pret", "Pret produs")
 	<p>@produs.Pret</p>
 
-	@Html.Label("Poza", "Poza produs")
-	<img class="prod-img" src="@produs.Poza"/>
 
-	@Html.Label("Rating", "Rating produs")
-	<p>@produs.Rating</p>
-
-
+	
 	@Html.Label("Denumire", "Categorie produs")
 	@foreach(var categorie in ViewBag.Categorii)
 	{
@@ -44,6 +45,8 @@
 			<p>@categorie.Denumire</p>
 		}
 	}
+
+
 
 	<a class="btn alert-success" href="/Produse/Show/@produs.Id">Afisare produs</a>
 

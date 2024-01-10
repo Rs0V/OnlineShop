@@ -8,7 +8,32 @@
 <h2>@ViewBag.Titlu</h2>
 <br />
 
+
+
+@Html.Label("Data", "Data comanda")
+<p>@Model.Data</p>
+
+@Html.Label("Valoare", "Valoare comanda")
 <p>@Model.Valoare</p>
+
+@Html.Label("Stare", "Stare comanda")
+<p>@Model.Stare</p>
+
+<br />
+
+@if (User.IsInRole("Administrator"))
+{
+	@Html.Label("Nume", "Utilizator comanda")
+	@foreach (var utilizator in ViewBag.Utilizatori)
+	{
+		@if (utilizator.Id == Model.UtilizatorId)
+		{
+			<p>@utilizator.Nume @utilizator.Prenume</p>
+		}
+	}
+}
+
+<br />
 
 <form method="post" action="/Comenzi/Delete/@Model.Id">
 

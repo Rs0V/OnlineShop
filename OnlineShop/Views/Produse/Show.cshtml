@@ -8,7 +8,36 @@
 <h2>@ViewBag.Titlu</h2>
 <br />
 
+
+
+<p>@Model.Rating</p>
+
+<img class="prod-img" src="@Model.Poza" />
+
 <p>@Model.Titlu</p>
+
+@Html.Label("Descriere", "Descriere produs")
+<p>@Model.Descriere</p>
+
+@Html.Label("Pret", "Pret produs")
+<p>@Model.Pret</p>
+
+
+@Html.Label("Denumire", "Categorie produs")
+@foreach (var categorie in ViewBag.Categorii)
+{
+	@if (categorie.Id == Model.CategorieId)
+	{
+		<p>@categorie.Denumire</p>
+	}
+}
+@if (User.IsInRole("Colaborator") || User.IsInRole("Administrator"))
+{
+	@Html.Label("CategorieId", "Id Categorie produs")
+	<p>@Model.CategorieId</p>
+}
+
+
 
 @if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
 {

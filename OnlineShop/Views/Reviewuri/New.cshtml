@@ -9,6 +9,16 @@
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Reviewuri", method: FormMethod.Post))
 {
+	@Html.Label("Rating", "Rating review")
+	<br />
+
+	@Html.TextBox("Rating", null, new { @class = "form-control" })
+
+	@Html.ValidationMessageFor(m => m.Rating, null, new { @class = "text-danger" })
+	<br />
+	<br />
+
+
 	@Html.Label("Continut", "Continut review")
 	<br />
 

@@ -20,7 +20,24 @@
 
 @foreach (var review in ViewBag.Reviewuri)
 {
-	@Html.Label("Nume", "Review utilizator")
+	@*@Html.Label("Rating", "Review rating")*@
+	@for (int i = 1; i <= 5; ++i)
+	{
+		@if (i <= review.Rating)
+		{
+			// Stele aurii
+			// De pus inline-block
+			<img src="" />
+		}
+		else
+		{
+			// Stele gri
+			// De pus inline-block
+			<img src="" />
+		}
+	}
+
+	@*@Html.Label("Nume", "Review utilizator")*@
 	@foreach (var utilizatori in ViewBag.Utilizatori)
 	{
 		@if (utilizatori.Id == review.UtilizatorId)
@@ -38,26 +55,10 @@
 		}
 	}
 
-	@Html.Label("Rating", "Review rating")
-	@for (int i = 1; i <= 5; ++i)
-	{
-		@if (i <= review.Rating)
-		{
-			// Stele aurii
-			// De pus inline-block
-			<img src="" />
-		}
-		else
-		{
-			// Stele gri
-			// De pus inline-block
-			<img src="" />
-		}
-	}
-
-	@Html.Label("Continut", "Continut review")
+	@*@Html.Label("Continut", "Continut review")*@
 	<p>@review.Continut</p>
 	
+
 
 	<a class="btn alert-success" href="/Reviewuri/Show/@review.Id">Afisare review</a>
 

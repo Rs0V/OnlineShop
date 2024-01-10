@@ -33,6 +33,7 @@ namespace OnlineShop.Controllers
 							  select utilizator;
 
 			ViewBag.Utilizatori = utilizatori;
+			ViewBag.userManager = _userManager;
 			return View();
 		}
 

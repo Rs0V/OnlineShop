@@ -23,18 +23,23 @@
 	@Html.Label("Data", "Data comanda")
 	<p>@comanda.Data</p>
 
-	@Html.Label("Stare", "Stare comanda")
-	<p>@comanda.Stare</p>
-
 	@Html.Label("Valoare", "Valoare comanda")
 	<p>@comanda.Valoare</p>
 
-	@Html.Label("Nume", "Utilizator comanda")
-	@foreach(var utilizator in ViewBag.Utilizatori)
+	@Html.Label("Stare", "Stare comanda")
+	<p>@comanda.Stare</p>
+
+	<br />
+
+	@if (User.IsInRole("Administrator"))
 	{
-		@if(utilizator.Id == comanda.UtilizatorId)
+		@Html.Label("Nume", "Utilizator comanda")
+		@foreach (var utilizator in ViewBag.Utilizatori)
 		{
-			<p>@utilizator.Nume @utilizator.Prenume</p>
+			@if (utilizator.Id == comanda.UtilizatorId)
+			{
+				<p>@utilizator.Nume @utilizator.Prenume</p>
+			}
 		}
 	}
 	<a class="btn alert-success" href="/Comenzi/Show/@comanda.Id">Afisare comanda</a>

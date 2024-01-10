@@ -8,7 +8,26 @@
 <h2>@ViewBag.Titlu</h2>
 <br />
 
-<p>@Model.Nume @Model.Prenume</p>
+
+@Html.Label("Nume", "Nume utilizator")
+<p>@Model.Nume</p>
+
+@Html.Label("Prenume", "Prenume utilizator")
+<p>@Model.Prenume</p>
+
+@Html.Label("Email", "Email utilizator")
+<p>@Model.Email</p>
+
+@Html.Label("Telefon", "Telefon utilizator")
+@if (Model.Telefon == null)
+{
+	<p>Nu a fost introdus un numar de telefon.</p>
+}
+else
+{
+	<p>@Model.Telefon</p>
+}
+
 
 @if (ViewBag.goodlog == true || User.IsInRole("Administrator") == true)
 {

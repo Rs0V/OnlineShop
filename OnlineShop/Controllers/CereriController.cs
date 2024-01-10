@@ -92,9 +92,10 @@ namespace OnlineShop.Controllers
 				TempData["message"] = "Cererea nu exista";
 				return RedirectToAction("Index");
 			}
-			cerere.Acceptat = request.Acceptat;
-			//if (ModelState.IsValid)
+			//cerere.Acceptat = request.Acceptat;
+			if (ModelState.IsValid)
 			{
+				cerere.Acceptat = request.Acceptat;
 				TempData["message"] = "Cererea a fost modificata!";
 
 				if (cerere.Acceptat == Acceptare.Acceptat)

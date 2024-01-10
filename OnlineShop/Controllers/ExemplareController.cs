@@ -72,7 +72,7 @@ namespace OnlineShop.Controllers
 			return View(exemplar);
 		}
 
-		[Authorize(Roles = "Colaborator,Administrator")]
+		[Authorize(Roles = "Administrator")]
 		public ActionResult Edit(int id_produs, int nr_produs)
 		{
 			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_produs);
@@ -85,7 +85,7 @@ namespace OnlineShop.Controllers
 			return View(exemplar);
 		}
 
-		[Authorize(Roles = "Colaborator,Administrator")]
+		[Authorize(Roles = "Administrator")]
 		[HttpPost]
 		public ActionResult Edit(int id_produs, int nr_produs, Exemplar reqEx)
 		{

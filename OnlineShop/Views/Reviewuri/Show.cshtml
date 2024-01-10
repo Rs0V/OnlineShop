@@ -8,6 +8,24 @@
 <h2>@ViewBag.Titlu</h2>
 <br />
 
+
+
+@for (int i = 1; i <= 5; ++i)
+{
+	@if (i <= Model.Rating)
+	{
+		// Stele aurii
+		// De pus inline-block
+		<img src="" />
+	}
+	else
+	{
+		// Stele gri
+		// De pus inline-block
+		<img src="" />
+	}
+}
+
 @foreach (var utilizatori in ViewBag.Utilizatori)
 {
 	@if (utilizatori.Id == Model.UtilizatorId)
@@ -15,6 +33,7 @@
 		<p>@utilizatori.Nume @utilizatori.Prenume</p>
 	}
 }
+
 @Html.Label("Titlu ", "Review produs")
 @foreach (var produs in ViewBag.Produse)
 {
@@ -23,7 +42,10 @@
 		<p>@produs.Titlu</p>
 	}
 }
+
 <p>@Model.Continut</p>
+
+
 
 @if (ViewBag.canedit == true)
 {

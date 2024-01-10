@@ -41,7 +41,7 @@
 
 	<a class="btn alert-success" href="/Utilizatori/Show/@utilizator.Id">Afisare utilizator</a>
 
-	@if (User.IsInRole("Administrator"))
+	@if (ViewBag.userManager.GetUserId(User) == utilizator.Id || User.IsInRole("Administrator"))
 	{
 		<a class="btn alert-success" href="/Utilizatori/Edit/@utilizator.Id">Editare utilizator</a>
 	}

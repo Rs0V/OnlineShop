@@ -299,6 +299,11 @@ namespace OnlineShop.Controllers
 				TempData["message"] = "Produsul cautat nu exista";
 				return RedirectToAction("Index");
 			}
+
+			var categorii = from categorie in db.Categorii
+							select categorie;
+			ViewBag.Categorii = categorii;
+
 			return View(produs);
 		}
 

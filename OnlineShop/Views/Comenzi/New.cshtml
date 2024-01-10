@@ -9,29 +9,44 @@
 
 @foreach (var produs in ViewBag.Produse)
 {
-	@Html.Label("Id", "Id produs")
-	<p>@produs.Id</p>
+	@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
+	{
+		@Html.Label("Id", "Id produs")
+		<p>@produs.Id</p>
+	}
 
-	@Html.Label("Titlu", "Titlu produs")
+	int? _rating = produs.Rating;
+	@if (_rating == null)
+		_rating = 0;
+
+	@for (int i = 1; i <= 5; ++i)
+	{
+		@if (i <= _rating)
+		{
+			// Stele aurii
+			// De pus inline-block
+			<img src="" />
+		}
+		else
+		{
+			// Stele gri
+			// De pus inline-block
+			<img src="" />
+		}
+	}
+
+	<img class="prod-img" src="@produs.Poza" />
+
+	@*@Html.Label("Titlu", "Titlu produs")*@
 	<p>@produs.Titlu</p>
-
-	@Html.Label("Descriere", "Descriere produs")
-	<p>@produs.Descriere</p>
 
 	@Html.Label("Pret", "Pret produs")
 	<p>@produs.Pret</p>
-
-	@Html.Label("Poza", "Poza produs")
-	<img class="prod-img" src="@produs.Poza" />
-
-	@Html.Label("Rating", "Rating produs")
-	<p>@produs.Rating</p>
 
 
 	<form method="post" action="/Comenzi/StergeProdusCos/@produs.Id">
 		<button class="btn btn-success" type="submit">Sterge produs din cos</button> 
 	</form>
-
 }
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Comenzi", method: FormMethod.Post))

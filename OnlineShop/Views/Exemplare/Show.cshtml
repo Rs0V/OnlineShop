@@ -8,14 +8,30 @@
 <h2>@ViewBag.Titlu</h2>
 <br />
 
+
+
+@Html.Label("Titlu", "Titlu exemplar")
 @foreach (var produs in ViewBag.Produse)
 {
-	@if (produs.Id == @Model.ProdusId)
+	@if (produs.Id == Model.ProdusId)
 	{
 		<p>@produs.Titlu</p>
 	}
 }
+
+@Html.Label("Numar", "Numar exemplar")
 <p>@Model.Numar_Produs</p>
+
+@Html.Label("Stare", "Stare exemplar")
+<p>@Model.Stare</p>
+
+@if (Model.ComandaId != null)
+{
+	@Html.Label("ComandaId", "Comanda exemplar")
+	<p>@Model.ComandaId</p>
+}
+
+
 
 @if (User.IsInRole("Administrator"))
 {

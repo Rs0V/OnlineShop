@@ -9,6 +9,16 @@
 
 @using (Html.BeginForm(controllerName: "Reviewuri", actionName: "Edit", method: FormMethod.Post, routeValues: new { utilizatorId = Model.UtilizatorId, produsId = Model.ProdusId }))
 {
+	@Html.Label("Rating", "Rating review")
+	<br />
+
+	@Html.Editor("Rating")
+
+	@Html.ValidationMessageFor(m => m.Rating, null, new { @class = "text-danger" })
+	<br />
+	<br />
+
+
 	@Html.Label("Continut", "Continut review")
 	<br />
 

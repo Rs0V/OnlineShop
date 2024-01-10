@@ -62,6 +62,11 @@ namespace OnlineShop.Controllers
 				return View(comanda);
 
 			TempData["message"] = "Nu aveti dreptul sa vizualizati o comanda care nu va apartine";
+
+			var utilizatori = from utilizator in db.Utilizatori
+							  select utilizator;
+			ViewBag.Utilizatori = utilizatori;
+
 			return RedirectToAction("Index");
 		}
 
@@ -110,6 +115,7 @@ namespace OnlineShop.Controllers
 			return View(comanda);
 		}
 
+		[Authorize(Roles = "Administrator")]
 		public ActionResult Edit(int id)
 		{
 			Comanda? comanda = db.Comenzi.Find(id);
@@ -119,13 +125,10 @@ namespace OnlineShop.Controllers
 				TempData["message"] = "Comanda cautata nu exista";
 				return RedirectToAction("Index");
 			}
-			if (comanda.UtilizatorId == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
-				return View(comanda);
-
-			TempData["message"] = "Nu aveti dreptul sa faceti modificari asupra unei comenzi care nu va apartine";
-			return RedirectToAction("Index");
+			return View(comanda);
 		}
 
+		[Authorize(Roles = "Administrator")]
 		[HttpPost]
 		public ActionResult Edit(int id, Comanda reqComanda)
 		{
@@ -136,23 +139,18 @@ namespace OnlineShop.Controllers
 				TempData["message"] = "Comanda cautata nu exista";
 				return RedirectToAction("Index");
 			}
-			if (comanda.UtilizatorId == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
+			if (ModelState.IsValid)
 			{
-				if (ModelState.IsValid)
-				{
-					comanda.Data = reqComanda.Data;
-					comanda.Stare = reqComanda.Stare;
-					comanda.Valoare = reqComanda.Valoare;
-					comanda.UtilizatorId = reqComanda.UtilizatorId;
+				comanda.Data = reqComanda.Data;
+				comanda.Stare = reqComanda.Stare;
+				comanda.Valoare = reqComanda.Valoare;
+				comanda.UtilizatorId = reqComanda.UtilizatorId;
 
-					db.SaveChanges();
-					TempData["message"] = "Comanda a fost modificata!";
-					return RedirectToAction("Index");
-				}
-				return View(reqComanda);
+				db.SaveChanges();
+				TempData["message"] = "Comanda a fost modificata!";
+				return RedirectToAction("Index");
 			}
-			TempData["message"] = "Nu aveti dreptul sa faceti modificari asupra unei comenzi care nu va apartine";
-			return RedirectToAction("Index");
+			return View(reqComanda);
 		}
 
 		[HttpPost]

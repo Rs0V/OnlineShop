@@ -9,7 +9,8 @@
 
 @using (Html.BeginForm(controllerName: "Cereri", actionName: "Edit", method: FormMethod.Post, routeValues: new { id = Model.Id }))
 {
-	@if(Model.ProdusId == null && Model.AuxProd != null)
+	// Cerere adaugare produs
+	@if (Model.ProdusId == null && Model.AuxProd != null)
 	{
 		var prod_params = Model.AuxProd.Split("╚");
 		Produs auxprod = new Produs
@@ -23,8 +24,10 @@
 			CategorieId = int.Parse(prod_params[6])
 		};
 
+		@*@Html.Label("Poza", "Poza produs")*@
+		<img src="@auxprod.Poza" />
 
-		@Html.Label("Titlu", "Titlu produs")
+		@*@Html.Label("Titlu", "Titlu produs")*@
 		<p>@auxprod.Titlu</p>
 
 		@Html.Label("Descriere", "Descriere produs")
@@ -33,8 +36,7 @@
 		@Html.Label("Pret", "Pret produs")
 		<p>@auxprod.Pret</p>
 
-		@Html.Label("Poza", "Poza produs")
-		<img src="@auxprod.Poza" />
+		
 
 		@Html.Label("Denumire", "Categorie produs")
 		@foreach (var categorie in ViewBag.Categorii)
@@ -44,7 +46,10 @@
 				<p>@categorie.Denumire</p>
 			}
 		}
+		@Html.Label("CategorieId", "Id Categorie produs")
+		<p>@auxprod.CategorieId</p>
 	}
+	// Cerere editare produs
 	else if (Model.ProdusId != null && Model.AuxProd != null)
 	{
 		var prod_params = Model.AuxProd.Split("╚");
@@ -67,6 +72,11 @@
 			}
 		}
 
+		@Html.Label("Produs.Poza", "Poza produs")
+		<img src="@produs.Poza" />
+		@Html.Label("Poza", "Poza noua produs")
+		<img src="@auxprod.Poza" />
+
 		@Html.Label("Produs.Titlu", "Titlu produs")
 		<p>@produs.Titlu</p>
 		@Html.Label("Titlu", "Titlu nou produs")
@@ -82,10 +92,7 @@
 		@Html.Label("Pret", "Pret nou produs")
 		<p>@auxprod.Pret</p>
 
-		@Html.Label("Produs.Poza", "Poza produs")
-		<img src="@produs.Poza" />
-		@Html.Label("Poza", "Poza noua produs")
-		<img src="@auxprod.Poza" />
+		
 
 		@Html.Label("Produs.Categorie.Denumire", "Categorie produs")
 		@foreach (var categorie in ViewBag.Categorii)
@@ -95,6 +102,9 @@
 				<p>@categorie.Denumire</p>
 			}
 		}
+		@Html.Label("CategorieId", "Id Categorie produs")
+		<p>@produs.CategorieId</p>
+
 		@Html.Label("Denumire", "Categorie noua produs")
 		@foreach (var categorie in ViewBag.Categorii)
 		{
@@ -103,7 +113,10 @@
 				<p>@categorie.Denumire</p>
 			}
 		}
+		@Html.Label("CategorieId", "Id Categorie noua produs")
+		<p>@auxprod.CategorieId</p>
 	}
+	// Cerere stergere produs
 	else if (Model.ProdusId != null && Model.Produs == null)
 	{
 		Produs produs = new Produs();
@@ -115,7 +128,10 @@
 			}
 		}
 
-		@Html.Label("Produs.Titlu", "Titlu produs")
+		@*@Html.Label("Poza", "Poza produs")*@
+		<img src="@produs.Poza" />
+
+		@*@Html.Label("Produs.Titlu", "Titlu produs")*@
 		<p>@produs.Titlu</p>
 
 		@Html.Label("Produs.Descriere", "Descriere produs")
@@ -124,9 +140,7 @@
 		@Html.Label("Produs.Pret", "Pret produs")
 		<p>@produs.Pret</p>
 
-		@Html.Label("Poza", "Poza produs")
-		<img src="@produs.Poza" />
-
+		
 
 		@Html.Label("Produs.Categorie.Denumire", "Categorie produs")
 		@foreach (var categorie in ViewBag.Categorii)
@@ -136,15 +150,21 @@
 				<p>@categorie.Denumire</p>
 			}
 		}
+		@Html.Label("CategorieId", "Id Categorie produs")
+		<p>@produs.CategorieId</p>
 	}
-	@Html.Label("Info", "Info cerere")
-	<p>@Model.Info</p>
 
 	@Html.Label("Data", "Data cerere")
 	<p>@Model.Data</p>
 
+	@Html.Label("Info", "Info cerere")
+	<p>@Model.Info</p>
+
 
 	<br />
+
+	@Html.Hidden("Info", Model.Info)
+	@Html.Hidden("Data", Model.Data)
 
 
 	@Html.LabelFor(model => model.Acceptat, "Stare cerere")
