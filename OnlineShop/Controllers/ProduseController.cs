@@ -26,8 +26,6 @@ namespace OnlineShop.Controllers
 
 		public ActionResult Index(int? categ)
 		{
-			var perPagina = 4;
-
 			if (TempData.ContainsKey("message"))
 				ViewBag.message = TempData["message"].ToString();
 
@@ -41,7 +39,7 @@ namespace OnlineShop.Controllers
 
 			
 			var search = Convert.ToString(HttpContext.Request.Query["search"]);
-			if (search != null && search.Trim() != "")
+			if (search != null && search.Trim() != "" && search.Trim() != "null")
 			{
 				search = search.Trim();
 				produse = (IOrderedQueryable<Produs>)produse.Where(p => p.Titlu.Contains(search) || p.Descriere.Contains(search));
@@ -49,16 +47,16 @@ namespace OnlineShop.Controllers
 
 
 			var sort = Convert.ToString(HttpContext.Request.Query["sort"]);
-			if (sort == null)
+			if (sort == null || sort.Trim() != "" || sort.Trim() != "null")
 				sort = Convert.ToString(HttpContext.Request.Query["sort-value"]);
-			if (sort == null)
+			if (sort == null || sort.Trim() != "" || sort.Trim() != "null")
 				sort = "titlu";
 
 			var order = Convert.ToString(HttpContext.Request.Query["order"]);
-			if (order == null)
+			if (order == null || order.Trim() != "" || order.Trim() != "null")
 				order = Convert.ToString(HttpContext.Request.Query["sort-order"]);
-			if (order == null)
-				order = "cresc";
+			if (order == null || order.Trim() != "" || order.Trim() != "null")
+					order = "cresc";
 
 			sort = sort.Trim();
 			order = order.Trim();
@@ -81,30 +79,30 @@ namespace OnlineShop.Controllers
 					break;
 			}
 
-			ViewBag.PaginationBaseUrl = "/Produse/Index/?categ=" + ((categ != null) ? categ.ToString() : "null") +
+			ViewBag.PaginationBaseUrl = "/Produse/Index?categ=" + ((categ != null) ? categ.ToString() : "null") +
 					"&search=" + ((search != null) ? search.ToString() : "null") +
 					"&sort=" + ((sort != null) ? sort.ToString() : "null") +
 					"&order=" + ((order != null) ? order.ToString() : "null") +
 					"&page";
 
 
-			ViewBag.SearchString = search;
+			ViewBag.SearchString = (search != null && search == "null") ? null : search;
 			ViewBag.FilterValue = sort;
 			ViewBag.FilterOrder = order;
 
 
+			var perPagina = 4;
 
-            var prodCount = produse.Count();
+			var prodCount = produse.Count();
 			var pagCurenta = Convert.ToInt32(HttpContext.Request.Query["page"]);
+			if (pagCurenta == 0)
+				pagCurenta = 1;
 
-			var offset = 0;
-			if (pagCurenta != 0)
-				offset = (pagCurenta - 1) * perPagina;
+			var offset = (pagCurenta - 1) * perPagina;
 
 			var prodPag = produse.Skip(offset).Take(perPagina);
 
 			ViewBag.lastPage = Math.Ceiling((float)prodCount / (float)perPagina);
-
 
 
 			var categorii = from categorie in db.Categorii
