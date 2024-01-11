@@ -30,9 +30,9 @@
 
 @if (User.IsInRole("Administrator"))
 {
-	<a class="btn alert-success" href="/Exemplare/Edit?id_produs=@Model.ProdusId&nr_exemplar=@Model.Id">Editare exemplar</a>
+	<a class="btn alert-success" href="/Exemplare/Edit?nr_exemplar=@Model.Id&id_produs=@Model.ProdusId">Editare exemplar</a>
 
-	<form method="post" action="/Exemplare/Delete?id_produs=@Model.ProdusId&nr_exemplar=@Model.Id">
+	<form method="post" action="/Exemplare/Delete?nr_exemplar=@Model.Id&id_produs=@Model.ProdusId">
 
 		<button class="btn btn-danger" type="submit">Sterge exemplarul</button>
 

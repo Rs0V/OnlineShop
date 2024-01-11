@@ -43,7 +43,12 @@
 		}
 	}
 	<a class="btn alert-success" href="/Comenzi/Show/@comanda.Id">Afisare comanda</a>
-	<a class="btn alert-success" href="/Comenzi/Edit/@comanda.Id">Editare comanda</a>
+
+	@if (User.IsInRole("Administrator"))
+	{
+		<a class="btn alert-success" href="/Comenzi/Edit/@comanda.Id">Editare comanda</a>
+	}
+
 	<br />
 	<hr /> 
 	<br />

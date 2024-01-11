@@ -8,15 +8,20 @@
     @if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
     {
         <a class="btn alert-success butoane_layout" href="/Exemplare/Index">Exemplare</a>
-
-        <a class="btn alert-success butoane_layout" href="/Utilizatori/Index">Utilizatori</a>
     }
 
     <a class="btn alert-success butoane_layout" href="/Reviewuri/Index">Reviewuri</a>
 
     @if (User.IsInRole("Administrator") || User.IsInRole("Colaborator") || User.IsInRole("Utilizator"))
     {
+        <a class="btn alert-success butoane_layout" href="/Utilizatori/Index">Utilizatori</a>
+
         <a class="btn alert-success butoane_layout" href="/Comenzi/Index">Comenzi</a>
+    }
+
+    @if (User.IsInRole("Administrator"))
+    {
+        <a class="btn alert-success butoane_layout" href="/Cereri/Index">Cereri</a>
     }
 </div>
 

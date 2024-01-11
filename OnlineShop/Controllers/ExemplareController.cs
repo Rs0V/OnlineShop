@@ -34,9 +34,9 @@ namespace OnlineShop.Controllers
 			return View();
 		}
 		[Authorize(Roles = "Colaborator,Administrator")]
-		public ActionResult Show(int id_produs, int nr_exemplar)
+		public ActionResult Show(int nr_exemplar, int id_produs)
 		{
-			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_exemplar);
+			Exemplar? exemplar = db.Exemplare.Find(nr_exemplar, id_produs);
 
 			if (exemplar == null)
 			{
@@ -72,9 +72,9 @@ namespace OnlineShop.Controllers
 		}
 
 		[Authorize(Roles = "Administrator")]
-		public ActionResult Edit(int id_produs, int nr_exemplar)
+		public ActionResult Edit(int nr_exemplar, int id_produs)
 		{
-			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_exemplar);
+			Exemplar? exemplar = db.Exemplare.Find(nr_exemplar, id_produs);
 
 			if (exemplar == null)
 			{
@@ -108,9 +108,9 @@ namespace OnlineShop.Controllers
 
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
-		public ActionResult Delete(int id_produs, int nr_exemplar)
+		public ActionResult Delete(int nr_exemplar, int id_produs)
 		{
-			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_exemplar);
+			Exemplar? exemplar = db.Exemplare.Find(nr_exemplar, id_produs);
 
 			if (exemplar == null)
 			{

@@ -31,7 +31,10 @@
 
 <br />
 
-<a class="btn alert-success" href="/Comenzi/Edit/@Model.Id">Editare comanda</a>
+@if (User.IsInRole("Administrator"))
+{
+	<a class="btn alert-success" href="/Comenzi/Edit/@Model.Id">Editare comanda</a>
+}
 
 <br />
 

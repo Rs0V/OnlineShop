@@ -41,11 +41,11 @@
 		<p>@exemplar.ComandaId</p>
 	}
 
-	<a class="btn alert-success" href="/Exemplare/Show?id_produs=@exemplar.ProdusId&nr_exemplar=@exemplar.Id">Afisare exemplar</a>
-
+	<a class="btn alert-success" href="/Exemplare/Show?nr_exemplar=@exemplar.Id&id_produs=@exemplar.ProdusId">Afisare exemplar</a>
+	
 	@if (User.IsInRole("Administrator"))
 	{
-		<a class="btn alert-success" href="/Exemplare/Edit?id_produs=@exemplar.ProdusId&nr_exemplar=@exemplar.Id">Editare exemplar</a>
+		<a class="btn alert-success" href="/Exemplare/Edit?nr_exemplar=@exemplar.Id&id_produs=@exemplar.ProdusId">Editare exemplar</a>
 	}
 	<br />
 	<hr />

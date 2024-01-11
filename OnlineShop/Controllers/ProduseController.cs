@@ -47,15 +47,15 @@ namespace OnlineShop.Controllers
 
 
 			var sort = Convert.ToString(HttpContext.Request.Query["sort"]);
-			if (sort == null || sort.Trim() != "" || sort.Trim() != "null")
+			if (sort == null || sort.Trim() == "" || sort.Trim() == "null")
 				sort = Convert.ToString(HttpContext.Request.Query["sort-value"]);
-			if (sort == null || sort.Trim() != "" || sort.Trim() != "null")
+			if (sort == null || sort.Trim() == "" || sort.Trim() == "null")
 				sort = "titlu";
 
 			var order = Convert.ToString(HttpContext.Request.Query["order"]);
-			if (order == null || order.Trim() != "" || order.Trim() != "null")
+			if (order == null || order.Trim() == "" || order.Trim() == "null")
 				order = Convert.ToString(HttpContext.Request.Query["sort-order"]);
-			if (order == null || order.Trim() != "" || order.Trim() != "null")
+			if (order == null || order.Trim() == "" || order.Trim() == "null")
 					order = "cresc";
 
 			sort = sort.Trim();
@@ -72,7 +72,7 @@ namespace OnlineShop.Controllers
 					break;
 
 				case "desc":
-					produse = produse.OrderBy(p =>
+					produse = produse.OrderByDescending(p =>
 						(sort == "titlu") ? p.Titlu :
 						(sort == "pret") ? p.Pret.ToString() :
 						p.Rating.ToString());
@@ -143,14 +143,6 @@ namespace OnlineShop.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				//var categorii = from categorie in db.Categorii
-				//				where categorie.Id == produs.CategorieId
-				//				select categorie;
-
-				//if (categorii.Count() == 0)
-				//{
-				//	TempData["message"] = "Categoria " + produs.CategorieId.ToString() + " nu exista";
-				//}
 				if (User.IsInRole("Administrator"))
 				{
 					db.Produse.Add(produs);
@@ -165,7 +157,6 @@ namespace OnlineShop.Controllers
 						AuxProd = produs.ToString(),
 						Info = "Cerere adaugare produs",
 						Acceptat = Acceptare.In_Asteptare,
-						//Respins = false,
 						Data = DateTime.Now
 					};
 					db.Cereri.Add(cerere);

@@ -59,14 +59,14 @@ namespace OnlineShop.Controllers
 				return RedirectToAction("Index");
 			}
 			if (comanda.UtilizatorId == _userManager.GetUserId(User) || User.IsInRole("Administrator"))
+			{
+                var utilizatori = from utilizator in db.Utilizatori
+                                  select utilizator;
+                ViewBag.Utilizatori = utilizatori;
+
 				return View(comanda);
-
-			TempData["message"] = "Nu aveti dreptul sa vizualizati o comanda care nu va apartine";
-
-			var utilizatori = from utilizator in db.Utilizatori
-							  select utilizator;
-			ViewBag.Utilizatori = utilizatori;
-
+            }
+            TempData["message"] = "Nu aveti dreptul sa vizualizati o comanda care nu va apartine";
 			return RedirectToAction("Index");
 		}
 

@@ -22,7 +22,7 @@ namespace OnlineShop.Controllers
 			_roleManager = roleManager;
 		}
 
-		[Authorize(Roles = "Administrator,Colaborator")]
+		[Authorize(Roles = "Administrator,Colaborator,Utilizator")]
 		public ActionResult Index()
 		{
 			if (TempData.ContainsKey("message"))
@@ -31,6 +31,9 @@ namespace OnlineShop.Controllers
 			var utilizatori = from utilizator in db.Utilizatori
 							  orderby utilizator.Nume, utilizator.Prenume
 							  select utilizator;
+
+			if (User.IsInRole("Utilizator"))
+                utilizatori = (IOrderedQueryable<Utilizator>)utilizatori.Where(u => u.Id == _userManager.GetUserId(User));
 
 			ViewBag.Utilizatori = utilizatori;
 			ViewBag.userManager = _userManager;
