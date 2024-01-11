@@ -4,12 +4,11 @@
 
 
 
-@using (Html.BeginForm(controllerName: "Exemplare", actionName: "Edit", method: FormMethod.Post, routeValues: new { id_produs = Model.ProdusId, nr_exemplar = Model.Id }))
+@using (Html.BeginForm(controllerName: "Exemplare", actionName: "Edit", method: FormMethod.Post, routeValues: new { nr_exemplar = Model.Id, id_produs = Model.ProdusId }))
 {
-	@Html.Label("Stare", "Stare exemplar")
+	@Html.LabelFor(model => model.Stare, "Stare exemplar")
 	<br />
-	@Html.Editor("Stare")
-
+	@Html.EditorFor(model => model.Stare)
 	@Html.ValidationMessageFor(m => m.Stare, null, new { @class = "text-danger" })
 	<br />
 	<br />
@@ -22,6 +21,9 @@
 	@Html.ValidationMessageFor(m => m.ComandaId, null, new { @class = "text-danger" })
 	<br />
 	<br />
+
+
+	@Html.Hidden("ProdusId", Model.ProdusId)
 
 
 	<button class="btn btn-success" type="submit">Modifica exemplarul</button>

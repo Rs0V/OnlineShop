@@ -9,10 +9,12 @@ namespace OnlineShop.Models
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
+		[Required(ErrorMessage = "Utilizatorul review-ului este obligatoriu")]
 		public string? UtilizatorId { get; set; }
 
 		public virtual Utilizator? Utilizator { get; set; }
 
+		[Required(ErrorMessage = "Produsul review-ului este obligatoriu")]
 		public int? ProdusId { get; set; }
 
 		public virtual Produs? Produs { get; set; }

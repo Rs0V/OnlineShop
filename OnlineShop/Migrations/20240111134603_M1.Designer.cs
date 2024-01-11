@@ -12,7 +12,7 @@ using OnlineShop.Data;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240110212705_M1")]
+    [Migration("20240111134603_M1")]
     partial class M1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,9 +221,8 @@ namespace OnlineShop.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Stare")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Stare")
+                        .HasColumnType("int");
 
                     b.Property<string>("UtilizatorId")
                         .IsRequired()
@@ -253,9 +252,8 @@ namespace OnlineShop.Migrations
                     b.Property<int?>("ComandaId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Stare")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Stare")
+                        .HasColumnType("int");
 
                     b.HasKey("Id", "ProdusId");
 

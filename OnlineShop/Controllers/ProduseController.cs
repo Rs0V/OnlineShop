@@ -309,10 +309,7 @@ namespace OnlineShop.Controllers
 				return RedirectToAction("Index");
 			}
 
-			if (HttpContext.Session.GetString("produs-review") == null)
-			{
-				HttpContext.Session.SetString("produs-review", produs.Id.ToString());
-			}
+			HttpContext.Session.SetString("produs-review", produs.Id.ToString());
 			return Redirect("/Reviewuri/New");
 		}
 	}

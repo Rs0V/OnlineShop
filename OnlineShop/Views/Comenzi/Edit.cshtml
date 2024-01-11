@@ -24,13 +24,16 @@
 	<br />
 
 
-	@Html.Label("Stare", "Stare comanda")
+	@Html.LabelFor(model => model.Stare, "Stare comanda")
 	<br />
-	@Html.Editor("Stare")
-
+	@Html.EditorFor(model => model.Stare)
 	@Html.ValidationMessageFor(m => m.Stare, null, new { @class = "text-danger" })
 	<br />
 	<br />
+
+
+	string uid = ViewBag.userManager.GetUserId(User);
+	@Html.Hidden("UtilizatorId", uid);
 
 
 	<button class="btn btn-success" type="submit">Modifica aceasta comanda</button>

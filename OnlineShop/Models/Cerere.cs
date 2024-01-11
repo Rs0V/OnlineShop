@@ -27,11 +27,10 @@ namespace OnlineShop.Models
 		[StringLength(256, ErrorMessage = "Informatia depaseste 256 de caractere")]
 		public string? Info { get; set; }
 
-		// [Required(ErrorMessage = "Statusul de acceptat este obligatoriu")]
+
+		[Required(ErrorMessage = "Statusul de acceptat este obligatoriu")]
 		public Acceptare Acceptat { get; set; }
 
-		//[Required(ErrorMessage = "Statusul de respins este obligatoriu")]
-		//public bool Respins { get; set; }
 
 		[Required(ErrorMessage = "Data cererii este obligatorie")]
 		public DateTime Data { get; set; }

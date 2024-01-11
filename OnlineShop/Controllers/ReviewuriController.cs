@@ -102,6 +102,9 @@ namespace OnlineShop.Controllers
 			{
 				db.Reviewuri.Add(review);
 				db.SaveChanges();
+
+				HttpContext.Session.SetString("produs-review", "");
+
 				TempData["message"] = "Review-ul a fost adaugat!";
 				return RedirectToAction("Index");
 			}
@@ -130,13 +133,8 @@ namespace OnlineShop.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Edit(string id_utilizator, int id_produs, Review reqReview)
+		public ActionResult Edit(int id, string id_utilizator, int id_produs, Review reqReview)
 		{
-			var id = (from r in db.Reviewuri
-					  where r.UtilizatorId == id_utilizator &&
-					  r.ProdusId == id_produs
-					  select r).ToList().ElementAt(0).Id;
-
 			Review? review = db.Reviewuri.Find(id, id_utilizator, id_produs);
 
 			if (review == null)
@@ -148,6 +146,7 @@ namespace OnlineShop.Controllers
 			{
 				if (ModelState.IsValid)
 				{
+					review.Rating = reqReview.Rating;
 					review.Continut = reqReview.Continut;
 
 					db.SaveChanges();

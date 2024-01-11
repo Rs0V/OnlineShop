@@ -85,9 +85,9 @@ namespace OnlineShop.Controllers
 		}
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
-		public ActionResult Edit(int id_produs, int nr_exemplar, Exemplar reqEx)
+		public ActionResult Edit(int nr_exemplar, int id_produs, Exemplar reqEx)
 		{
-			Exemplar? exemplar = db.Exemplare.Find(id_produs, nr_exemplar);
+			Exemplar? exemplar = db.Exemplare.Find(nr_exemplar, id_produs);
 
 			if (exemplar == null)
 			{

@@ -3,16 +3,10 @@
 
 namespace OnlineShop.Models
 {
-	public class StareComandaAttribute : ValidationAttribute
+	public enum StareComanda
 	{
-		private readonly string[] stariComanda = { "Efectuata", "Preluata" };
-
-		public override bool IsValid(object? value)
-		{
-			if (value is string stare)
-				return stariComanda.Contains(stare);
-			return false;
-		}
+		Preluata,
+		Efectuata
 	}
 
 	public class Comanda
@@ -24,8 +18,7 @@ namespace OnlineShop.Models
 		public float Valoare { get; set; }
 
 		[Required(ErrorMessage = "Starea comenzii este obligatorie")]
-		[StareComanda(ErrorMessage = "Stare invalida")]
-		public string? Stare { get; set; }
+		public StareComanda Stare { get; set; }
 
 		[Required(ErrorMessage = "Data comenzii este obligatorie")]
 		public DateTime Data { get; set; }

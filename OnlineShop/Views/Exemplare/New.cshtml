@@ -15,11 +15,10 @@
 	<br />
 	<br />
 
-	@Html.Label("Stare", "Stare exemplar")
+
+	@Html.LabelFor(model => model.Stare, "Stare exemplar")
 	<br />
-
-	@Html.TextBox("Stare", null, new { @class = "form-control" })
-
+	@Html.EditorFor(model => model.Stare)
 	@Html.ValidationMessageFor(m => m.Stare, null, new { @class = "text-danger" })
 	<br />
 	<br />

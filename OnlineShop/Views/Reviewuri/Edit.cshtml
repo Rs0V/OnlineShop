@@ -4,7 +4,7 @@
 
 
 
-@using (Html.BeginForm(controllerName: "Reviewuri", actionName: "Edit", method: FormMethod.Post, routeValues: new { id_utilizator = Model.UtilizatorId, id_produs = Model.ProdusId }))
+@using (Html.BeginForm(controllerName: "Reviewuri", actionName: "Edit", method: FormMethod.Post, routeValues: new { id = Model.Id, id_utilizator = Model.UtilizatorId, id_produs = Model.ProdusId }))
 {
 	@Html.Label("Rating", "Rating review")
 	<br />
@@ -25,6 +25,8 @@
 	<br />
 	<br />
 
+	@Html.Hidden("UtilizatorId", Model.Id)
+	@Html.Hidden("ProdusId", Model.ProdusId)
 
 	<button class="btn btn-success" type="submit">Modifica review-ul</button>
 }

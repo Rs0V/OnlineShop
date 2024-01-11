@@ -77,6 +77,7 @@ namespace OnlineShop.Controllers
 			var produse = from produs in db.Produse
 						  where 1 == 2
 						  select produs; // Query Vid
+
 			var cosStr = HttpContext.Session.GetString("cos");
 			if (cosStr != null)
 			{
@@ -94,7 +95,7 @@ namespace OnlineShop.Controllers
 			}
 
 			ViewBag.Produse = produse;
-
+			ViewBag.userManager = _userManager;
 			return View();
 		}
 
@@ -104,14 +105,51 @@ namespace OnlineShop.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				var exCom = new List<Exemplar>();
+
+				var exemplare = from exemplar in db.Exemplare
+								where exemplar.Stare == StareExemplar.Disponibil
+								select exemplar;
+
+				var cosStr = HttpContext.Session.GetString("cos");
+				if (cosStr != null)
+				{
+					List<int> cos = new List<int>();
+					foreach (var str in cosStr.Split(" ").ToList())
+					{
+						if (str != null && str != "" && str != " ")
+							cos.Add(int.Parse(str));
+					}
+					foreach(var produsId in cos)
+					{
+						var ex = exemplare.Where(e => e.ProdusId == produsId).ToList();
+						if (ex.Count() > 0)
+						{
+							ex[0].Stare = StareExemplar.Comandat;
+							exCom.Add(ex[0]);
+						}
+						else
+						{
+							TempData["message"] = "Produsul " +
+								(from produs in db.Produse
+								 where produs.Id == produsId
+								 select produs).ToList()[0].Titlu +
+								" nu este disponibil momentan";
+							return RedirectToAction("Index");
+						}
+					}
+				}
 				db.Comenzi.Add(comanda);
 				db.SaveChanges();
+
+				foreach(var ex in exCom)
+					ex.ComandaId = comanda.Id;
+
+				HttpContext.Session.SetString("cos", "");
+
 				TempData["message"] = "Comanda a fost adaugata!";
 				return RedirectToAction("Index");
 			}
-
-			///
-
 			return View(comanda);
 		}
 
@@ -125,6 +163,7 @@ namespace OnlineShop.Controllers
 				TempData["message"] = "Comanda cautata nu exista";
 				return RedirectToAction("Index");
 			}
+			ViewBag.userManager = _userManager;
 			return View(comanda);
 		}
 
@@ -144,7 +183,6 @@ namespace OnlineShop.Controllers
 				comanda.Data = reqComanda.Data;
 				comanda.Stare = reqComanda.Stare;
 				comanda.Valoare = reqComanda.Valoare;
-				comanda.UtilizatorId = reqComanda.UtilizatorId;
 
 				db.SaveChanges();
 				TempData["message"] = "Comanda a fost modificata!";

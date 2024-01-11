@@ -177,7 +177,7 @@ namespace OnlineShop.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Valoare = table.Column<float>(type: "real", nullable: false),
-                    Stare = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Stare = table.Column<int>(type: "int", nullable: false),
                     Data = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UtilizatorId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -245,7 +245,7 @@ namespace OnlineShop.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProdusId = table.Column<int>(type: "int", nullable: false),
-                    Stare = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Stare = table.Column<int>(type: "int", nullable: false),
                     ComandaId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

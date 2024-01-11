@@ -26,8 +26,22 @@
 	<br />
 
 
-	int pid = int.Parse(ViewBag.produsReview);
-	@Html.Hidden("ProdusId", pid)
+	@if (ViewBag.produsReview != null && ViewBag.produsReview != "")
+	{
+		int pid = int.Parse(ViewBag.produsReview);
+		@Html.Hidden("ProdusId", pid)
+	}
+	else
+	{
+		@Html.Label("ProdusId", "Produs review")
+		<br />
+
+		@Html.TextBox("ProdusId", null, new { @class = "form-control" })
+
+		@Html.ValidationMessageFor(m => m.ProdusId, null, new { @class = "text-danger" })
+		<br />
+		<br />
+	}
 
 	string uid = ViewBag.userReview;
 	@Html.Hidden("UtilizatorId", uid)
