@@ -1,5 +1,6 @@
-﻿
+﻿<img src="../css/os-views-bg.png" class="comenzi-body" />
 <br />
+
 <h2 class="text-center">Lista categorii</h2>
 <br />
 
@@ -15,7 +16,8 @@
 @if (User.IsInRole("Administrator"))
 {
 	<div class="align-items-center justify-content-center d-flex">
-		<a class="btn btn-success" href="/Categorii/New">Adauga o noua categorie</a>
+		<a class="btn btn-success hue-m30 new-categorie rounded-circle" href="/Categorii/New"></a>
+		<p class="plus">+</p>
 	</div>
 }
 
@@ -23,25 +25,28 @@
 
 @foreach (var categorie in ViewBag.Categorii)
 {
-	@*
-	@Html.Label("Id", "Id categorie")
-	<p>@categorie.Id</p>
-	*@
+	<div class="categorie">
 
-	@Html.Label("Denumire", "Denumire categorie")
-	<p>@categorie.Denumire</p>
+		@Html.Label("Denumire", "Denumire Categorie", new {@class = "data-label val-label"})
+		<p class="data-data val-value">@categorie.Denumire</p>
 
-	@if (User.IsInRole("Administrator"))
-	{
-		<a class="btn alert-success" href="/Categorii/Show/@categorie.Id">Afisare categorie</a>
-		<a class="btn alert-success" href="/Categorii/Edit/@categorie.Id">Editare categorie</a>
-	}
-	else
-	{
-		<a class="btn alert-success" href="/Produse/Index?categ=@categorie.Id">Afisare produse</a>
-	}
-	<br />
-	<hr />
-	<br />
+		@if (User.IsInRole("Administrator"))
+		{
+			<div class="buton-flex">
+				<a class="btn alert-success rounded-pill rev-categ-post mt-2 margin-buton-dreapta" href="/Categorii/Show/@categorie.Id">Afisare categorie</a>
+				<a class="btn alert-success rounded-pill rev-categ-post mt-2 margin-buton-dreapta" href="/Categorii/Edit/@categorie.Id">Editare categorie</a>
+			</div>
+		}
+		else
+		{
+			<a class="btn alert-success rev-categ-post" href="/Produse/Index?categ=@categorie.Id">Afisare produse</a>
+		}
+		<br />
+
+		<hr class="hr-1" />
+
+		<br />
+
+	</div>
 }
 <br />

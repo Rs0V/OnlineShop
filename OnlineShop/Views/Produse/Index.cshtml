@@ -1,5 +1,6 @@
-﻿
+﻿<img src="../css/os-views-bg.png" class="comenzi-body" />
 <br />
+
 <h2 class="text-center">Lista produse</h2>
 <br />
 
@@ -20,36 +21,40 @@
 
 @foreach (var produs in ViewBag.Produse)
 {
-	<p>@produs.Rating</p>
+	<div class="produs_">
+		<p class="data-data val-value">@produs.Rating</p>
 
-	<img class="prod-img" src="@produs.Poza" />
+		<img class="prod-img" src="@produs.Poza" />
 
-	<p>@produs.Titlu</p>
+		<p class="data-data val-value">@produs.Titlu</p>
 
-	@Html.Label("Pret", "Pret produs")
-	<p>@produs.Pret</p>
+		@Html.Label("Pret", "Pret produs", new { @class="data-label val-label" })
+		<p class="data-data val-value">@produs.Pret</p>
 
 
-	
-	@Html.Label("Denumire", "Categorie produs")
-	@foreach(var categorie in ViewBag.Categorii)
-	{
-		@if(categorie.Id == produs.CategorieId)
+
+		@Html.Label("Denumire", "Categorie produs", new { @class="data-label val-label" })
+		@foreach(var categorie in ViewBag.Categorii)
 		{
-			<p>@categorie.Denumire</p>
+			@if(categorie.Id == produs.CategorieId)
+			{
+				<p class="data-data val-value">@categorie.Denumire</p>
+			}
 		}
-	}
 
 
 
-	<a class="btn alert-success" href="/Produse/Show/@produs.Id">Afisare produs</a>
+		<a class="btn alert-success rev-prod-post" href="/Produse/Show/@produs.Id">Afisare produs</a>
 
-	@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
-	{
-		<a class="btn alert-success" href="/Produse/Edit/@produs.Id">Editare produs</a>
-	}
+		@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
+		{
+			<a class="btn alert-success rounded-pill rev-prod-post mt-2" href="/Produse/Edit/@produs.Id">Editare produs</a>
+		}
+
+	</div>
+
 	<br />
-	<hr />
+	<hr class="hr-1" />
 	<br />
 }
 <br />

@@ -1,4 +1,4 @@
-﻿.categorie {
+﻿.produs_ {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -7,18 +7,18 @@
     filter: hue-rotate(45deg) brightness(95%) contrast(105%);
 }
 
-.rev-categ-post {
+.rev-prod-post {
     filter: hue-rotate(-45deg) brightness(105%) contrast(95%);
 }
 
-.new-categorie {
+.new-produs {
     width: 50px;
     height: 50px;
     transform: scale(100%);
     transition: all .2s;
 }
 
-.new-categorie:hover {
+.new-produs:hover {
     transform: scale(110%);
 }
 
@@ -26,14 +26,6 @@
     transform: scale(110%);
 }
 
-.buton-flex {
-    display: inline-flex;
-}
-
-.margin-buton-stanga {
-    margin-left: 10px;
-}
-
-.margin-buton-dreapta {
-    margin-right: 10px;
+.stele {
+    display: inline-block;
 }

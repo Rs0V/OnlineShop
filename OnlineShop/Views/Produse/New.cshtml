@@ -1,60 +1,63 @@
 ﻿@model OnlineShop.Models.Produs
 
+<img src="../css/os-views-bg.png" class="comenzi-body" />
+<br />
+
 <h2>Adaugare produs</h2>
 
 
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Produse", method: FormMethod.Post))
 {
-	@Html.Label("Titlu", "Titlu produs")
+	@Html.Label("Titlu", "Titlu produs", new {@class = "data-label val-label"})
 	<br />
 
-	@Html.TextBox("Titlu", null, new { @class = "form-control" })
+	@Html.TextBox("Titlu", null, new { @class = "form-control data-label val-label" })
 
 	@Html.ValidationMessageFor(m => m.Titlu, null, new { @class = "text-danger" })
 	<br />
 	<br />
 
 
-	@Html.Label("Descriere", "Descriere produs")
+	@Html.Label("Descriere", "Descriere produs", new {@class = "data-label val-label"})
 	<br />
 
-	@Html.TextBox("Descriere", null, new { @class = "form-control" })
+	@Html.TextBox("Descriere", null, new { @class = "form-control data-label val-label" })
 
 	@Html.ValidationMessageFor(m => m.Descriere, null, new { @class = "text-danger" })
 	<br />
 	<br />
 
 
-	@Html.Label("Pret", "Pret produs")
+	@Html.Label("Pret", "Pret produs", new {@class = "data-label val-label"})
 	<br />
 
-	@Html.TextBox("Pret", null, new { @class = "form-control" })
+	@Html.TextBox("Pret", null, new { @class = "form-control data-label val-label" })
 
 	@Html.ValidationMessageFor(m => m.Pret, null, new { @class = "text-danger" })
 	<br />
 	<br />
 
 
-	@Html.Label("Poza", "Poza produs")
+	@Html.Label("Poza", "Poza produs", new {@class = "data-label val-label"})
 	<br />
 
-	@Html.TextBox("Poza", null, new { @class = "form-control" })
+	@Html.TextBox("Poza", null, new { @class = "form-control data-label val-label" })
 
 	@Html.ValidationMessageFor(m => m.Poza, null, new { @class = "text-danger" })
 	<br />
 	<br />
 
 
-	@Html.Label("CategorieId", "Categorie produs")
+	@Html.Label("CategorieId", "Categorie produs", new {@class = "data-label val-label"})
 	<br />
 
-	@Html.TextBox("CategorieId", null, new { @class = "form-control" })
+	@Html.TextBox("CategorieId", null, new { @class = "form-control data-label val-label" })
 
 	@Html.ValidationMessageFor(m => m.CategorieId, null, new { @class = "text-danger" })
 	<br />
 	<br />
 
 
-	<button class="btn btn-success" type="submit">Adauga produs</button>
+	<button class="btn btn-success rounded-pill" type="submit">Adauga produs</button>
 }

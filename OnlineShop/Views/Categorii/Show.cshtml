@@ -1,21 +1,24 @@
 ﻿@model OnlineShop.Models.Categorie
 
 
+<img src="../css/os-views-bg.png" class="comenzi-body" />
+<br />
+<br />
 
 <h2>Afisare categorie</h2>
 <br />
 
-@Html.Label("Id", "Id categorie")
-<p>@Model.Id</p>
+@Html.Label("Id", "Id categorie", new {@class = "data-label val-label"})
+<p class="data-data val-value">@Model.Id</p>
 
-@Html.Label("Denumire", "Denumire categorie")
-<p>@Model.Denumire</p>
+@Html.Label("Denumire", "Denumire categorie", new {@class = "data-label val-label"})
+<p class="data-data val-value">@Model.Denumire</p>
 
 
 
 @if (User.IsInRole("Administrator"))
 {
-	<a class="btn alert-success" href="/Categorii/Edit/@Model.Id">Editare categorie</a>
+	<a class="btn alert-success rounded-pill" href="/Categorii/Edit/@Model.Id">Editare categorie</a>
 }
 
 <br />
@@ -24,14 +27,14 @@
 
 <form method="post" action="/Categorii/Delete/@Model.Id">
 
-	<button class="btn btn-danger" type="submit">Sterge categoria</button>
+	<button class="btn btn-danger rounded-pill" type="submit">Sterge categoria</button>
 
 </form>
 <br />
-<a class="btn alert-success" href="/Categorii/Index">Afisare lista categorii</a>
+<a class="btn alert-success rounded-pill" href="/Categorii/Index">Afisare lista categorii</a>
 
 <br />
 <hr />
 <br />
 
-<a class="btn alert-success" href="/Produse/Index?categ=@Model.Id">Afisare produse</a>
+<a class="btn alert-success rounded-pill" href="/Produse/Index?categ=@Model.Id">Afisare produse</a>

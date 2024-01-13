@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\os-comenzi-bg.png" />
+    <None Include="wwwroot\css\os-views-bg.png" />
   </ItemGroup>
 
 </Project>

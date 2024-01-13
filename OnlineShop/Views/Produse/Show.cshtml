@@ -1,46 +1,50 @@
 ﻿@model OnlineShop.Models.Produs
 
+<img src="../css/os-views-bg.png" class="comenzi-body" />
+<br />
+<br />
+
 <h2>Afisare produs</h2>
 <br />
 
 
 
-@Html.Label("Id", "Id produs")
-<p>@Model.Id</p>
+@Html.Label("Id", "Id produs", new {@class = "data-label val-label"})
+<p class="data-data val-value">@Model.Id</p>
 
 <hr />
 
-<p>@Model.Rating</p>
+<p class="data-data val-value">@Model.Rating</p>
 
 <img class="prod-img" src="@Model.Poza" />
 
-<p>@Model.Titlu</p>
+<p class="data-data val-value">@Model.Titlu</p>
 
-@Html.Label("Descriere", "Descriere produs")
-<p>@Model.Descriere</p>
+@Html.Label("Descriere", "Descriere produs", new {@class = "data-label val-label"})
+<p class="data-data val-value">@Model.Descriere</p>
 
-@Html.Label("Pret", "Pret produs")
-<p>@Model.Pret</p>
+@Html.Label("Pret", "Pret produs", new {@class = "data-label val-label"})
+<p class="data-data val-value">@Model.Pret</p>
 
 
-@Html.Label("Denumire", "Categorie produs")
+@Html.Label("Denumire", "Categorie produs", new {@class = "data-label val-label"})
 @foreach (var categorie in ViewBag.Categorii)
 {
 	@if (categorie.Id == Model.CategorieId)
 	{
-		<p>@categorie.Denumire</p>
+		<p class="data-data val-value">@categorie.Denumire</p>
 	}
 }
 @if (User.IsInRole("Colaborator") || User.IsInRole("Administrator"))
 {
-	@Html.Label("CategorieId", "Id Categorie produs")
-	<p>@Model.CategorieId</p>
+	@Html.Label("CategorieId", "Id Categorie produs", new {@class = "data-label val-label"})
+	<p class="data-data val-value">@Model.CategorieId</p>
 }
 
 
 @if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
 {
-	<a class="btn alert-success" href="/Produse/Edit/@Model.Id">Editare produs</a>
+	<a class="btn alert-success rounded-pill" href="/Produse/Edit/@Model.Id">Editare produs</a>
 }
 <br />
 <hr />
@@ -50,11 +54,11 @@
 	<form method="post" action="/Produse/Delete/@Model.Id">
 		@if (User.IsInRole("Administrator") == true)
 		{
-			<button class="btn btn-danger" type="submit">Sterge produsul</button>
+			<button class="btn btn-danger rounded-pill" type="submit">Sterge produsul</button>
 		}
 		else
 		{
-			<button class="btn btn-danger" type="submit">Trimite cerere stergere produs</button>
+			<button class="btn btn-danger rounded-pill" type="submit">Trimite cerere stergere produs</button>
 		}
 	</form>
 }
@@ -63,14 +67,14 @@
 <hr />
 <br />
 
-<a class="btn alert-success" href="/Produse/Index">Afisare lista produse</a>
+<a class="btn alert-success rounded-pill" href="/Produse/Index">Afisare lista produse</a>
 
 <br />
 <hr />
 <br />
 
 <form method="post" action="/Produse/AdaugaCos/@Model.Id">
-	<button class="btn btn-danger" type="submit">Adauga in cos</button>
+	<button class="btn btn-danger rounded-pill" type="submit">Adauga in cos</button>
 </form>
 
 <br />
@@ -80,6 +84,6 @@
 @if (User.IsInRole("Administrator") || User.IsInRole("Colaborator") || User.IsInRole("Utilizator"))
 {
 	<form method="post" action="/Produse/ScrieReview/@Model.Id">
-		<button class="btn btn-danger" type="submit">Scrie Review</button>
+		<button class="btn btn-danger rounded-pill" type="submit">Scrie Review</button>
 	</form>
 }

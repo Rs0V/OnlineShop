@@ -1,7 +1,7 @@
 ﻿
 @model OnlineShop.Models.Comanda
 
-<img src="../css/os-comenzi-bg.png" class="comenzi-body" />
+<img src="../css/os-views-bg.png" class="comenzi-body" />
 <br />
 <h2>Adaugare comanda</h2>
 <br />
@@ -12,8 +12,8 @@
 {
 	@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
 	{
-		@Html.Label("Id", "Id produs")
-		<p>@produs.Id</p>
+		@Html.Label("Id", "Id produs", new {@class = "data-label val-label"})
+		<p class="data-data val-value">@produs.Id</p>
 	}
 
 	int? _rating = produs.Rating;
@@ -26,27 +26,27 @@
 		{
 			// Stele aurii
 			// De pus inline-block
-			<img src="" />
+			<img class = "stele" src="../css/star.png" />
 		}
 		else
 		{
 			// Stele gri
 			// De pus inline-block
-			<img src="" />
+			<img class = "stele" src="" />
 		}
 	}
 
 	<img class="prod-img" src="@produs.Poza" />
 
 	@*@Html.Label("Titlu", "Titlu produs")*@
-	<p>@produs.Titlu</p>
+	<p class="data-data val-value">@produs.Titlu</p>
 
-	@Html.Label("Pret", "Pret produs")
-	<p>@produs.Pret</p>
+	@Html.Label("Pret", "Pret produs",  new {@class = "data-label val-label"})
+	<p class="data-data val-value">@produs.Pret</p>
 
 
 	<form method="post" action="/Comenzi/StergeProdusCos/@produs.Id">
-		<button class="btn btn-success" type="submit">Sterge produs din cos</button> 
+		<button class="btn btn-success rounded-pill" type="submit">Sterge produs din cos</button>
 	</form>
 }
 
@@ -77,7 +77,7 @@
 		<p class="pret-label">Pret: @val</p>
 		<br />
 
-		<button class="btn alert-success" type="submit">Adauga o comanda</button>
+		<button class="btn alert-success rounded-pill" type="submit">Adauga o comanda</button>
 	</div>
 	<br />
 	<br />
