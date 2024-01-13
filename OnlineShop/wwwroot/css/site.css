@@ -2,9 +2,13 @@
 /* Cristian */
 @import url("css1.css");
 
+@import url("css4.css");
+
 
 /* Victor */
 @import url("css2.css");
+
+@import url("css3.css");
 
 html {
   font-size: 14px;

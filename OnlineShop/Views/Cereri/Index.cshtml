@@ -36,7 +36,7 @@
 		};
 
 		@*@Html.Label("Poza", "Poza produs")*@
-		<img src="@auxprod.Poza" />
+		<img src="@auxprod.Poza" class="small-img"/>
 
 		@*@Html.Label("Titlu", "Titlu produs")*@
 		<p>@auxprod.Titlu</p>
@@ -84,46 +84,67 @@
 		}
 
 		@Html.Label("Produs.Poza", "Poza produs")
-		<img src="@produs.Poza" />
+		<img src="@produs.Poza" class="small-img"/>
 		@Html.Label("Poza", "Poza noua produs")
-		<img src="@auxprod.Poza" />
+		<img src="@auxprod.Poza" class="small-img" />
 
-		@Html.Label("Produs.Titlu", "Titlu produs")
-		<p>@produs.Titlu</p>
-		@Html.Label("Titlu", "Titlu nou produs")
-		<p>@auxprod.Titlu</p>
+		<br />
 
-		@Html.Label("Produs.Descriere", "Descriere produs")
-		<p>@produs.Descriere</p>
-		@Html.Label("Descriere", "Descriere noua produs")
-		<p>@auxprod.Descriere</p>
+		@Html.Label("Produs.Titlu", "Titlu produs: ", new { @class="d-inline-block" })
+		<p class ="d-inline-block">@produs.Titlu</p>
+		<p class="d-inline-block">&emsp;|&emsp;</p>
+		@Html.Label("Titlu", "Titlu nou produs: ", new { @class="d-inline-block" })
+		<p class="d-inline-block">@auxprod.Titlu</p>
 
-		@Html.Label("Produs.Pret", "Pret produs")
-		<p>@produs.Pret</p>
-		@Html.Label("Pret", "Pret nou produs")
-		<p>@auxprod.Pret</p>
+		<br />
 
-		@Html.Label("Produs.Categorie.Denumire", "Categorie produs")
+		@Html.Label("Produs.Descriere", "Descriere produs: ", new { @class="d-inline-block" })
+		<p class="d-inline-block">@produs.Descriere</p>
+		<p class="d-inline-block">&emsp;|&emsp;</p>
+		@Html.Label("Descriere", "Descriere noua produs: ", new { @class="d-inline-block" })
+		<p class="d-inline-block">@auxprod.Descriere</p>
+
+		<br />
+
+		@Html.Label("Produs.Pret", "Pret produs: ", new { @class="d-inline-block" })
+		<p class="d-inline-block">@produs.Pret</p>
+		<p class="d-inline-block">&emsp;|&emsp;</p>
+		@Html.Label("Pret", "Pret nou produs: ", new { @class="d-inline-block" })
+		<p class="d-inline-block">@auxprod.Pret</p>
+
+		<br />
+
+		@Html.Label("Produs.Categorie.Denumire", "Categorie produs: ", new { @class="d-inline-block" })
 		@foreach (var categorie in ViewBag.Categorii)
 		{
 			@if (categorie.Id == produs.CategorieId)
 			{
-				<p>@categorie.Denumire</p>
+				<p class="d-inline-block">@categorie.Denumire</p>
 			}
 		}
-		@Html.Label("CategorieId", "Id Categorie produs")
-		<p>@produs.CategorieId</p>
-
-		@Html.Label("Denumire", "Categorie noua produs")
+		<p class="d-inline-block">&emsp;|&emsp;</p>
+		@Html.Label("Denumire", "Categorie noua produs: ", new { @class="d-inline-block" })
 		@foreach (var categorie in ViewBag.Categorii)
 		{
 			@if (categorie.Id == auxprod.CategorieId)
 			{
-				<p>@categorie.Denumire</p>
+				<p class="d-inline-block">@categorie.Denumire</p>
 			}
 		}
-		@Html.Label("CategorieId", "Id Categorie noua produs")
-		<p>@auxprod.CategorieId</p>
+
+		<br />
+
+		@Html.Label("CategorieId", "Id Categorie produs: ", new { @class="d-inline-block" })
+		<p class="d-inline-block">@produs.CategorieId</p>
+
+		<p class="d-inline-block">&emsp;|&emsp;</p>
+
+		@Html.Label("CategorieId", "Id Categorie noua produs: ", new { @class="d-inline-block" })
+		<p class="d-inline-block">@auxprod.CategorieId</p>
+
+		<br />
+		<br />
+		<br />
 	}
 	// Cerere stergere produs
 	else if (cerere.ProdusId != null && cerere.Produs == null)
@@ -138,7 +159,7 @@
 		}
 
 		@*@Html.Label("Produs.Poza", "Poza produs")*@
-		<img src="@produs.Poza" />
+		<img src="@produs.Poza" class="small-img" />
 
 		@*@Html.Label("Produs.Titlu", "Titlu produs")*@
 		<p>@produs.Titlu</p>
@@ -189,12 +210,18 @@
 	{
 		<a class="btn alert-success" href="/Cereri/Edit/@cerere.Id">Afisare cerere</a>
 	}
-	<hr />
+	<br />
+	<br />
 	<form method="post" action="/Cereri/Delete/@cerere.Id">
 		
 		<button class="btn btn-danger" type="submit">Sterge cererea</button>
 		  
 	</form>
 	<br />
+
+	<br />
+	<hr />
 	<br />
 }
+
+

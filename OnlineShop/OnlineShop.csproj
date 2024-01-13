@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\css2.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\css4.css" />
   </ItemGroup>
 
   <ItemGroup>
