@@ -1,4 +1,5 @@
 ﻿
+<img src="../css/os-comenzi-bg.png" class="comenzi-body" />
 <br />
 <h2 class="text-center">Lista comenzilor</h2>
 <br />
@@ -10,47 +11,67 @@
 	<h1>@ViewBag.message</h1>
 }
 
-<br />
-
 <div class="align-items-center justify-content-center d-flex">
-	<a class="btn btn-success" href="/Comenzi/New">Adauga o noua comanda</a>
+	<a class="btn btn-success hue-m30 new-comanda rounded-circle" href="/Comenzi/New"></a>
+	<p class="plus">+</p>
 </div>
 
 <br />
+<hr class="hr-1"/>
+<br />
+<br />
+<br />
 
-@foreach (var comanda in ViewBag.Comenzi)
+@foreach (OnlineShop.Models.Comanda comanda in ViewBag.Comenzi)
 {
-	@Html.Label("Data", "Data comanda")
-	<p>@comanda.Data</p>
+	<div class="comanda">
+		<div class="data-grid">
+			@Html.Label("Data", "Data preluare:", new { @class="data-label" })
+			<div class="data-data-container">
+				<p class="data-data">@comanda.Data.Day</p>
+				<p class="data-data">@comanda.Data.Month</p>
+				<p class="data-data">@comanda.Data.Year</p>
+			</div>
+			<div class="data-ora-container">
+				<p class="data-ora">@comanda.Data.Hour</p>
+				<p class="data-ora">:</p>
+				<p class="data-ora">@comanda.Data.Minute</p>
+			</div>
+		</div>
 
-	@Html.Label("Valoare", "Valoare comanda")
-	<p>@comanda.Valoare</p>
+		@Html.Label("Valoare", "Valoare", new { @class="data-label val-label" })
+		<p class="data-data val-value">@comanda.Valoare RON</p>
 
-	@Html.Label("Stare", "Stare comanda")
-	<p>@comanda.Stare</p>
+		@Html.Label("Stare", "Stare", new { @class="data-label val-label" })
+		<p class="data-data val-value">@comanda.Stare</p>
 
-	<br />
-
-	@if (User.IsInRole("Administrator"))
-	{
-		@Html.Label("Nume", "Utilizator comanda")
-		@foreach (var utilizator in ViewBag.Utilizatori)
+		@if (User.IsInRole("Administrator"))
 		{
-			@if (utilizator.Id == comanda.UtilizatorId)
-			{
-				<p>@utilizator.Nume @utilizator.Prenume</p>
-			}
-		}
-	}
-	<a class="btn alert-success" href="/Comenzi/Show/@comanda.Id">Afisare comanda</a>
+			<div class="br-1"></div>
+			<hr class="hr-2" />
+			<div class="br-1"></div>
 
-	@if (User.IsInRole("Administrator"))
-	{
-		<a class="btn alert-success" href="/Comenzi/Edit/@comanda.Id">Editare comanda</a>
-	}
+			@Html.Label("Nume", "Utilizator", new { @class="data-label val-label" })
+			@foreach (var utilizator in ViewBag.Utilizatori)
+			{
+				@if (utilizator.Id == comanda.UtilizatorId)
+				{
+					<p class="data-data val-value">@utilizator.Nume @utilizator.Prenume</p>
+				}
+			}
+
+			<br />
+		}
+		<a class="btn alert-success rev-com-post" href="/Comenzi/Show/@comanda.Id">Afisare comanda</a>
+
+		@if (User.IsInRole("Administrator"))
+		{
+			<a class="btn alert-info rounded-pill rev-com-post mt-2" href="/Comenzi/Edit/@comanda.Id">Editare comanda</a>
+		}
+	</div>
 
 	<br />
-	<hr /> 
+	<hr class="hr-1" />
 	<br />
 }
 <br />

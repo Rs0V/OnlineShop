@@ -1,6 +1,10 @@
-﻿@model OnlineShop.Models.Comanda
+﻿
+@model OnlineShop.Models.Comanda
 
+<img src="../css/os-comenzi-bg.png" class="comenzi-body" />
+<br />
 <h2>Adaugare comanda</h2>
+<br />
 
 
 
@@ -55,37 +59,27 @@
 		val += produs.Pret;
 	}
 
-	<p>Pret: @val</p>
 	<br />
+	<br />
+	<hr />
 
 	@Html.Hidden("Valoare", val)
 
-	@Html.ValidationMessageFor(m => m.Valoare, null, new { @class = "text-danger" })
-	<br />
-	<br />
-
-
 	@Html.Hidden("Data", DateTime.Now)
 
-	@Html.ValidationMessageFor(m => m.Data, null, new { @class = "text-danger" })
-	<br />
-	<br />
-
-
 	@Html.Hidden("Stare", StareComanda.Preluata)
-
-	@Html.ValidationMessageFor(m => m.Stare, null, new { @class = "text-danger" })
-	<br />
-	<br />
-
 
 	string uid = ViewBag.userManager.GetUserId(User);
 	@Html.Hidden("UtilizatorId", uid)
 
-	@Html.ValidationMessageFor(m => m.UtilizatorId, null, new { @class = "text-danger" })
-	<br />
-	<br />
-	
+	<div class="pret-container">
+		<br />
+		<p class="pret-label">Pret: @val</p>
+		<br />
 
-	<button class="btn btn-success" type="submit">Adauga o comanda</button>
+		<button class="btn alert-success" type="submit">Adauga o comanda</button>
+	</div>
+	<br />
+	<br />
+	<br />
 }
