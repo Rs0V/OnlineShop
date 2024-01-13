@@ -129,7 +129,7 @@ body {
     display: inline-flex;
     height: 35px;
     margin-top: 20px;
-    margin-left: 100px;
+    margin-left: 50px;
 }
 
 .search-bars, .search-icon {
@@ -178,7 +178,7 @@ body {
     display: inline-flex;
     height: 40px;
     margin-top: 10px;
-    margin-left: 100px;
+    margin-left: 50px;
     /*background-color: aqua;*/
 }
 
