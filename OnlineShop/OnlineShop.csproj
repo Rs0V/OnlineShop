@@ -24,4 +24,8 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\os-comenzi-bg.png" />
+  </ItemGroup>
+
 </Project>

@@ -1,51 +1,67 @@
-﻿@model OnlineShop.Models.Comanda
+﻿
+@model OnlineShop.Models.Comanda
 
-
-<h2>Afisare comanda</h2>
+<img src="../css/os-comenzi-bg.png" class="comenzi-body" />
+<br />
 <br />
 
 
 
-@Html.Label("Data", "Data comanda")
-<p>@Model.Data</p>
+<div class="comanda">
+	<div class="data-grid">
+		@Html.Label("Data", "Data preluare:", new { @class="data-label" })
+		<div class="data-data-container">
+			<p class="data-data">@Model.Data.Day</p>
+			<p class="data-data">@Model.Data.Month</p>
+			<p class="data-data">@Model.Data.Year</p>
+		</div>
+		<div class="data-ora-container">
+			<p class="data-ora">@Model.Data.Hour</p>
+			<p class="data-ora">:</p>
+			<p class="data-ora">@Model.Data.Minute</p>
+		</div>
+	</div>
 
-@Html.Label("Valoare", "Valoare comanda")
-<p>@Model.Valoare</p>
+	@Html.Label("Valoare", "Valoare", new { @class="data-label val-label" })
+	<p class="data-data val-value">@Model.Valoare RON</p>
 
-@Html.Label("Stare", "Stare comanda")
-<p>@Model.Stare</p>
+	@Html.Label("Stare", "Stare", new { @class="data-label val-label" })
+	<p class="data-data val-value">@Model.Stare</p>
 
-<br />
-
-@if (User.IsInRole("Administrator"))
-{
-	@Html.Label("Nume", "Utilizator comanda")
-	@foreach (var utilizator in ViewBag.Utilizatori)
+	@if (User.IsInRole("Administrator"))
 	{
-		@if (utilizator.Id == Model.UtilizatorId)
+		<div class="br-1"></div>
+		<hr class="hr-2" />
+		<div class="br-1"></div>
+
+		@Html.Label("Nume", "Utilizator", new { @class="data-label val-label" })
+		@foreach (var utilizator in ViewBag.Utilizatori)
 		{
-			<p>@utilizator.Nume @utilizator.Prenume</p>
+			@if (utilizator.Id == Model.UtilizatorId)
+			{
+				<p class="data-data val-value">@utilizator.Nume @utilizator.Prenume</p>
+			}
 		}
+		<br />
 	}
-}
 
-<br />
+	<br />
+	<hr class="hr-3" />
+	<br />
 
-@if (User.IsInRole("Administrator"))
-{
-	<a class="btn alert-success" href="/Comenzi/Edit/@Model.Id">Editare comanda</a>
-}
 
-<br />
+	@if (User.IsInRole("Administrator"))
+	{
+		<a class="btn alert-success rev-com-post" href="/Comenzi/Edit/@Model.Id">Editare comanda</a>
+	}
 
-<form method="post" action="/Comenzi/Delete/@Model.Id">
+	<br />
+	<a class="btn alert-success rev-com-post" href="/Comenzi/Index/">Afisare lista comenzi</a>
+	<br />
 
-	<button class="btn btn-danger" type="submit">Sterge comanda</button>
+	<form method="post" action="/Comenzi/Delete/@Model.Id">
 
-</form>
-<br />
-<a class="btn alert-success" href="/Comenzi/Index/">Afisare lista comenzi</a>
+		<button class="btn btn-danger rev-com-post rounded-pill" type="submit">Sterge comanda</button>
 
-<br />
-<hr />
-<br />
+	</form>
+</div>
