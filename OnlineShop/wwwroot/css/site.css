@@ -1,7 +1,10 @@
 
+/* Cristian */
 @import url("css1.css");
 
 
+/* Victor */
+@import url("css2.css");
 
 html {
   font-size: 14px;
@@ -123,7 +126,7 @@ body {
     height: 92px;
 }
 
-/* Search Engine View Design */
+/* Victor - Search Engine View Design */
 
 .container-searchEngine {
     display: inline-flex;
@@ -172,14 +175,13 @@ body {
     margin-left: 0;
 }
 
-/* Layout de butoane pentru simplitate */
+/* Victor - Layout de butoane pentru simplitate */
 
 .div-stilizare {
     display: inline-flex;
     height: 40px;
     margin-top: 10px;
     margin-left: 50px;
-    /*background-color: aqua;*/
 }
 
 .butoane_layout {
