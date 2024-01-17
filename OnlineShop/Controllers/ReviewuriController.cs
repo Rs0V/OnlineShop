@@ -11,11 +11,7 @@ namespace OnlineShop.Controllers
 		private readonly ApplicationDbContext db;
 		private readonly UserManager<Utilizator> _userManager;
 		private readonly RoleManager<IdentityRole> _roleManager;
-		public ReviewuriController(
-		ApplicationDbContext context,
-		UserManager<Utilizator> userManager,
-		RoleManager<IdentityRole> roleManager
-		)
+		public ReviewuriController(ApplicationDbContext context, UserManager<Utilizator> userManager, RoleManager<IdentityRole> roleManager)
 		{
 			db = context;
 			_userManager = userManager;
@@ -63,7 +59,7 @@ namespace OnlineShop.Controllers
 					 r.ProdusId == id_produs
 					 select r).ToList().ElementAt(0).Id;
 
-			Review ? review = db.Reviewuri.Find(id, id_utilizator, id_produs);
+			Review? review = db.Reviewuri.Find(id, id_utilizator, id_produs);
 			ViewBag.canedit = false;
 
 			if (review == null)
@@ -103,7 +99,7 @@ namespace OnlineShop.Controllers
 				db.Reviewuri.Add(review);
 				db.SaveChanges();
 
-				HttpContext.Session.SetString("produs-review", "");
+				HttpContext.Session.SetString("produs-review", ""); // Save string key "produs-review" with value "" in session state. 
 
 				TempData["message"] = "Review-ul a fost adaugat!";
 				return RedirectToAction("Index");

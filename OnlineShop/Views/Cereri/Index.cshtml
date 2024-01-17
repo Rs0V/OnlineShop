@@ -48,7 +48,6 @@
 		<p>@auxprod.Pret</p>
 
 		
-
 		@Html.Label("Denumire", "Categorie produs")
 		@foreach(var categorie in ViewBag.Categorii)
 		{
@@ -57,9 +56,11 @@
 				<p>@categorie.Denumire</p>
 			}
 		}
+
 		@Html.Label("CategorieId", "Id Categorie produs")
 		<p>@auxprod.CategorieId</p>
 	}
+
 	// Cerere editare produs
 	else if (cerere.ProdusId != null && cerere.AuxProd != null)
 	{
@@ -74,7 +75,9 @@
 			Rating = (prod_params[5] != "") ? int.Parse(prod_params[5]) : null,
 			CategorieId = int.Parse(prod_params[6])
 		};
+
 		Produs produs = new Produs();
+
 		@foreach (var p in ViewBag.Produse)
 		{
 			@if (p.Id == cerere.ProdusId)
@@ -92,7 +95,7 @@
 
 		@Html.Label("Produs.Titlu", "Titlu produs: ", new { @class="d-inline-block" })
 		<p class ="d-inline-block">@produs.Titlu</p>
-		<p class="d-inline-block">&emsp;|&emsp;</p>
+		<p class="d-inline-block">&emsp;|&emsp;</p> /* "\t" | "\t" */
 		@Html.Label("Titlu", "Titlu nou produs: ", new { @class="d-inline-block" })
 		<p class="d-inline-block">@auxprod.Titlu</p>
 
@@ -100,7 +103,7 @@
 
 		@Html.Label("Produs.Descriere", "Descriere produs: ", new { @class="d-inline-block" })
 		<p class="d-inline-block">@produs.Descriere</p>
-		<p class="d-inline-block">&emsp;|&emsp;</p>
+		<p class="d-inline-block">&emsp;|&emsp;</p> 
 		@Html.Label("Descriere", "Descriere noua produs: ", new { @class="d-inline-block" })
 		<p class="d-inline-block">@auxprod.Descriere</p>
 
@@ -146,10 +149,12 @@
 		<br />
 		<br />
 	}
+
 	// Cerere stergere produs
 	else if (cerere.ProdusId != null && cerere.Produs == null)
 	{
 		Produs produs = new Produs();
+
 		@foreach (var p in ViewBag.Produse)
 		{
 			@if (p.Id == cerere.ProdusId)
@@ -212,6 +217,7 @@
 	}
 	<br />
 	<br />
+
 	<form method="post" action="/Cereri/Delete/@cerere.Id">
 		
 		<button class="btn btn-danger" type="submit">Sterge cererea</button>

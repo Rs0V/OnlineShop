@@ -3,14 +3,11 @@
 <h2>Adaugare review</h2>
 
 
-
 @using (Html.BeginForm(actionName: "New", controllerName: "Reviewuri", method: FormMethod.Post))
 {
 	@Html.Label("Rating", "Rating review")
 	<br />
-
 	@Html.TextBox("Rating", null, new { @class = "form-control" })
-
 	@Html.ValidationMessageFor(m => m.Rating, null, new { @class = "text-danger" })
 	<br />
 	<br />
@@ -18,9 +15,7 @@
 
 	@Html.Label("Continut", "Continut review")
 	<br />
-
 	@Html.TextBox("Continut", null, new { @class = "form-control" })
-
 	@Html.ValidationMessageFor(m => m.Continut, null, new { @class = "text-danger" })
 	<br />
 	<br />
@@ -31,19 +26,17 @@
 		int pid = int.Parse(ViewBag.produsReview);
 		@Html.Hidden("ProdusId", pid)
 	}
-	else
+	else @* Daca putem adauga review-ul in baza de date *@
 	{
 		@Html.Label("ProdusId", "Produs review")
 		<br />
-
 		@Html.TextBox("ProdusId", null, new { @class = "form-control" })
-
 		@Html.ValidationMessageFor(m => m.ProdusId, null, new { @class = "text-danger" })
 		<br />
 		<br />
 	}
 
-	string uid = ViewBag.userReview;
+	string uid = ViewBag.userReview; @* Get current user id *@
 	@Html.Hidden("UtilizatorId", uid)
 
 

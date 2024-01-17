@@ -15,7 +15,6 @@
 <p class="data-data val-value">@Model.Denumire</p>
 
 
-
 @if (User.IsInRole("Administrator"))
 {
 	<a class="btn alert-success rounded-pill" href="/Categorii/Edit/@Model.Id">Editare categorie</a>
@@ -26,10 +25,9 @@
 <br />
 
 <form method="post" action="/Categorii/Delete/@Model.Id">
-
 	<button class="btn btn-danger rounded-pill" type="submit">Sterge categoria</button>
-
 </form>
+
 <br />
 <a class="btn alert-success rounded-pill" href="/Categorii/Index">Afisare lista categorii</a>
 

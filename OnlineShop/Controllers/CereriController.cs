@@ -9,7 +9,8 @@ namespace OnlineShop.Controllers
 {
 	public class CereriController : Controller
 	{
-		public Produs String2Produs(in string str)
+		// Passed by reference, but "str" parameter cannot be modified( C++ - const string& str)
+		public Produs String2Produs(in string str) 
 		{
 			var prod_params = str.Split("╚");
 			Produs produs = new Produs
@@ -22,9 +23,9 @@ namespace OnlineShop.Controllers
 				Rating = (prod_params[5] != "") ? int.Parse(prod_params[5]) : null,
 				CategorieId = int.Parse(prod_params[6])
 			};
+
 			return produs;
 		}
-
 
 
 		private readonly ApplicationDbContext db;
@@ -32,6 +33,7 @@ namespace OnlineShop.Controllers
 		{
 			db = context;
 		}
+
 
 		[Authorize(Roles = "Administrator")]
 		public ActionResult Index()
@@ -47,11 +49,14 @@ namespace OnlineShop.Controllers
 							select categorie;
 
 			var produse = from produs in db.Produse
-							select produs;
+						  select produs;
 
-			ViewBag.Cereri = cereri;
-			ViewBag.Produse = produse;
-			ViewBag.Categorii = categorii;
+			ViewBag.Cereri = cereri; // Luam toate cererile in ordine inversa in functie de data crearii acestora
+
+			ViewBag.Produse = produse; // Luam toate produsele din baza de date
+
+			ViewBag.Categorii = categorii; // Luam toate categoriile din baza de date
+
 			return View();
 		}
 
@@ -65,19 +70,22 @@ namespace OnlineShop.Controllers
 				TempData["message"] = "Cererea nu exista";
 				return RedirectToAction("Index");
 			}
-			if (cerere.Acceptat != Acceptare.In_Asteptare)
+			if (cerere.Acceptat != Acceptare.In_Asteptare) // Admin-ul poate edita o cerere o singura data. 
 			{
 				TempData["message"] = "Cererea nu mai poate fi modificata";
 				return RedirectToAction("Index");
 			}
+
 			var categorii = from categorie in db.Categorii
 							select categorie;
 
 			var produse = from produs in db.Produse
 						  select produs;
 
-			ViewBag.Categorii = categorii;
-			ViewBag.Produse = produse;
+			ViewBag.Categorii = categorii; // Luam toate categoriile din baza de date
+
+			ViewBag.Produse = produse; // Luam toate produsele din baza de date
+			
 			return View(cerere);
 		}
 
@@ -96,6 +104,7 @@ namespace OnlineShop.Controllers
 			if (ModelState.IsValid)
 			{
 				cerere.Acceptat = request.Acceptat;
+
 				TempData["message"] = "Cererea a fost modificata!";
 
 				if (cerere.Acceptat == Acceptare.Acceptat)
@@ -104,8 +113,9 @@ namespace OnlineShop.Controllers
 					{
 						var auxProd = String2Produs(cerere.AuxProd);
 
-						db.Produse.Add(auxProd);
-						TempData["message"] += " Produsul a fost adaugat";
+						db.Produse.Add(auxProd); // Cerere acceptata de admin, deci putem adauga produsul in baza de date (inca nu exista produsul din cerere)
+
+						TempData["message"] += " Produsul a fost adaugat!";
 					}
 					else if (cerere.ProdusId != null && cerere.AuxProd != null)
 					{
@@ -113,8 +123,9 @@ namespace OnlineShop.Controllers
 
 						var produs = (from p in db.Produse
 									  where p.Id == cerere.ProdusId
-									  select p).ToList().ElementAt(0);
+									  select p).ToList().ElementAt(0); // Selectam primul produs care are id-ul identic cu "cerere.ProdusId"
 
+						// Cerere acceptata de admin, deci putem edita produsul din baza de date
 						produs.Titlu = auxProd.Titlu;
 						produs.Descriere = auxProd.Descriere;
 						produs.Pret = auxProd.Pret;
@@ -124,16 +135,18 @@ namespace OnlineShop.Controllers
 
 						TempData["message"] += " Produsul a fost editat!";
 					}
-					else if (cerere.ProdusId != null && cerere.Produs == null)
+					else if (cerere.ProdusId != null && cerere.Produs == null) // cerere.AuxProd == null (in loc de) cerere.Produs == null
 					{
 						var produs = (from p in db.Produse
 									  where p.Id == cerere.ProdusId
-									  select p).ToList().ElementAt(0);
+									  select p).ToList().ElementAt(0); // Selectam primul produs care are id-ul identic cu "cerere.ProdusId"
 
-						db.Produse.Remove(produs);
+						db.Produse.Remove(produs); // Cerere acceptata de admin, deci stergem produsul din baza de date
+
 						TempData["message"] = "Produsul a fost sters!";
 					}
 				}
+
 				db.SaveChanges();
 			}
 			return RedirectToAction("Index");
@@ -152,8 +165,11 @@ namespace OnlineShop.Controllers
 			}
 			
 			db.Cereri.Remove(cerere);
+
 			TempData["message"] = "Cererea a fost stearsa";
+			
 			db.SaveChanges();
+			
 			return RedirectToAction("Index");
 		}
 	}

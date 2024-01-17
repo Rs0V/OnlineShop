@@ -3,13 +3,11 @@
 <h2>Editare utilizator</h2>
 
 
-
 @using (Html.BeginForm(controllerName: "Utilizatori", actionName: "Edit", method: FormMethod.Post, routeValues: new { id = Model.Id }))
 {
 	@Html.Label("Nume", "Nume utilizator")
 	<br />
 	@Html.Editor("Nume")
-
 	@Html.ValidationMessageFor(m => m.Nume, null, new { @class = "text-danger" })
 	<br />
 	<br />
@@ -18,7 +16,6 @@
 	@Html.Label("Prenume", "Prenume utilizator")
 	<br />
 	@Html.Editor("Prenume")
-
 	@Html.ValidationMessageFor(m => m.Prenume, null, new { @class = "text-danger" })
 	<br />
 	<br />
@@ -27,11 +24,9 @@
 	@Html.Label("Telefon", "Telefon utilizator")
 	<br />
 	@Html.Editor("Telefon")
-
 	@Html.ValidationMessageFor(m => m.Telefon, null, new { @class = "text-danger" })
 	<br />
 	<br />
-
 
 
 	@Html.Hidden("UserName", Model.UserName)
@@ -42,7 +37,6 @@
 	@Html.Hidden("NormalizedEmail", Model.NormalizedEmail)
 
 	@Html.Hidden("PasswordHash", Model.PasswordHash)
-
 
 
 	<button class="btn btn-success" type="submit">Editeaza utilizatorul</button>

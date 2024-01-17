@@ -17,7 +17,7 @@ namespace OnlineShop.Models
 					return;
 				}
 				
-				context.Roles.AddRange(
+				context.Roles.AddRange( // Roluri
 					new IdentityRole
 					{
 						Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
@@ -42,7 +42,7 @@ namespace OnlineShop.Models
    
 				var hasher = new PasswordHasher<Utilizator>();
 				
-				context.Users.AddRange(
+				context.Users.AddRange( // Useri
 					new Utilizator
 					{
 						Id = "8e445865-a24d-4543-a6c6-9443d048cdb0", // primary key
@@ -118,6 +118,7 @@ namespace OnlineShop.Models
 						UserId = "8e445865-a24d-4543-a6c6-9443d048cdb2"
 					}
 				);
+
 				context.SaveChanges();
 			}
 		}

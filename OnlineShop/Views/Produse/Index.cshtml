@@ -5,7 +5,6 @@
 <br />
 
 
-
 @if (TempData.ContainsKey("message"))
 {
 	<h1>@ViewBag.message</h1>
@@ -22,6 +21,11 @@
 @foreach (var produs in ViewBag.Produse)
 {
 	<div class="produs_">
+
+		@if(produs.Rating != null)
+		{
+			@Html.Label("Rating", "Rating", new {@class = "data-label val-label"})
+		}
 		<p class="data-data val-value">@produs.Rating</p>
 
 		<img class="prod-img hue-m30" src="@produs.Poza" />
@@ -30,8 +34,6 @@
 
 		@Html.Label("Pret", "Pret produs", new { @class="data-label val-label" })
 		<p class="data-data val-value">@produs.Pret</p>
-
-
 
 		@Html.Label("Denumire", "Categorie produs", new { @class="data-label val-label" })
 		@foreach(var categorie in ViewBag.Categorii)
@@ -42,11 +44,9 @@
 			}
 		}
 
-
-
 		<a class="btn alert-success rev-prod-post" href="/Produse/Show/@produs.Id">Afisare produs</a>
 
-		@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
+		@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator")) @* Colab-ul poate edita un produs, trimitand cererea catre admin, iar admin-ul trebuie sa accepte cererea respectiva. *@
 		{
 			<a class="btn alert-success rounded-pill rev-prod-post mt-2" href="/Produse/Edit/@produs.Id">Editare produs</a>
 		}
@@ -60,26 +60,31 @@
 <br />
 
 
+@* Page navigation *@
 
 <div>
 	<nav aria-label="Page navigation">
 		<ul class="pagination">
+
 			<li class="page-item">
 				<a class="page-link" href="@ViewBag.PaginationBaseUrl=1" aria-label="Prima pagina">
 					<span aria-hidden="true">&laquo;</span>
 				</a>
 			</li>
+
 			@for (int i = 1; i <= ViewBag.lastPage; ++i)
 			{
 				<li class="page-item">
 					<a class="page-link" href="@ViewBag.PaginationBaseUrl=@i">@(i)</a>
 				</li>
 			}
+
 			<li class="page-item">
 				<a class="page-link" href="@ViewBag.PaginationBaseUrl=@(ViewBag.lastPage)" aria-label="Ultima pagina">
 					<span aria-hidden="true">&raquo;</span>
 				</a>
 			</li>
+
 		</ul>
 	</nav>
 </div>

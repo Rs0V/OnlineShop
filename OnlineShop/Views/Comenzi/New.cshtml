@@ -7,7 +7,7 @@
 <br />
 
 
-
+@* Afisare produse adaugate in cos inainte *@
 @foreach (var produs in ViewBag.Produse)
 {
 	@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))

@@ -33,8 +33,6 @@
 		@Html.Label("Pret", "Pret produs")
 		<p>@auxprod.Pret</p>
 
-		
-
 		@Html.Label("Denumire", "Categorie produs")
 		@foreach (var categorie in ViewBag.Categorii)
 		{
@@ -43,9 +41,11 @@
 				<p>@categorie.Denumire</p>
 			}
 		}
+
 		@Html.Label("CategorieId", "Id Categorie produs")
 		<p>@auxprod.CategorieId</p>
 	}
+
 	// Cerere editare produs
 	else if (Model.ProdusId != null && Model.AuxProd != null)
 	{
@@ -60,7 +60,9 @@
 			Rating = (prod_params[5] != "") ? int.Parse(prod_params[5]) : null,
 			CategorieId = int.Parse(prod_params[6])
 		};
+
 		Produs produs = new Produs();
+
 		@foreach (var p in ViewBag.Produse)
 		{
 			@if (p.Id == Model.ProdusId)
@@ -89,7 +91,6 @@
 		@Html.Label("Pret", "Pret nou produs")
 		<p>@auxprod.Pret</p>
 
-		
 
 		@Html.Label("Produs.Categorie.Denumire", "Categorie produs")
 		@foreach (var categorie in ViewBag.Categorii)
@@ -99,6 +100,7 @@
 				<p>@categorie.Denumire</p>
 			}
 		}
+
 		@Html.Label("CategorieId", "Id Categorie produs")
 		<p>@produs.CategorieId</p>
 
@@ -113,10 +115,12 @@
 		@Html.Label("CategorieId", "Id Categorie noua produs")
 		<p>@auxprod.CategorieId</p>
 	}
+
 	// Cerere stergere produs
 	else if (Model.ProdusId != null && Model.Produs == null)
 	{
 		Produs produs = new Produs();
+
 		@foreach (var p in ViewBag.Produse)
 		{
 			@if (p.Id == Model.ProdusId)
@@ -138,7 +142,6 @@
 		<p>@produs.Pret</p>
 
 		
-
 		@Html.Label("Produs.Categorie.Denumire", "Categorie produs")
 		@foreach (var categorie in ViewBag.Categorii)
 		{
@@ -147,17 +150,17 @@
 				<p>@categorie.Denumire</p>
 			}
 		}
+
 		@Html.Label("CategorieId", "Id Categorie produs")
 		<p>@produs.CategorieId</p>
 	}
+
 
 	@Html.Label("Data", "Data cerere")
 	<p>@Model.Data</p>
 
 	@Html.Label("Info", "Info cerere")
 	<p>@Model.Info</p>
-
-
 	<br />
 
 	@Html.Hidden("Info", Model.Info)

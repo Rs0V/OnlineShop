@@ -3,7 +3,7 @@
 
 namespace OnlineShop.Models
 {
-	public enum StareComanda
+	public enum StareComanda // struct that contains only data types (not methods)
 	{
 		Preluata,
 		Efectuata

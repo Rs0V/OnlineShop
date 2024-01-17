@@ -4,14 +4,13 @@
 <br />
 
 
-
 @for (int i = 1; i <= 5; ++i)
 {
 	@if (i <= Model.Rating)
 	{
 		// Stele aurii
 		// De pus inline-block
-		<img src="" />
+		<img class = "stele" src="../css/star.png" />
 	}
 	else
 	{
@@ -41,15 +40,12 @@
 <p>@Model.Continut</p>
 
 
-
-@if (ViewBag.canedit == true)
+@if (ViewBag.canedit == true) @* Nu putem edita decat propriile review-uri sau daca suntem admin. *@
 {
 	<a class="btn alert-success" href="/Reviewuri/Edit?id_utilizator=@Model.UtilizatorId&id_produs=@Model.ProdusId">Editare review</a>
 
 	<form method="post" action="/Reviewuri/Delete?id_utilizator=@Model.UtilizatorId&id_produs=@Model.ProdusId">
-
 		<button class="btn btn-danger" type="submit">Sterge review-ul</button>
-
 	</form>
 }
 

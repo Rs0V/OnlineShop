@@ -28,7 +28,7 @@
 	@Html.Label("Stare", "Stare", new { @class="data-label val-label" })
 	<p class="data-data val-value">@Model.Stare</p>
 
-	@if (User.IsInRole("Administrator"))
+	@if (User.IsInRole("Administrator")) /* Doar ADMIN-ul poate vizualiza numele complet al utilizatorului care a plasat comanda. */
 	{
 		<div class="br-1"></div>
 		<hr class="hr-2" />

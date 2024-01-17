@@ -28,6 +28,8 @@ builder.Services.AddSession(options =>
 
 
 var app = builder.Build();
+
+
 // PASUL 5 - useri si roluri
 using (var scope = app.Services.CreateScope())
 {

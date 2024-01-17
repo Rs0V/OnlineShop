@@ -3,14 +3,11 @@
 <h2>Adaugare utilizator</h2>
 
 
-
 @using (Html.BeginForm(actionName: "New", controllerName: "Utilizatori", method: FormMethod.Post))
 {
 	@Html.Label("Nume", "Nume utilizator")
 	<br />
-
 	@Html.TextBox("Nume", null, new { @class = "form-control" })
-
 	@Html.ValidationMessageFor(m => m.Nume, null, new { @class = "text-danger" })
 	<br />
 	<br />
@@ -18,9 +15,7 @@
 
 	@Html.Label("Prenume", "Prenume utilizator")
 	<br />
-
 	@Html.TextBox("Prenume", null, new { @class = "form-control" })
-
 	@Html.ValidationMessageFor(m => m.Prenume, null, new { @class = "text-danger" })
 	<br />
 	<br />
@@ -28,13 +23,11 @@
 
 	@Html.Label("Telefon", "Telefon utilizator")
 	<br />
-
 	@Html.TextBox("Telefon", null, new { @class = "form-control" })
-
 	@Html.ValidationMessageFor(m => m.Telefon, null, new { @class = "text-danger" })
 	<br />
 	<br />
 
 
-	<button class="btn btn-success" type="submit">Sign up</button>
+	<button class="btn btn-success" type="submit">Sign up</button> @* New user added. *@
 }

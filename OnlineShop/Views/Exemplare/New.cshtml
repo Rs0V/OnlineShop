@@ -3,14 +3,11 @@
 <h2>Adaugare exemplar</h2>
 
 
-
 @using (Html.BeginForm(actionName: "New", controllerName: "Exemplare", method: FormMethod.Post))
 {
 	@Html.Label("ProdusId", "Produs exemplar")
 	<br />
-
 	@Html.TextBox("ProdusId", null, new { @class = "form-control" })
-
 	@Html.ValidationMessageFor(m => m.ProdusId, null, new { @class = "text-danger" })
 	<br />
 	<br />
@@ -26,9 +23,7 @@
 
 	@Html.Label("ComandaId", "Comanda exemplar")
 	<br />
-
 	@Html.TextBox("ComandaId", null, new { @class = "form-control" })
-
 	@Html.ValidationMessageFor(m => m.ComandaId, null, new { @class = "text-danger" })
 	<br />
 	<br />

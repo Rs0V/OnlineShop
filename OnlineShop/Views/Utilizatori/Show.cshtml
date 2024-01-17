@@ -4,7 +4,6 @@
 <br />
 
 
-
 @Html.Label("Nume", "Nume utilizator")
 <p>@Model.Nume</p>
 
@@ -25,14 +24,12 @@ else
 }
 
 
-@if (ViewBag.goodlog == true || User.IsInRole("Administrator") == true)
+@if (ViewBag.goodlog == true || User.IsInRole("Administrator")) @* Nu putem edita/sterge decat propriul cont de user sau daca suntem admin. *@
 {
 	<a class="btn alert-success" href="/Utilizatori/Edit/@Model.Id">Editare utilizator</a>
 
 	<form method="post" action="/Utilizatori/Delete/@Model.Id">
-
 		<button class="btn btn-danger" type="submit">Sterge utilizatorul</button>
-
 	</form>
 }
 

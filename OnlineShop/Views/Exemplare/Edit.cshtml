@@ -3,7 +3,6 @@
 <h2>Editare exemplar</h2>
 
 
-
 @using (Html.BeginForm(controllerName: "Exemplare", actionName: "Edit", method: FormMethod.Post, routeValues: new { nr_exemplar = Model.Id, id_produs = Model.ProdusId }))
 {
 	@Html.LabelFor(model => model.Stare, "Stare exemplar")
@@ -17,7 +16,6 @@
 	@Html.Label("ComandaId", "Comanda exemplar")
 	<br />
 	@Html.Editor("ComandaId")
-
 	@Html.ValidationMessageFor(m => m.ComandaId, null, new { @class = "text-danger" })
 	<br />
 	<br />

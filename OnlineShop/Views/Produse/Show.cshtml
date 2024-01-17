@@ -8,12 +8,15 @@
 <br />
 
 
-
 @Html.Label("Id", "Id produs", new {@class = "data-label val-label"})
 <p class="data-data val-value">@Model.Id</p>
 
 <hr />
 
+@if (Model.Rating != null)
+{
+	@Html.Label("Rating", "Rating", new {@class = "data-label val-label"})
+}
 <p class="data-data val-value">@Model.Rating</p>
 
 <img class="prod-img" src="@Model.Poza" />
@@ -41,24 +44,22 @@
 	<p class="data-data val-value">@Model.CategorieId</p>
 }
 
-
-@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
-{
-	<a class="btn alert-success rounded-pill" href="/Produse/Edit/@Model.Id">Editare produs</a>
-}
 <br />
 <hr />
 <br />
-@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator"))
+
+@if (User.IsInRole("Administrator") || User.IsInRole("Colaborator")) @* Colab-ul poate edita un produs, trimitand cererea catre admin, iar admin-ul trebuie sa accepte cererea respectiva. *@
 {
+	<a class="btn alert-success rounded-pill" href="/Produse/Edit/@Model.Id">Editare produs</a>
+
 	<form method="post" action="/Produse/Delete/@Model.Id">
-		@if (User.IsInRole("Administrator") == true)
+		@if (User.IsInRole("Administrator"))
 		{
 			<button class="btn btn-danger rounded-pill" type="submit">Sterge produsul</button>
 		}
 		else
 		{
-			<button class="btn btn-danger rounded-pill" type="submit">Trimite cerere stergere produs</button>
+			<button class="btn btn-danger rounded-pill" type="submit">Trimite cerere stergere produs</button> @* Colab-ul poate sterge produsul doar cu acordul admin-ului. *@
 		}
 	</form>
 }

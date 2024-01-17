@@ -1,8 +1,6 @@
-﻿
-<br />
+﻿<br />
 <h2 class="text-center">Lista utilizatorilor</h2>
 <br />
-
 
 
 @if (TempData.ContainsKey("message"))
@@ -41,12 +39,12 @@
 
 	<a class="btn alert-success" href="/Utilizatori/Show/@utilizator.Id">Afisare utilizator</a>
 
-	@if (ViewBag.userManager.GetUserId(User) == utilizator.Id || User.IsInRole("Administrator"))
+	@if (ViewBag.userManager.GetUserId(User) == utilizator.Id || User.IsInRole("Administrator")) @* Nu putem edita decat propriul cont de user sau daca suntem admin. *@
 	{
 		<a class="btn alert-success" href="/Utilizatori/Edit/@utilizator.Id">Editare utilizator</a>
 	}
 	<br />
-	<hr /> <!--Thematic break used to separate content-->
+	<hr /> <!-- Thematic break used to separate content. -->
 	<br />
 }
 <br />
