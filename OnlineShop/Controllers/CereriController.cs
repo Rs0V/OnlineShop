@@ -160,13 +160,13 @@ namespace OnlineShop.Controllers
 
 			if (cerere == null)
 			{
-				TempData["message"] = "Cererea nu exista";
+				TempData["message"] = "Cererea nu exista!";
 				return RedirectToAction("Index");
 			}
 			
 			db.Cereri.Remove(cerere);
 
-			TempData["message"] = "Cererea a fost stearsa";
+			TempData["message"] = "Cererea a fost stearsa!";
 			
 			db.SaveChanges();
 			

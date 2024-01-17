@@ -29,24 +29,27 @@ namespace OnlineShop.Controllers
 			var produse = from produs in db.Produse
 						  select produs;
 
-			ViewBag.Exemplare = exemplare;
-			ViewBag.Produse = produse;
+			ViewBag.Exemplare = exemplare; // Luam toate exemplarele, impreuna cu toate produsele corespunzatoare, ordonate crescator dupa titlul produsul, respectiv id-ul exemplarului
+
+			ViewBag.Produse = produse; // Luam toate produsele din baza de date
+			
 			return View();
 		}
 		[Authorize(Roles = "Colaborator,Administrator")]
 		public ActionResult Show(int nr_exemplar, int id_produs)
 		{
-			Exemplar? exemplar = db.Exemplare.Find(nr_exemplar, id_produs);
+			Exemplar? exemplar = db.Exemplare.Find(nr_exemplar, id_produs); // Gasim exemplarul dupa nr_exemplar si id_produs (Composite PK)
 
 			if (exemplar == null)
 			{
-				TempData["message"] = "Exemplarul cautat nu exista";
+				TempData["message"] = "Exemplarul cautat nu exista !";
 				return RedirectToAction("Index");
 			}
 
 			var produse = from produs in db.Produse
 						  select produs;
-			ViewBag.Produse = produse;
+
+			ViewBag.Produse = produse; // Luam toate produsele din baza de date
 
 			return View(exemplar);
 		}
@@ -63,10 +66,12 @@ namespace OnlineShop.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				db.Exemplare.Add(exemplar);
+				db.Exemplare.Add(exemplar); // Adaugam un nou exemplar in baza de date
+
 				db.SaveChanges();
-				TempData["message"] = "Exemplarul a fost adaugat";
-				return RedirectToAction("Index");
+
+				TempData["message"] = "Exemplarul a fost adaugat!";
+				return RedirectToAction("Index"); // Ne ducem pe metoda "Index" din "Exemplare"
 			}
 			return View(exemplar);
 		}
@@ -74,11 +79,11 @@ namespace OnlineShop.Controllers
 		[Authorize(Roles = "Administrator")]
 		public ActionResult Edit(int nr_exemplar, int id_produs)
 		{
-			Exemplar? exemplar = db.Exemplare.Find(nr_exemplar, id_produs);
+			Exemplar? exemplar = db.Exemplare.Find(nr_exemplar, id_produs); // Gasim exemplarul dupa nr_exemplar si id_produs (Composite PK)
 
 			if (exemplar == null)
 			{
-				TempData["message"] = "Exemplarul cautat nu exista";
+				TempData["message"] = "Exemplarul cautat nu exista!";
 				return RedirectToAction("Index");
 			}
 			return View(exemplar);
@@ -87,19 +92,21 @@ namespace OnlineShop.Controllers
 		[HttpPost]
 		public ActionResult Edit(int nr_exemplar, int id_produs, Exemplar reqEx)
 		{
-			Exemplar? exemplar = db.Exemplare.Find(nr_exemplar, id_produs);
+			Exemplar? exemplar = db.Exemplare.Find(nr_exemplar, id_produs); // Gasim exemplarul dupa nr_exemplar si id_produs (Composite PK)
 
 			if (exemplar == null)
 			{
-				TempData["message"] = "Exemplarul cautat nu exista";
+				TempData["message"] = "Exemplarul cautat nu exista!";
 				return RedirectToAction("Index");
 			}
 			if (ModelState.IsValid)
 			{
+				// Editam exemplarul corespunzator
 				exemplar.Stare = reqEx.Stare;
 				exemplar.ComandaId = reqEx.ComandaId;
 
 				db.SaveChanges();
+
 				TempData["message"] = "Exemplarul a fost modificat!";
 				return RedirectToAction("Index");
 			}
@@ -110,16 +117,20 @@ namespace OnlineShop.Controllers
 		[HttpPost]
 		public ActionResult Delete(int nr_exemplar, int id_produs)
 		{
-			Exemplar? exemplar = db.Exemplare.Find(nr_exemplar, id_produs);
+			Exemplar? exemplar = db.Exemplare.Find(nr_exemplar, id_produs); // Gasim exemplarul dupa nr_exemplar si id_produs (Composite PK)
 
 			if (exemplar == null)
 			{
-				TempData["message"] = "Exemplarul cautat nu exista";
+				TempData["message"] = "Exemplarul cautat nu exista!";
 				return RedirectToAction("Index");
 			}
-			db.Exemplare.Remove(exemplar);
-			TempData["message"] = "Exemplarul a fost sters";
+
+			db.Exemplare.Remove(exemplar); // Stergem exemplarul corespunzator din baa de date
+			
+			TempData["message"] = "Exemplarul a fost sters!";
+			
 			db.SaveChanges();
+			
 			return RedirectToAction("Index");
 		}
 	}
