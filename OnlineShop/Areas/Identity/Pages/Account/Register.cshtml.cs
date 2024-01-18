@@ -123,7 +123,7 @@ namespace OnlineShop.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    // Pasul 9 - useri si roluri 
+                    // Pasul 9 - useri si roluri (adaugarea rolului la inregistrare)
                     // la inregistrare user-ul primeste rolul de Utilizator
                     await _userManager.AddToRoleAsync(user, "Utilizator");
 

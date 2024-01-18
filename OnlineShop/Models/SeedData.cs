@@ -4,6 +4,7 @@ using OnlineShop.Data;
 
 namespace OnlineShop.Models
 {
+	// Pasul 4 - useri si roluri
 	public static class SeedData
 	{
 		public static void Initialize(IServiceProvider
@@ -14,7 +15,7 @@ namespace OnlineShop.Models
 			{
 				if (context.Roles.Any())
 				{
-					return;
+					return; // baza de date contine deja roluri
 				}
 				
 				context.Roles.AddRange( // Roluri

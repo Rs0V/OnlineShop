@@ -8,6 +8,8 @@ namespace OnlineShop.Controllers
 {
 	public class ReviewuriController : Controller
 	{
+
+		// Pasul 10 - useri si roluri (Configurarea managerului de useri si roluri)
 		private readonly ApplicationDbContext db;
 		private readonly UserManager<Utilizator> _userManager;
 		private readonly RoleManager<IdentityRole> _roleManager;

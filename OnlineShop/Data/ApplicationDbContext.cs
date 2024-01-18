@@ -4,6 +4,7 @@ using OnlineShop.Models;
 
 namespace OnlineShop.Data
 {
+	// Pasul 3 - useri si roluri
 	public class ApplicationDbContext : IdentityDbContext<Utilizator>
 	{
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
